@@ -1,0 +1,26 @@
+.navbar {
+  height: 80px;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 20px;
+}
+
+.toggle {
+  border: none;
+  outline: none;
+}
+
+.logo {
+  width: 150px;
+  position: absolute;
+  left: 60px;
+  bottom: 12px;
+}
+
+.search,
+.chat {
+  margin-right: 10px;
+}
+
+.offcanvas {
+  width: 320px;
+}
