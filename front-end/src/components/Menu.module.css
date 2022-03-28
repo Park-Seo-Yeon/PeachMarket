@@ -1,0 +1,55 @@
+.title_tab,
+.title_noTab {
+  font-weight: bold;
+  text-align: center;
+  background-color: white;
+  padding-bottom: 20px;
+}
+
+.title_noTab {
+  border-bottom: 1px solid lightgray;
+}
+
+.tab {
+  display: flex;
+  color: gray;
+}
+
+.tab div {
+  font-weight: bold;
+  text-align: center;
+  background-color: white;
+  padding-bottom: 20px;
+  width: 50%;
+  cursor: pointer;
+}
+
+.selected_tab {
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.message {
+  color: gray;
+  text-align: center;
+  margin-top: 50%;
+  margin-bottom: 50%;
+}
+
+.btn {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn button {
+  border: none;
+  outline: none;
+  background-color: #fea5ab;
+  color: white;
+  width: 160px;
+  height: 50px;
+  border-radius: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
+}

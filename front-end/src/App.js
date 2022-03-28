@@ -1,15 +1,25 @@
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import NavBar from "./components/NavBar";
+import MainComponent from "./components/MainComponent";
+import ProductComponent from "./components/ProductComponent";
+import UserComponent from "./components/UserComponent";
 
 function App() {
   return (
-    <div className="App">
-      <img
-        src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/peachmarket-logo.png"
-        alt=""
-        width="100%"
-      />
-      피치마켓 테스트
-    </div>
+    <Container>
+      <Router>
+        <NavBar />
+        <div>
+          <Routes>
+            <Route path="/" element={<MainComponent />} />
+            <Route path="/products/:productId" element={<ProductComponent />} />
+            <Route path="/user/:userId" element={<UserComponent />} />
+          </Routes>
+        </div>
+      </Router>
+    </Container>
   );
 }
 

@@ -1,0 +1,90 @@
+.img_container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 700px;
+  height: 50vh;
+  position: relative;
+}
+
+.icon_kebab {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.product_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.user_container,
+.content_container,
+.function_container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 650px;
+}
+
+.user_img {
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 20px 20px 20px 0px;
+}
+
+.user_name {
+  padding-top: 30px;
+}
+
+.user_container hr {
+  clear: both;
+}
+
+.content_container select {
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.function_container {
+  margin-top: 50px;
+}
+
+.product_title {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.product_category,
+.product_count {
+  font-size: 13px;
+  color: gray;
+}
+
+.product_price {
+  float: left;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn {
+  float: right;
+}
+
+.btn button {
+  border: none;
+  outline: none;
+  background-color: #fea5ab;
+  color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+}

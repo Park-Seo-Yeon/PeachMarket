@@ -1,0 +1,60 @@
+.mypage_container,
+.menu_container,
+.user_container hr,
+.result_container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 650px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user_img {
+  float: left;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.user_name {
+  float: left;
+  margin-top: 20px;
+}
+
+.btn_edit {
+  margin-top: 15px;
+  margin-right: 0;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 5px 10px 5px 10px;
+  float: right;
+}
+
+.menu_container {
+  clear: both;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.menu_sale,
+.menu_purchase,
+.menu_model {
+  margin-left: 25px;
+  margin-right: 25px;
+  cursor: pointer;
+}
+
+.result_container {
+  margin-top: 20px;
+  background-color: #f2f3f6;
+  height: 600px;
+}
