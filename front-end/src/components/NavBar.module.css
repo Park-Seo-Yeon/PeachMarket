@@ -24,3 +24,9 @@
 .offcanvas {
   width: 320px;
 }
+
+.title {
+  color: black;
+  font-weight: bold;
+  margin-top: 20px;
+}

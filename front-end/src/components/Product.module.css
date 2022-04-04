@@ -46,6 +46,7 @@
 }
 
 .content_container select {
+  color: black;
   width: 100px;
   height: 40px;
   text-align: center;
