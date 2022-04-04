@@ -3,8 +3,12 @@
 .user_container hr,
 .result_container {
   margin: 0 auto;
-  width: 90%;
+  width: 100%;
   max-width: 650px;
+}
+
+.mypage_container {
+  width: 90%;
 }
 
 .title {
@@ -27,6 +31,7 @@
 }
 
 .btn_edit {
+  color: black;
   margin-top: 15px;
   margin-right: 0;
   background-color: white;

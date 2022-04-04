@@ -47,16 +47,21 @@ function NavBar() {
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <div>안녕하세요. 피치마켓입니다.</div>
-              <Nav.Link href="/">로그인</Nav.Link>
-              <NavDropdown title="카테고리" id="offcanvasNavbarDropdown" show>
-                <NavDropdown.Item href="/">상의</NavDropdown.Item>
-                <NavDropdown.Item href="/">아우터</NavDropdown.Item>
-                <NavDropdown.Item href="/">스커트</NavDropdown.Item>
-                <NavDropdown.Item href="/">팬츠</NavDropdown.Item>
-                <NavDropdown.Item href="/">원피스</NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="/user/1">마이페이지</Nav.Link>
-              <Nav.Link href="/">로그아웃</Nav.Link>
+              <Nav.Link href="/">
+                <p className={styles.title}>로그인</p>
+              </Nav.Link>
+              <p className={styles.title}>카테고리</p>
+              <NavDropdown.Item href="/">상의</NavDropdown.Item>
+              <NavDropdown.Item href="/">아우터</NavDropdown.Item>
+              <NavDropdown.Item href="/">스커트</NavDropdown.Item>
+              <NavDropdown.Item href="/">팬츠</NavDropdown.Item>
+              <NavDropdown.Item href="/">원피스</NavDropdown.Item>
+              <Nav.Link href="/user/1">
+                <p className={styles.title}>마이페이지</p>
+              </Nav.Link>
+              <Nav.Link href="/">
+                <p className={styles.title}>로그아웃</p>
+              </Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
