@@ -5,6 +5,8 @@ import NavBar from "./components/NavBar";
 import MainComponent from "./components/MainComponent";
 import ProductComponent from "./components/ProductComponent";
 import UserComponent from "./components/UserComponent";
+import WriteComponent from "./components/WriteComponent";
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
             <Route path="/" element={<MainComponent />} />
             <Route path="/products/:productId" element={<ProductComponent />} />
             <Route path="/user/:userId" element={<UserComponent />} />
+            <Route path="/write" element={<WriteComponent />} />
           </Routes>
         </div>
       </Router>
