@@ -6,6 +6,7 @@ import styles from "./User.module.css";
 import SaleMenuComponent from "./SaleMenuComponent";
 import PurchaseMenuComponent from "./PurchaseMenuComponent";
 import ModelMenuComponent from "./ModelMenuComponent";
+import { Link } from "react-router-dom";
 
 function UserComponent() {
   const [clickedMenu, setClickedMenu] = useState("SaleMenu");
@@ -19,7 +20,9 @@ function UserComponent() {
           className={styles.user_img}
         ></img>
         <p className={styles.user_name}>판매자 이름</p>
-        <button className={styles.btn_edit}>프로필 수정</button>
+        <Link to={"/profile/1"}>
+          <button className={styles.btn_edit}>프로필 수정</button>
+        </Link>
       </div>
       <div className={styles.menu_container}>
         <div

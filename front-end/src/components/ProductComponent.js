@@ -1,14 +1,10 @@
 import React from "react";
 import styles from "./Product.module.css";
-import { GoKebabVertical } from "react-icons/go";
-import { Carousel, Dropdown } from "react-bootstrap";
+import { GoKebabVertical, GoChevronLeft, GoChevronRight } from "react-icons/go";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function ProductComponent() {
-  const onClickImg = () => {
-    window.open(
-      "https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
-    );
-  };
   return (
     <div className={styles.product_container}>
       <div className={styles.img_container}>
@@ -17,12 +13,54 @@ function ProductComponent() {
           color="white"
           className={styles.icon_kebab}
         />
-        <img
-          src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
-          alt=""
-          className={styles.product_img}
-          onClick={onClickImg}
-        ></img>
+        <Carousel
+          infiniteLoop={true}
+          showStatus={false}
+          showThumbs={false}
+          renderArrowPrev={(onClickHandler, hasPrev) =>
+            hasPrev && (
+              <GoChevronLeft
+                size="30"
+                color="white"
+                onClick={onClickHandler}
+                className={styles.arrow}
+                style={{ left: 0 }}
+              />
+            )
+          }
+          renderArrowNext={(onClickHandler, hasNext) =>
+            hasNext && (
+              <GoChevronRight
+                size="30"
+                color="white"
+                onClick={onClickHandler}
+                className={styles.arrow}
+                style={{ right: 0 }}
+              />
+            )
+          }
+          onClickItem={() => {
+            window.open(
+              "https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
+            );
+          }}
+        >
+          <img
+            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
+            alt=""
+            className={styles.product_img}
+          />
+          <img
+            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes2.png"
+            alt=""
+            className={styles.product_img}
+          />
+          <img
+            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes3.png"
+            alt=""
+            className={styles.product_img}
+          />
+        </Carousel>
       </div>
       <div className={styles.user_container}>
         <img
