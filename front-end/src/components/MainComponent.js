@@ -4,14 +4,14 @@ import styles from "./Main.module.css";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { Container, Col, Row } from "react-bootstrap";
 import exdata from "./exdata.json";
-import useStore from "./useStore"
+import useStore from "./useStore";
 import ProductService from "../service/ProductService";
 
 function MainComponent() {
   const [products, setProducts] = useState([]);
   const [cateProducts, setCateProducts] = useState([]);
-  const {category, setCategory} = useStore();
-  
+  const { category, setCategory } = useStore();
+
   /*
   useEffect(() => {
     setProducts(exdata.product);
@@ -20,22 +20,20 @@ function MainComponent() {
   }, [category]);
   */
 
-  useEffect(()=>{
-    ProductService.getProducts.then((res)=>{
+  useEffect(() => {
+    ProductService.getProducts().then((res) => {
       setCateProducts(res.data);
-    })
-  })
+    });
+  });
 
   const changeCategory = (category) => {
-    if(category == "전체"){
+    if (category == "전체") {
       setCateProducts(exdata.product);
+    } else {
+      setCateProducts(products.filter((d) => d.category == category));
     }
-    else{
-      setCateProducts(products.filter(d => d.category == category));
-    }
-    
-}
- 
+  };
+
   return (
     <div className={styles.container}>
       <Container>
