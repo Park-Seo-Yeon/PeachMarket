@@ -4,20 +4,28 @@
   max-width: 700px;
   height: 50vh;
   position: relative;
+  cursor: pointer;
 }
 
 .icon_kebab {
   position: absolute;
+  z-index: 2;
   right: 10px;
   top: 10px;
 }
 
+.arrow {
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 15px);
+  cursor: "pointer";
+}
+
 .product_img {
   width: 100%;
-  height: 100%;
+  height: 50vh;
   object-fit: cover;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 .user_container,
@@ -55,6 +63,7 @@
 
 .function_container {
   margin-top: 50px;
+  padding-bottom: 80px;
 }
 
 .product_title {
