@@ -1,0 +1,52 @@
+{
+     "product":[
+  {
+      "productId":1,
+      "category":"아우터",
+      "title":"아우터후리스",
+      "productImg":"https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png",
+      "price":"30000",
+      "createTime":"2020.09.09"
+  },
+  {
+      "productId":2,
+      "category":"상의",
+      "title":"상의후리스",
+      "productImg":"https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png",
+      "price":"30000",
+      "createTime":"2020.09.09"
+  },
+{
+      "productId":3,
+      "category":"스커츠",
+      "title":"스커츠후리스",
+      "productImg":"https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png",
+      "price":"30000",
+      "createTime":"2020.09.09"
+  },
+{
+      "productId":4,
+      "category":"원피스",
+      "title":"원피스후리스",
+      "productImg":"https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png",
+      "price":"30000",
+      "createTime":"2020.09.09"
+  },
+{
+      "productId":5,
+      "category":"팬츠",
+      "title":"팬츠후리스",
+      "productImg":"https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png",
+      "price":"30000",
+      "createTime":"2020.09.09"
+  },
+  {
+    "productId":6,
+    "category":"상의",
+    "title":"상의후리스2",
+    "productImg":"https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png",
+    "price":"30000",
+    "createTime":"2020.09.09"
+}
+     ]
+}
