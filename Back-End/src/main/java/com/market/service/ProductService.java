@@ -19,6 +19,7 @@ public class ProductService {
 	public List<Product> findPopularProducts() {
 		return productRepository.findAll();
 		// List<Product> products = productRepository.findAll();
+		// test
 		
 	}
 	
