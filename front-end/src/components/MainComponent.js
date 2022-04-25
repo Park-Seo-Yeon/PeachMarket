@@ -12,19 +12,22 @@ function MainComponent() {
   const [cateProducts, setCateProducts] = useState([]);
   const { category, setCategory } = useStore();
 
-  /*
+  
   useEffect(() => {
     setProducts(exdata.product);
     setCateProducts(exdata.product);
     changeCategory(category);
   }, [category]);
-  */
-
+  
+/*
   useEffect(() => {
     ProductService.getProducts().then((res) => {
+      setProducts(res.data);
       setCateProducts(res.data);
     });
-  });
+    changeCategory(category);
+  }, [category]);
+  */
 
   const changeCategory = (category) => {
     if (category == "전체") {
