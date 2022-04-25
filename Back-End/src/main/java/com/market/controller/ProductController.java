@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.market.dto.ProductResponseDto;
 import com.market.entity.Product;
 import com.market.service.ProductService;
 
@@ -37,8 +38,11 @@ public class ProductController {
 		return productService.findProductDetail(productId);
 	}
 	
-	@PostMapping("/products/upload")
+	// Create
+	@PostMapping("/products")
 	public Product createProduct(@RequestBody Product product) {
+		System.out.println("@PostMapping(\"/products\")");
+		System.out.println(product.toString());
 		return productService.createProduct(product);
 	}
 }
