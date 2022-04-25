@@ -1,10 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Product.module.css";
 import { GoKebabVertical, GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useNavigate, useParams } from "react-router-dom";
+import ProductService from "../service/ProductService";
+import TimeCounting from "time-counting";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function ProductComponent() {
+  const navigate = useNavigate();
+  const [product, setProduct] = useState([]);
+  const productId = useParams().productId;
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    ProductService.getOneProduct(productId).then((res) => {
+      setProduct(res.data);
+      console.log(product);
+    });
+  }, []);
+
+  const onClickDropDown = () => {
+    setOpen(!open);
+  };
+
+  const deleteProduct = async () => {
+    Swal.fire({
+      text: "게시글을 정말 삭제하시겠어요?",
+      showCancelButton: true,
+      confirmButtonColor: "#fea5ab",
+      cancelButtonColor: "#f2f3f6",
+      confirmButtonText: "삭제",
+      cancelButtonText: "<a style='color:black'>취소<a>",
+      reverseButtons: true,
+      width: "350px",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          text: "게시글이 삭제되었습니다",
+          confirmButtonColor: "#fea5ab",
+          confirmButtonText: "확인",
+          width: "350px",
+        });
+        {
+          ProductService.deleteProduct(productId).then((res) => {
+            if (res.status == 200) {
+              navigate("/");
+            } else {
+              Swal.fire({
+                text: "게시글 삭제에 실패했습니다",
+                confirmButtonColor: "#fea5ab",
+                confirmButtonText: "확인",
+                width: "350px",
+              });
+            }
+          });
+        }
+      }
+    });
+  };
+
+  const option = {
+    lang: "ko",
+    calculate: {
+      justNow: 60,
+    },
+  };
+
   return (
     <div className={styles.product_container}>
       <div className={styles.img_container}>
@@ -12,7 +76,18 @@ function ProductComponent() {
           size="30"
           color="white"
           className={styles.icon_kebab}
+          onClick={onClickDropDown}
         />
+        {open && (
+          <div className={styles.dropdown}>
+            <ul>
+              <Link to={"/write"}>
+                <li onClick={onClickDropDown}>수정</li>
+              </Link>
+              <li onClick={deleteProduct}>삭제</li>
+            </ul>
+          </div>
+        )}
         <Carousel
           infiniteLoop={true}
           showStatus={false}
@@ -68,7 +143,7 @@ function ProductComponent() {
           alt=""
           className={styles.user_img}
         ></img>
-        <p className={styles.user_name}>판매자 이름</p>
+        <p className={styles.user_name}>{product.user_id}</p>
         <hr />
       </div>
       <div className={styles.content_container}>
@@ -77,13 +152,15 @@ function ProductComponent() {
           <option>예약중</option>
           <option>거래완료</option>
         </select>
-        <p className={styles.product_title}>제목</p>
-        <p className={styles.product_category}>카테고리·시간</p>
-        <p className={styles.product_content}>내용</p>
-        <p className={styles.product_count}>조회수</p>
+        <p className={styles.product_title}>{product.title}</p>
+        <p className={styles.product_category}>
+          category · {TimeCounting(product.createTime, option)}
+        </p>
+        <p className={styles.product_content}>{product.contents}</p>
+        <p className={styles.product_count}>조회 {product.count}</p>
       </div>
       <div className={styles.function_container}>
-        <p className={styles.product_price}>가격</p>
+        <p className={styles.product_price}>{product.price}원</p>
         <div className={styles.btn}>
           <button>채팅</button>
           <button>피팅</button>

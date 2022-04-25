@@ -14,6 +14,29 @@
   top: 10px;
 }
 
+.dropdown {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 50px;
+}
+
+.dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown li {
+  background-color: white;
+  border: 0.5px solid lightgray;
+  padding: 8px 25px 8px 25px;
+}
+
+.dropdown li:hover {
+  background-color: lightgray;
+}
+
 .arrow {
   position: absolute;
   z-index: 2;
