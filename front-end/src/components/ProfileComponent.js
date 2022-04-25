@@ -9,11 +9,12 @@ function ProfileComponent() {
   );
   return (
     <div className={styles.profile_container}>
-      <div className={styles.title}>
+      <div className={styles.profile_title}>
         <Link to={"/user/1"}>
           <IoClose size="30" className={styles.icon_close} />
         </Link>
-        <p>프로필 수정</p>
+        <p className={styles.title}>프로필 수정</p>
+        <p className={styles.ok}>완료</p>
       </div>
       <div className={styles.user_img}>
         <img src={userImg} alt=""></img>

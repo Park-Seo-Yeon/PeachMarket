@@ -1,15 +1,25 @@
 .profile_container {
+    position: relative;
     margin: 0 auto;
     width: 100%;
     max-width: 650px;
 }
 
+.profile_title {
+    display: flex;
+    justify-content: space-between;
+}
+
 .icon_close {
-  float: left;
+    float: left;
 }
 
 .title {
     text-align: center;
+}
+
+.ok {
+    color: white
 }
 
 .user_img {
@@ -31,8 +41,11 @@
 }
 
 .user_name input {
-    width: 80%;
-    border-color: lightgray;
+    width: 90%;
+    height: 35px;
+    border-style: none;
+    border: 1.5px solid lightgray;
+    border-radius: 10px;
     text-align: center;
 }
 
@@ -44,8 +57,7 @@
 
 .btn button {
     position: absolute;
-    left: 0;
-    bottom: 0;
+    margin-top: 60%;
     border: none;
     outline: none;
     background-color: #fea5ab;
