@@ -26,7 +26,14 @@ public class ProductService {
 	public Product findProductDetail(Integer id) {
 		return productRepository.findById(id).get();
 	}
+
 	
+	// 조회수
+	@Transactional
+	public int updateCount(Integer id) {
+		return productRepository.updateCount(id);
+	}
+
 	
 	public Product createProduct(Product product) {
 		return productRepository.save(product);
