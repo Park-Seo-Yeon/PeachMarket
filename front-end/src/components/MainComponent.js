@@ -19,7 +19,7 @@ function MainComponent() {
     changeCategory(category);
   }, [category]);
   
-/*
+
   useEffect(() => {
     ProductService.getProducts().then((res) => {
       setProducts(res.data);
@@ -27,7 +27,7 @@ function MainComponent() {
     });
     changeCategory(category);
   }, [category]);
-  */
+  
 
   const changeCategory = (category) => {
     if (category == "전체") {
@@ -47,7 +47,7 @@ function MainComponent() {
                 <div className={styles.product_container}>
                   <img
                     className={styles.product_img}
-                    src={product.productImg}
+                    src={product.pictureUrl}
                     alt=""
                   ></img>
                   <div className={styles.product_info}>

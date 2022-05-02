@@ -39,11 +39,12 @@ function WriteComponent() {
     e.preventDefault();
     setPrice(e.target.value);
   };
-  const [article, setArticle] = useState("");
+  const [contents, setContetns] = useState(""); // 수정
+  const [pictureUrl, setPictureUrl] = useState(""); // 이미지? 
 
   const articleHandler = (e) => {
     e.preventDefault();
-    setArticle(e.target.value);
+    setContetns(e.target.value);
   };
 
   const onClickCancel = () => {
@@ -58,10 +59,11 @@ function WriteComponent() {
   };
 
   let body = {
+    pictureUrl: pictureUrl,
     title: title,
     category: category,
     price: price,
-    article: article,
+    contents: contents,
   };
 
   return (
@@ -137,7 +139,7 @@ function WriteComponent() {
               rows={6}
               placeholder="게시글 내용을 작성해주세요."
               size="lg"
-              value={article}
+              value={contents}
               onChange={articleHandler}
               className="mb-3"
             />
