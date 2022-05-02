@@ -18,13 +18,8 @@ function MainComponent() {
     setCateProducts(exdata.product);
     changeCategory(category);
   }, [category]);
-<<<<<<< HEAD
-  
-
-=======
 
   /*
->>>>>>> f660da536d888b394c2612dbdb3ba9024c349f09
   useEffect(() => {
     ProductService.getProducts().then((res) => {
       setProducts(res.data);
@@ -32,7 +27,7 @@ function MainComponent() {
     });
     changeCategory(category);
   }, [category]);
-  
+  */
 
   const changeCategory = (category) => {
     if (category == "0") {
@@ -55,21 +50,6 @@ function MainComponent() {
           />
         </div>
         <Row>
-<<<<<<< HEAD
-          {cateProducts.map((product) => (
-            <Col lg={6} key={product.productId}>
-              <Link to={`./products/${product.productId}`}>
-                <div className={styles.product_container}>
-                  <img
-                    className={styles.product_img}
-                    src={product.pictureUrl}
-                    alt=""
-                  ></img>
-                  <div className={styles.product_info}>
-                    <p className={styles.product_title}>{product.title}</p>
-                    <p className={styles.product_time}>{product.createTime}</p>
-                    <p className={styles.product_price}>{product.price}</p>
-=======
           {cateProducts
             .filter((item) => {
               if (search === "") {
@@ -96,7 +76,6 @@ function MainComponent() {
                       </p>
                       <p className={styles.product_price}>{product.price}</p>
                     </div>
->>>>>>> f660da536d888b394c2612dbdb3ba9024c349f09
                   </div>
                 </Link>
               </Col>

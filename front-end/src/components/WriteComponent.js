@@ -29,12 +29,11 @@ function WriteComponent() {
     e.preventDefault();
     setPrice(e.target.value);
   };
-  const [contents, setContetns] = useState(""); // 수정
-  const [pictureUrl, setPictureUrl] = useState(""); // 이미지? 
+  const [article, setArticle] = useState("");
 
   const articleHandler = (e) => {
     e.preventDefault();
-    setContetns(e.target.value);
+    setArticle(e.target.value);
   };
 
   const [imgBase64, setImgBase64] = useState(""); 
@@ -87,17 +86,8 @@ function WriteComponent() {
       data: formData,
     });
 
-<<<<<<< HEAD
-  let body = {
-    pictureUrl: pictureUrl,
-    title: title,
-    category: category,
-    price: price,
-    contents: contents,
-=======
     console.log(postSurvey);
     navigate("/");
->>>>>>> f660da536d888b394c2612dbdb3ba9024c349f09
   };
 
 
@@ -173,7 +163,7 @@ function WriteComponent() {
               rows={6}
               placeholder="게시글 내용을 작성해주세요."
               size="lg"
-              value={contents}
+              value={article}
               onChange={articleHandler}
               className="mb-3"
             />
