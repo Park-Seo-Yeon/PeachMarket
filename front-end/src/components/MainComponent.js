@@ -10,16 +10,21 @@ import ProductService from "../service/ProductService";
 function MainComponent() {
   const [products, setProducts] = useState([]);
   const [cateProducts, setCateProducts] = useState([]);
+  const [search, setSearch] = useState("");
   const { category, setCategory } = useStore();
 
-  
   useEffect(() => {
     setProducts(exdata.product);
     setCateProducts(exdata.product);
     changeCategory(category);
   }, [category]);
+<<<<<<< HEAD
   
 
+=======
+
+  /*
+>>>>>>> f660da536d888b394c2612dbdb3ba9024c349f09
   useEffect(() => {
     ProductService.getProducts().then((res) => {
       setProducts(res.data);
@@ -30,7 +35,7 @@ function MainComponent() {
   
 
   const changeCategory = (category) => {
-    if (category == "전체") {
+    if (category == "0") {
       setCateProducts(exdata.product);
     } else {
       setCateProducts(products.filter((d) => d.category == category));
@@ -40,7 +45,17 @@ function MainComponent() {
   return (
     <div className={styles.container}>
       <Container>
+        <div className="text-center my-5">
+          <input
+            type="text"
+            placeholder="search..."
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+          />
+        </div>
         <Row>
+<<<<<<< HEAD
           {cateProducts.map((product) => (
             <Col lg={6} key={product.productId}>
               <Link to={`./products/${product.productId}`}>
@@ -54,11 +69,38 @@ function MainComponent() {
                     <p className={styles.product_title}>{product.title}</p>
                     <p className={styles.product_time}>{product.createTime}</p>
                     <p className={styles.product_price}>{product.price}</p>
+=======
+          {cateProducts
+            .filter((item) => {
+              if (search === "") {
+                return item;
+              } else if (
+                item.title.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return item;
+              }
+            })
+            .map((product) => (
+              <Col lg={6} key={product.productId}>
+                <Link to={`./products/${product.productId}`}>
+                  <div className={styles.product_container}>
+                    <img
+                      className={styles.product_img}
+                      src={product.productImg}
+                      alt=""
+                    ></img>
+                    <div className={styles.product_info}>
+                      <p className={styles.product_title}>{product.title}</p>
+                      <p className={styles.product_time}>
+                        {product.createTime}
+                      </p>
+                      <p className={styles.product_price}>{product.price}</p>
+                    </div>
+>>>>>>> f660da536d888b394c2612dbdb3ba9024c349f09
                   </div>
-                </div>
-              </Link>
-            </Col>
-          ))}
+                </Link>
+              </Col>
+            ))}
         </Row>
       </Container>
 

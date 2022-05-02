@@ -3,23 +3,13 @@ import { IoClose } from "react-icons/io5";
 import { AiFillCamera } from "react-icons/ai";
 import { Form } from "react-bootstrap";
 import styles from "./Write.module.css";
+import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
 import ProductService from "../service/ProductService";
 
 function WriteComponent() {
   const navigate = useNavigate();
-  const [imageSrc, setImageSrc] = useState("");
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImageSrc(reader.result);
-        resolve();
-      };
-    });
-  };
 
   const [title, setTitle] = useState("");
 
@@ -47,24 +37,72 @@ function WriteComponent() {
     setContetns(e.target.value);
   };
 
+  const [imgBase64, setImgBase64] = useState(""); 
+  const [imgFile, setImgFile] = useState(null);	
+
+  const handleChangeFile = (event) => {
+    let reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) {
+        setImgBase64(base64.toString());
+      }
+    }
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]); 
+      setImgFile(event.target.files[0]);
+    }
+  }
+
   const onClickCancel = () => {
+    alert("글 작성을 취소합니다");
     navigate("/");
   };
 
-  const onClickOk = () => {
-    console.log(body);
-    ProductService.createProducts(body).then((res)=>{
-      navigate("/");
-    });
-  };
+  const onClickOk = async (e) => {
 
+    e.preventDefault();
+    e.persist();
+
+    const formData = new FormData();
+    formData.append('file', imgFile);
+
+    let dataSet = {
+      title: title,
+      category: category,
+      price: price,
+      article: article,
+    };
+
+    formData.append("data", JSON.stringify(dataSet));
+
+    const postSurvey = await axios({
+      method: "POST",
+      url: "http://localhost:8080/api/products",
+      mode: "cors",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+    });
+
+<<<<<<< HEAD
   let body = {
     pictureUrl: pictureUrl,
     title: title,
     category: category,
     price: price,
     contents: contents,
+=======
+    console.log(postSurvey);
+    navigate("/");
+>>>>>>> f660da536d888b394c2612dbdb3ba9024c349f09
   };
+
+
+
+  
 
   return (
     <div className={styles.container}>
@@ -86,16 +124,12 @@ function WriteComponent() {
             <input
               type="file"
               id="inputFile"
-              onChange={(e) => {
-                encodeFileToBase64(e.target.files[0]);
-              }}
+              onChange={handleChangeFile}
               className={styles.file_container_upload}
             />
 
             <div className={styles.file_container_uploadImg}>
-              <p>{imageSrc && <img src={imageSrc} alt="" />}</p>
-              <p>{imageSrc && <img src={imageSrc} alt="" />}</p>
-              <p>{imageSrc && <img src={imageSrc} alt="" />}</p>
+              <p>{imgFile && <img src={imgBase64} alt="" />}</p>
             </div>
           </div>
           <Form.Group controlId="exampleForm.ControlInput1">
