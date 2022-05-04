@@ -11,11 +11,6 @@ class ProductService {
     return axios.get(PRODUCCT_API_BASE_URL + "/" + productId);
   }
 
-  // 내가 추가 
-  createProducts(product) {
-    return axios.post(PRODUCCT_API_BASE_URL, product);
-  }
-
   deleteProduct(productId) {
     return axios.delete(PRODUCCT_API_BASE_URL + "/" + productId);
   }

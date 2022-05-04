@@ -12,15 +12,13 @@ import Swal from "sweetalert2";
 function ProductComponent() {
   const navigate = useNavigate();
   const [product, setProduct] = useState([]);
-  // const [category, setCategory] = useState([]); // 내가 추가 
   const productId = useParams().productId;
   const [open, setOpen] = useState(false);
-  
+
   useEffect(() => {
     ProductService.getOneProduct(productId).then((res) => {
       setProduct(res.data);
-      // console.log(product);
-      // //console.log(category);  
+      console.log(product);
     });
   }, []);
 
@@ -118,25 +116,25 @@ function ProductComponent() {
           }
           onClickItem={() => {
             window.open(
-              "https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes2.png"
+              "https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
             );
           }}
         >
           <img
-            src={product.pictureUrl}
+            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
             alt=""
             className={styles.product_img}
           />
-          {/* <img
+          <img
             src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes2.png"
             alt=""
             className={styles.product_img}
-          /> */}
-          {/* <img
+          />
+          <img
             src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes3.png"
             alt=""
             className={styles.product_img}
-          /> */}
+          />
         </Carousel>
       </div>
       <div className={styles.user_container}>
@@ -145,7 +143,7 @@ function ProductComponent() {
           alt=""
           className={styles.user_img}
         ></img>
-        <p className={styles.user_name}>{product.userId?.nickname}</p>  
+        <p className={styles.user_name}>{product.user_id}</p>
         <hr />
       </div>
       <div className={styles.content_container}>
@@ -156,7 +154,7 @@ function ProductComponent() {
         </select>
         <p className={styles.product_title}>{product.title}</p>
         <p className={styles.product_category}>
-          {product.category?.category} · {TimeCounting(product.createTime, option)}
+          category · {TimeCounting(product.createTime, option)}
         </p>
         <p className={styles.product_content}>{product.contents}</p>
         <p className={styles.product_count}>조회 {product.count}</p>
