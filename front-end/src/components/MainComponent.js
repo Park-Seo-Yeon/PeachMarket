@@ -6,6 +6,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import exdata from "./exdata.json";
 import useStore from "./useStore";
 import ProductService from "../service/ProductService";
+import TimeCounting from "time-counting";
 
 function MainComponent() {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,6 @@ function MainComponent() {
     changeCategory(category);
   }, [category]);
 
-  /*
   useEffect(() => {
     ProductService.getProducts().then((res) => {
       setProducts(res.data);
@@ -27,7 +27,6 @@ function MainComponent() {
     });
     changeCategory(category);
   }, [category]);
-  */
 
   const changeCategory = (category) => {
     if (category == "0") {
@@ -35,6 +34,13 @@ function MainComponent() {
     } else {
       setCateProducts(products.filter((d) => d.category == category));
     }
+  };
+
+  const option = {
+    lang: "ko",
+    calculate: {
+      justNow: 60,
+    },
   };
 
   return (
@@ -66,15 +72,15 @@ function MainComponent() {
                   <div className={styles.product_container}>
                     <img
                       className={styles.product_img}
-                      src={product.productImg}
+                      src={product.pictureUrl}
                       alt=""
                     ></img>
                     <div className={styles.product_info}>
                       <p className={styles.product_title}>{product.title}</p>
                       <p className={styles.product_time}>
-                        {product.createTime}
+                        {TimeCounting(product.createTime, option)}
                       </p>
-                      <p className={styles.product_price}>{product.price}</p>
+                      <p className={styles.product_price}>{product.price}원</p>
                     </div>
                   </div>
                 </Link>
@@ -83,7 +89,7 @@ function MainComponent() {
         </Row>
       </Container>
 
-      <Link to={"/write"}>
+      <Link to={"/write/new"}>
         <AiFillPlusCircle className={styles.createBtn} />
       </Link>
     </div>

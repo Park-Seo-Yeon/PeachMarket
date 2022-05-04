@@ -3,12 +3,10 @@ import { Navbar, Nav, Offcanvas, NavDropdown } from "react-bootstrap";
 import { BsSearch, BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
-import useStore from "./useStore"
-
+import useStore from "./useStore";
 
 function NavBar() {
-
-  const {category, setCategory} = useStore();
+  const { category, setCategory } = useStore();
   return (
     <div>
       <Navbar expand={false} className={styles.navbar}>
@@ -18,13 +16,13 @@ function NavBar() {
         />
 
         <Navbar.Brand>
-        <Link to={"./"}>
-          <img
-            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/peachmarket-logo.png"
-            className={styles.logo}
-            alt=""
-          />
-        </Link>
+          <Link to={"./"}>
+            <img
+              src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/peachmarket-logo.png"
+              className={styles.logo}
+              alt=""
+            />
+          </Link>
         </Navbar.Brand>
 
         <Nav className="flex-row">
@@ -59,12 +57,48 @@ function NavBar() {
               </Nav.Link>
               <p className={styles.title}>카테고리</p>
 
-              <NavDropdown.Item onClick={()=>{setCategory("0")}}>전체보기</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setCategory("1")}}>상의</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setCategory("2")}}>아우터</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setCategory("3")}}>스커트</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setCategory("4")}}>팬츠</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{setCategory("5")}}>원피스</NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  setCategory("0");
+                }}
+              >
+                전체보기
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  setCategory("2");
+                }}
+              >
+                상의
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  setCategory("1");
+                }}
+              >
+                아우터
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  setCategory("3");
+                }}
+              >
+                스커트
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  setCategory("4");
+                }}
+              >
+                팬츠
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  setCategory("5");
+                }}
+              >
+                원피스
+              </NavDropdown.Item>
               <Nav.Link href="/user/1">
                 <p className={styles.title}>마이페이지</p>
               </Nav.Link>

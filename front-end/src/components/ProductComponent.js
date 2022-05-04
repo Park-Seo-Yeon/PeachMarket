@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Product.module.css";
 import { GoKebabVertical, GoChevronLeft, GoChevronRight } from "react-icons/go";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { Carousel } from "react-responsive-carousel";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductService from "../service/ProductService";
 import TimeCounting from "time-counting";
@@ -81,14 +81,14 @@ function ProductComponent() {
         {open && (
           <div className={styles.dropdown}>
             <ul>
-              <Link to={"/write"}>
+              <Link to={`/write/${productId}`}>
                 <li onClick={onClickDropDown}>수정</li>
               </Link>
               <li onClick={deleteProduct}>삭제</li>
             </ul>
           </div>
         )}
-        <Carousel
+        {/* <Carousel
           infiniteLoop={true}
           showStatus={false}
           showThumbs={false}
@@ -120,30 +120,24 @@ function ProductComponent() {
             );
           }}
         >
-          <img
-            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
-            alt=""
-            className={styles.product_img}
-          />
-          <img
-            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes2.png"
-            alt=""
-            className={styles.product_img}
-          />
-          <img
-            src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes3.png"
-            alt=""
-            className={styles.product_img}
-          />
-        </Carousel>
+          <img src={product.pictureUrl} alt="" className={styles.product_img} />
+        </Carousel> */}
+        <img
+          src={product.pictureUrl}
+          alt=""
+          className={styles.product_img}
+          onClick={() => {
+            window.open(product.pictureUrl);
+          }}
+        />
       </div>
       <div className={styles.user_container}>
         <img
-          src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/DefaultProfileImage.png"
+          src={product.userId?.profileImg}
           alt=""
           className={styles.user_img}
         ></img>
-        <p className={styles.user_name}>{product.user_id}</p>
+        <p className={styles.user_name}>{product.userId?.nickname}</p>
         <hr />
       </div>
       <div className={styles.content_container}>
@@ -154,7 +148,8 @@ function ProductComponent() {
         </select>
         <p className={styles.product_title}>{product.title}</p>
         <p className={styles.product_category}>
-          category · {TimeCounting(product.createTime, option)}
+          {product.category?.category} ·{" "}
+          {TimeCounting(product.createTime, option)}
         </p>
         <p className={styles.product_content}>{product.contents}</p>
         <p className={styles.product_count}>조회 {product.count}</p>
