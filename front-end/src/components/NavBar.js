@@ -58,6 +58,7 @@ function NavBar() {
                 <p className={styles.title}>로그인</p>
               </Nav.Link>
               <p className={styles.title}>카테고리</p>
+
               <NavDropdown.Item onClick={()=>{setCategory("0")}}>전체보기</NavDropdown.Item>
               <NavDropdown.Item onClick={()=>{setCategory("1")}}>상의</NavDropdown.Item>
               <NavDropdown.Item onClick={()=>{setCategory("2")}}>아우터</NavDropdown.Item>

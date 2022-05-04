@@ -1,23 +1,17 @@
 package com.market.entity;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,10 +32,8 @@ public class Product {
 	
 	private String title;
 	
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "categoryId")
-	@JsonManagedReference
 	private Category category;
 	
 	private Integer price;
@@ -49,7 +41,7 @@ public class Product {
 	private Date createTime;
 	private String productState;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User userId;
 	
@@ -57,5 +49,20 @@ public class Product {
 	
 	private String pictureUrl;
 	
+	@Builder
+	public Product(String title, Category category,
+			Integer price, String contents, Date createTime, String productState, Integer count) {
+		this.title = title;
+		this.category = category;
+		this.price = price;
+		this.contents = contents;
+		this.createTime = createTime;
+		this.productState = productState;
+		this.count = count;
+		
+	}
+	public void updateImage(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
 
 }
