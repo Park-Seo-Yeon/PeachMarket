@@ -18,7 +18,7 @@ function App() {
             <Route path="/" element={<MainComponent />} />
             <Route path="/products/:productId" element={<ProductComponent />} />
             <Route path="/user/:userId" element={<UserComponent />} />
-            <Route path="/write" element={<WriteComponent />} />
+            <Route path="/write/:productId" element={<WriteComponent />} />
             <Route path="/profile/:userId" element={<ProfileComponent />} />
           </Routes>
         </div>

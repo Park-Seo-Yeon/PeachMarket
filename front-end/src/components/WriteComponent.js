@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { AiFillCamera } from "react-icons/ai";
 import { Form } from "react-bootstrap";
 import styles from "./Write.module.css";
 import axios from "axios";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ProductService from "../service/ProductService";
+import Swal from "sweetalert2";
 
 function WriteComponent() {
   const navigate = useNavigate();
+  const productId = useParams().productId;
 
   const [title, setTitle] = useState("");
 
@@ -29,15 +31,15 @@ function WriteComponent() {
     e.preventDefault();
     setPrice(e.target.value);
   };
-  const [article, setArticle] = useState("");
+  const [contents, setContents] = useState("");
 
-  const articleHandler = (e) => {
+  const contentsHandler = (e) => {
     e.preventDefault();
-    setArticle(e.target.value);
+    setContents(e.target.value);
   };
 
-  const [imgBase64, setImgBase64] = useState(""); 
-  const [imgFile, setImgFile] = useState(null);	
+  const [imgBase64, setImgBase64] = useState("");
+  const [imgFile, setImgFile] = useState(null);
 
   const handleChangeFile = (event) => {
     let reader = new FileReader();
@@ -47,58 +49,120 @@ function WriteComponent() {
       if (base64) {
         setImgBase64(base64.toString());
       }
-    }
+    };
     if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]); 
+      reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
     }
-  }
+  };
 
   const onClickCancel = () => {
-    alert("글 작성을 취소합니다");
-    navigate("/");
+    if (productId === "new") {
+      Swal.fire({
+        text: "작성 중인 글을 취소하시겠어요?",
+        showCancelButton: true,
+        confirmButtonColor: "#fea5ab",
+        cancelButtonColor: "#f2f3f6",
+        confirmButtonText: "네",
+        cancelButtonText: "<a style='color:black'>아니요<a>",
+        reverseButtons: true,
+        width: "350px",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/");
+        }
+      });
+    } else {
+      Swal.fire({
+        text: "수정 중인 글을 취소하시겠어요?",
+        showCancelButton: true,
+        confirmButtonColor: "#fea5ab",
+        cancelButtonColor: "#f2f3f6",
+        confirmButtonText: "네",
+        cancelButtonText: "<a style='color:black'>아니요<a>",
+        reverseButtons: true,
+        width: "350px",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/");
+        }
+      });
+    }
+  };
+
+  const returnTitle = () => {
+    if (productId === "new") {
+      return <p className={styles.top_container_title}>중고거래 글쓰기</p>;
+    } else {
+      return <p className={styles.top_container_title}>중고거래 글 수정하기</p>;
+    }
   };
 
   const onClickOk = async (e) => {
-
     e.preventDefault();
     e.persist();
 
     const formData = new FormData();
-    formData.append('file', imgFile);
+    formData.append("file", imgFile);
 
     let dataSet = {
       title: title,
-      category: category,
+      //category: category,
       price: price,
-      article: article,
+      contents: contents,
     };
 
-    formData.append("data", JSON.stringify(dataSet));
+    if (productId === "new") {
+      const json = JSON.stringify(dataSet);
+      const blob = new Blob([json], { type: "application/json" });
+      const json1 = JSON.stringify(category);
+      const blob1 = new Blob([json1], { type: "application/json" });
 
-    const postSurvey = await axios({
-      method: "POST",
-      url: "http://localhost:8080/api/products",
-      mode: "cors",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      data: formData,
-    });
+      formData.append("data", blob);
+      formData.append("categoryId", blob1);
 
-    console.log(postSurvey);
-    navigate("/");
+      //formData.append("data", JSON.stringify(dataSet));
+
+      const postSurvey = await axios({
+        method: "POST",
+        url: "http://localhost:8080/api/products",
+        mode: "cors",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
+      });
+
+      console.log(postSurvey);
+      navigate("/");
+    } else {
+      ProductService.updateProduct(productId, dataSet).then((res) => {
+        navigate("/");
+      });
+    }
   };
 
-
-
-  
+  useEffect(() => {
+    if (productId === "new") {
+      return;
+    } else {
+      ProductService.getOneProduct(productId).then((res) => {
+        let product = res.data;
+        setTitle(product.title);
+        setCategory(product.category);
+        setPrice(product.price);
+        setContents(product.contents);
+        setImgBase64(product.imgBase64);
+        setImgFile(product.imgFile);
+      });
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.top_container}>
         <IoClose size="24" onClick={onClickCancel} />
-        <p className={styles.top_container_title}>중고거래 글쓰기</p>
+        {returnTitle()}
         <p className={styles.top_container_ok} onClick={onClickOk}>
           완료
         </p>
@@ -163,8 +227,8 @@ function WriteComponent() {
               rows={6}
               placeholder="게시글 내용을 작성해주세요."
               size="lg"
-              value={article}
-              onChange={articleHandler}
+              value={contents}
+              onChange={contentsHandler}
               className="mb-3"
             />
           </Form.Group>
