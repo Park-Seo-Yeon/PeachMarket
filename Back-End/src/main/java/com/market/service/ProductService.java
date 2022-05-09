@@ -71,7 +71,6 @@ public class ProductService {
 		product.setTitle(updatedProduct.getTitle());
 		product.setPrice(updatedProduct.getPrice());
 		product.setContents(updatedProduct.getContents());
-		product.setCreateTime(new Date());
 		Product endUpdateProduct = productRepository.save(product);
 		
 		return ResponseEntity.ok(endUpdateProduct);
@@ -82,7 +81,7 @@ public class ProductService {
 	public ResponseEntity<Map<String, Boolean>> deleteProduct(
 			Integer productId) {
 		Product product = productRepository.findById(productId)
-				.orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : ["+productId+"]"));
+				.orElseThrow(() -> new ResourceNotFoundException("Not exist Product by Id : ["+productId+"]"));
 
 		productRepository.delete(product);
 		Map<String, Boolean> response = new HashMap<>();
