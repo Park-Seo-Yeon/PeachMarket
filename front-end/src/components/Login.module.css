@@ -1,0 +1,22 @@
+.container{
+  margin-top: 100px;
+}
+
+.loginForm{
+  margin-top: 8px;
+}
+
+.loginBtn{
+  color: white;
+  background-color: #fea5ab;
+  border: none;
+}
+
+.loginText{
+  font-weight: bold;
+}
+
+.loginBtn:hover{
+  color: white;
+  background-color: #fea5ab;
+}

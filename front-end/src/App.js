@@ -7,6 +7,7 @@ import ProductComponent from "./components/ProductComponent";
 import UserComponent from "./components/UserComponent";
 import WriteComponent from "./components/WriteComponent";
 import ProfileComponent from "./components/ProfileComponent";
+import LoginComponent from "./components/LoginComponent";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/user/:userId" element={<UserComponent />} />
             <Route path="/write/:productId" element={<WriteComponent />} />
             <Route path="/profile/:userId" element={<ProfileComponent />} />
+            <Route path="/login" element={<LoginComponent />} />
           </Routes>
         </div>
       </Router>

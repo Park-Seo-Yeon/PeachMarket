@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Main.module.css";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row, Form } from "react-bootstrap";
 import exdata from "./exdata.json";
 import useStore from "./useStore";
 import ProductService from "../service/ProductService";
@@ -10,29 +10,31 @@ import TimeCounting from "time-counting";
 
 function MainComponent() {
   const [products, setProducts] = useState([]);
-  const [cateProducts, setCateProducts] = useState([]);
   const [search, setSearch] = useState("");
   const { category, setCategory } = useStore();
 
+  /*
   useEffect(() => {
-    setProducts(exdata.product);
-    setCateProducts(exdata.product);
-    changeCategory(category);
+    changeCategory(category, exdata.product);
   }, [category]);
+  */
+  
 
+  
   useEffect(() => {
     ProductService.getProducts().then((res) => {
-      setProducts(res.data);
-      setCateProducts(res.data);
+      changeCategory(category, res.data);
     });
-    changeCategory(category);
   }, [category]);
+  
 
-  const changeCategory = (category) => {
+  
+
+  const changeCategory = (category, data) => {
     if (category == "0") {
-      setCateProducts(exdata.product);
+      setProducts(data);
     } else {
-      setCateProducts(products.filter((d) => d.category == category));
+      setProducts(data.filter((d) => d.category == category));
     }
   };
 
@@ -46,17 +48,17 @@ function MainComponent() {
   return (
     <div className={styles.container}>
       <Container>
-        <div className="text-center my-5">
-          <input
+        <div>
+          <Form.Control
             type="text"
-            placeholder="search..."
+            placeholder="검색"
             onChange={(event) => {
               setSearch(event.target.value);
             }}
           />
         </div>
         <Row>
-          {cateProducts
+          {products
             .filter((item) => {
               if (search === "") {
                 return item;
