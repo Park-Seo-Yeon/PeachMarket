@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+.DS_Store
 application-security.properties
 
 ### IntelliJ IDEA ###
