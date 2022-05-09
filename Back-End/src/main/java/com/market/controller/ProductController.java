@@ -39,7 +39,8 @@ public class ProductController {
 	
 	@GetMapping("/deviceCheck")
     public void deviceCheck(Device device) {
-
+		
+		// gitignore Test
 		// 모바일 체크
 		// Device device = DeviceUtils.getCurrentDevice(request);   
         if (device.isMobile()) {
