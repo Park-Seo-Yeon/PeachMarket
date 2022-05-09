@@ -1,11 +1,15 @@
 package com.market.controller;
 
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.market.dto.ProductRequestDto;
 import com.market.entity.Product;
-import com.market.service.CategoryService;
 import com.market.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,7 +35,26 @@ import lombok.RequiredArgsConstructor;
 public class ProductController {
 
 	private final ProductService productService;
+	// private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@GetMapping("/deviceCheck")
+    public void deviceCheck(Device device) {
+
+		// 모바일 체크
+		// Device device = DeviceUtils.getCurrentDevice(request);   
+        if (device.isMobile()) {
+            System.out.println("[MYTEST] mobile user!");
+        } else if (device.isTablet()) {
+        	 System.out.println("[MYTEST] tablet user!");
+            //logger.info("[MYTEST] tablet user!");
+        } else {
+        	 System.out.println("[MYTEST] desktop user!");
+            //logger.info("[MYTEST] desktop user!");
+        }
+        System.out.println("[MYTEST]Device : {} " + device);
+        System.out.println("[MYTEST]Device Platform : {}" + device.getDevicePlatform());
+    }
+
 	@GetMapping("/products")
 	public List<Product> getPopularProducts() {
 		// 인기순 정렬 필요

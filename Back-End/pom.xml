@@ -65,8 +65,21 @@
 			<version>2.2.1.RELEASE</version>
 		</dependency>
 
+		<!-- Mobile Device -->
+		<dependency>
+			<groupId>org.springframework.mobile</groupId>
+			<artifactId>spring-mobile-starter</artifactId>
+			<version>2.0.0.M2</version>
+		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
