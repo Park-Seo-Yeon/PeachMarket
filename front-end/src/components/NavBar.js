@@ -18,7 +18,7 @@ function NavBar() {
         <Navbar.Brand>
           <Link to={"./"}>
             <img
-              src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/peachmarket-logo.png"
+              src="https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/PeachMarketLogo.png"
               className={styles.logo}
               alt=""
             />
@@ -26,7 +26,7 @@ function NavBar() {
         </Navbar.Brand>
 
         <Nav className="flex-row">
-        <Nav.Link to={"./"}>
+          <Nav.Link to={"./"}>
             <BsSearch size="24" className={styles.search} />
           </Nav.Link>
           <Nav.Link href="/">
@@ -43,7 +43,7 @@ function NavBar() {
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id="offcanvasNavbarLabel">
               <img
-                src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/peachmarket-logo.png"
+                src="https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/PeachMarketLogo.png"
                 width="250px"
                 alt=""
               />
@@ -52,9 +52,9 @@ function NavBar() {
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <div>안녕하세요. 피치마켓입니다.</div>
-              <Link to={"./login"}>
+              <Nav.Link href="./login">
                 <p className={styles.title}>로그인</p>
-              </Link>
+              </Nav.Link>
               <p className={styles.title}>카테고리</p>
 
               <NavDropdown.Item
