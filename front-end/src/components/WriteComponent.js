@@ -84,7 +84,7 @@ function WriteComponent() {
         width: "350px",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/");
+          navigate(`/products/${productId}`);
         }
       });
     }
@@ -137,7 +137,7 @@ function WriteComponent() {
       navigate("/");
     } else {
       ProductService.updateProduct(productId, dataSet).then((res) => {
-        navigate("/");
+        navigate(`/products/${productId}`);
       });
     }
   };
@@ -149,7 +149,7 @@ function WriteComponent() {
       ProductService.getOneProduct(productId).then((res) => {
         let product = res.data;
         setTitle(product.title);
-        setCategory(product.category);
+        setCategory(product.category?.category);
         setPrice(product.price);
         setContents(product.contents);
         setImgBase64(product.imgBase64);

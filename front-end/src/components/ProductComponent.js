@@ -141,10 +141,10 @@ function ProductComponent() {
         <hr />
       </div>
       <div className={styles.content_container}>
-        <select>
-          <option>판매중</option>
-          <option>예약중</option>
-          <option>거래완료</option>
+        <select value={product.productState}>
+          <option value="판매중">판매중</option>
+          <option value="예약중">예약중</option>
+          <option value="거래완료">거래완료</option>
         </select>
         <p className={styles.product_title}>{product.title}</p>
         <p className={styles.product_category}>
