@@ -21,6 +21,6 @@ Fitting/test.py
 Fitting/train.py
 Fitting/visualization.py
 Fitting/cp_dataset.py
-Fitting/neworks.py
+Fitting/networks.py
 Fitting/requirments.txt
 Fitting/grid.png
