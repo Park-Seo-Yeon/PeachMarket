@@ -15,7 +15,3 @@ public class BackEndApplication {
 	}
 
 }
-//@Configuration
-//@EnableJpaAuditing // JPA Auditing 활성화
-//public class JpaConfig {
-//}

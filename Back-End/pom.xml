@@ -58,6 +58,24 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
+		<!-- Spring Security-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JWT -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 		<!-- AWS S3 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -65,12 +83,16 @@
 			<version>2.2.1.RELEASE</version>
 		</dependency>
 
-		<!-- Mobile Device -->
+		<!-- test를 위한 jsp 설정 dependency-->
 		<dependency>
-			<groupId>org.springframework.mobile</groupId>
-			<artifactId>spring-mobile-starter</artifactId>
-			<version>2.0.0.M2</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>
