@@ -2,6 +2,8 @@ import { Form, Col, Button, Stack } from "react-bootstrap";
 import React, { useState } from "react";
 import styles from "./Login.module.css";
 
+import ProductService from "../service/ProductService";
+
 import { Link, useNavigate } from "react-router-dom";
 
 function LoginComponent() {
@@ -21,6 +23,15 @@ function LoginComponent() {
   const onClickLogin = () => {
     console.log(id);
     console.log(pw);
+    let userInfo = {
+      id: id,
+      pw: pw,
+    };
+
+    ProductService.login(userInfo).then(res=>{
+      const token = res.data.token;
+      localStorage.setItem('jwtToken', token);
+    })
     navigate("/");
   };
   return (
