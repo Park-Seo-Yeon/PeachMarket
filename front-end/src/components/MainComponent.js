@@ -18,17 +18,12 @@ function MainComponent() {
     changeCategory(category, exdata.product);
   }, [category]);
   */
-  
 
-  
   useEffect(() => {
     ProductService.getProducts().then((res) => {
       changeCategory(category, res.data);
     });
   }, [category]);
-  
-
-  
 
   const changeCategory = (category, data) => {
     if (category == "0") {
