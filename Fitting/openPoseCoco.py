@@ -1,5 +1,7 @@
 import cv2
 import json
+from m_connection import s3_connection, s3_put_object, s3_get_object
+from m_config import AWS_S3_BUCKET_NAME
 
 def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BODY_PARTS, img_id, gender):
     global points
@@ -101,12 +103,16 @@ def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BOD
                 "hand_left_keypoints": []
             }]}
 
-    with open("C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/pose/" + img_id + "_keypoints.json", 'w') as outfile:
+    save_keypoints_path = "data/pose/" + img_id + "_keypoints.json"
+    with open(save_keypoints_path, 'w') as outfile:
         json.dump(json_data, outfile)
 
-    print(json_data)
-    cv2.imshow("Output_Keypoints", frame)
-    cv2.waitKey(0)
+    s3 = s3_connection()
+    s3_put_object(s3, AWS_S3_BUCKET_NAME, save_keypoints_path, save_keypoints_path)
+    
+    # print(json_data)
+    # cv2.imshow("Output_Keypoints", frame)
+    # cv2.waitKey(0)
     return frame
 
 
@@ -138,12 +144,12 @@ def main():
 
 
     # 신경 네트워크의 구조를 지정하는 prototxt 파일 (다양한 계층이 배열되는 방법 등)
-    protoFile_coco = "C:/Users/suhyun/VirtualTryOn/openpose/models/pose/coco/pose_deploy_linevec.prototxt"
-
+    protoFile_coco = "openpose/models/pose/coco/pose_deploy_linevec.prototxt"
+#C:/Users/suhyunPeachMarket/Fitting/
     # 훈련된 모델의 weight 를 저장하는 caffemodel 파일
-    weightsFile_coco = "C:/Users/suhyun/VirtualTryOn/openpose/models/pose/coco/pose_iter_440000.caffemodel"
+    weightsFile_coco = "openpose/models/pose/coco/pose_iter_440000.caffemodel"
 
-    file = open("C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/LIP_JPPNet_pose/val.txt", 'r') 
+    file = open("data/LIP_JPPNet_pose/val.txt", 'r') 
     image_path = file.readline().strip()
     img_id = image_path.split()[0].split(".")[0]
     gender = image_path.split()[1]
@@ -152,7 +158,7 @@ def main():
     print("######### gener : ", gender)
 
     # 이미지 경로
-    image = "C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/image/" + img_id + ".jpg"
+    image = "./data/image/" + img_id + ".jpg"
     # 키포인트를 저장할 빈 리스트
     points = []
 

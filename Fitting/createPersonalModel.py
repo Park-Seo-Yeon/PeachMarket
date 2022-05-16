@@ -1,3 +1,4 @@
+from re import A
 from tkinter import E, Canvas
 from warnings import catch_warnings
 import cv2
@@ -18,6 +19,11 @@ from m_connection import s3_connection, s3_put_object, s3_get_object
 from m_config import AWS_S3_BUCKET_NAME
 
 
+import scipy.ndimage.morphology as sm
+import matplotlib.pyplot as plt
+from skimage.segmentation import clear_border
+
+s3 = s3_connection()
 
 '''
 #192x256px 하얀 이미지 생성
@@ -38,58 +44,52 @@ def removeBackground(cropped_image, output_path):
 
 #----------------------------------------------------------------------------------------------------
 #개인 모델 생성
-def createModel(id, gender, weight, height, s3):
+def createModel(id, gender, weight, height, selca):
     #gender, id, weight, height = makePersonalModel()
     originModel = selectOriginalModelImage(gender, weight, height)
     
     # Amazon s3에서 셀카 가져오기
     # s3 = s3_connection()
-    s3_get_name = 'selca/' + id + '.jpg'
-    save_face_name = 'data/face/' + id + '.jpg'
-    s3_get_object(s3, AWS_S3_BUCKET_NAME, s3_get_name, save_face_name)
+    global s3
+    # s3_get_name = 'selca/' + id + '.jpg'
+    save_face_name = 'C:/Users/suhyun/PeachMarket/Fitting/data/face/' + id + '.jpg'
+    # s3_get_object(s3, AWS_S3_BUCKET_NAME, s3_get_name, save_face_name)
+
+    # 로컬에 셀카 저장
+    # local_selca_paty = 'C:/Users/suhyun/PeachMarket/Fitting/data/face/' + id + '.jpg'
+    # with open(local_selca_paty, 'w') as f:
+    #     f.write(selca)
     
+    # s3에 셀카 저장
+    s3_put_name = 'selca/' + id + '.jpg'
+    s3_put_object(s3, AWS_S3_BUCKET_NAME, save_face_name, s3_put_name)
+    
+    
+
     # 개인 모델 생성
     # input_face_path = "data/face/" + id + ".jpg"
-    input_body_path = "data/origin_image/" + originModel + ".jpg"
-    output_model_path = "data/image/" + id + ".jpg"
-    model = faceBodyComposite(save_face_name, input_body_path, output_model_path, id)
+    input_body_path = "C:/Users/suhyun/PeachMarket/Fitting/data/origin_image/" + originModel + ".jpg"
+    output_model_path = "C:/Users/suhyun/PeachMarket/Fitting/data/image/" + id + ".jpg"
+    faceBodyComposite(save_face_name, input_body_path, output_model_path, id)
     
     # Amazon s3에 개인 모델 사진 저장
-    s3_save_model_name = "model/" + id + ".jpg"
     try :
-        s3_put_object(s3, AWS_S3_BUCKET_NAME, output_model_path, s3_save_model_name)
+        s3_put_object(s3, AWS_S3_BUCKET_NAME, output_model_path, "model/" + id + ".jpg")
+        s3_put_object(s3, AWS_S3_BUCKET_NAME, output_model_path, "data/image/" + id + ".jpg")
         print("######### s3 save model image success !! #########")
         # return True
-        return model
+        return True
     except Exception as E :
         print("######### s3 save model image error message #########")
         print(E)
         return False
-    
-   
-    
-
-
-
-#----------------------------------------------------------------------------------------------------
-# Spring boot에서 받아오는 cloth s3 경로명, 유저 id
-# Amazon s3와 연결해서 이미지 받아오기
-def makePersonalModel():
-    cloth_path = "C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/origin_cloth/cloth6.png"
-    if cloth_path[-3:] == "png":
-        cloth_path = cloth_path.replace('png', 'jpg')
-    
-    gender = 1
-    id = "jin"
-    weight = 75
-    height = 173
-    return gender, id, weight, height
+    return True
 
 
 #----------------------------------------------------------------------------------------------------
 # 기본 모델 선택
-def selectOriginalModelImage(sex, weight, height):
-    if sex == 1:
+def selectOriginalModelImage(gender, weight, height):
+    if gender == 1:
         if height<171:
             if weight<73: model = "man16870"
             elif weight<78:model = "man16875"
@@ -111,7 +111,7 @@ def selectOriginalModelImage(sex, weight, height):
             elif weight<83:model = "man18380"
             else:model = "man18385" 
 
-    if sex == 2:
+    else:
         if height<158:
             if weight<56:model = "woman15553"
             elif  weight<61:model = "woman15558"
@@ -172,14 +172,14 @@ def faceBodyComposite(input_face_path, input_body_path, output_model_path, id):
     save_url = "data/image-mask/"+ id +".png"
     binaryMarking(image_url, save_url)
 
-    # return body_image
-    return True
+    return body_image
+    # return True
 
 #----------------------------------------------------------------------------------------------------
 #얼굴 추출
 def face_crop(input_face_path, type):
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+    predictor = dlib.shape_predictor('C:/Users/suhyun/PeachMarket/Fitting/shape_predictor_68_face_landmarks.dat')
     
     input_face_image = cv2.imread(input_face_path)
     
@@ -210,13 +210,17 @@ def face_crop(input_face_path, type):
 
 
 def doFitting(id, cloth, gender):
-    origin_url = "C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/origin_cloth/"
-    save_url = "C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/cloth/"
-    #id, cloth, gender = fitting()
-    clothResizeRembg(origin_url, save_url, cloth)
+    global s3
+    s3_get_name = 'cloth/' + cloth + '.jpg'
+    save_origin_cloth_name = 'C:/Users/suhyun/PeachMarket/Fitting/data/origin_cloth/' + cloth + '.jpg'
+    s3_get_object(s3, AWS_S3_BUCKET_NAME, s3_get_name, save_origin_cloth_name)
+
+
+    save_url = "data/cloth/"
+    cloths = clothResizeRembg(save_origin_cloth_name, save_url, cloth)
     setParsingPath(id, gender)
     setFittingPath(id, cloth)
-    return "done do fitting"
+    return "done doFitting()"
 
 
 #----------------------------------------------------------------------------------------------------
@@ -224,7 +228,7 @@ def doFitting(id, cloth, gender):
 def clothResizeRembg(origin_url, save_url, cloth): 
     # Cloth Image resize(width = 192px, height = 256px)
     # binary-marking까지는 png로 하고 완료된 이후에 원본 옷 파일을 png->jpg 변환
-    img = Image.open(origin_url + cloth + ".jpg")
+    img = Image.open(origin_url)
     width = 192
     width_ratio = width/float(img.size[0])
     height = int((float(img.size[1]) * float(width_ratio)))
@@ -235,40 +239,66 @@ def clothResizeRembg(origin_url, save_url, cloth):
     marged_im = Image.new('RGB', output.size, (255,255,255))
     marged_im.paste(output, mask=output.split()[3])
 
-    zeros = cv2.imread("C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/zeros.png", cv2.IMREAD_COLOR)
+    zeros = cv2.imread("C:/Users/suhyun/PeachMarket/Fitting/zeros.png", cv2.IMREAD_COLOR)
     zeros[int(zeros.shape[0]/2-resize_img.size[1]/2):int(zeros.shape[0]/2+resize_img.size[1]/2), 0:zeros.shape[1]] = np.array(marged_im)
     zeros = cv2.cvtColor(zeros, cv2.COLOR_BGR2RGB)
-    cv2.imwrite(save_url + cloth + ".jpg", zeros)
+    save_cloth_path = save_url + cloth + ".jpg"
+    cv2.imwrite(save_cloth_path, zeros)
 
-    image_url = save_url + cloth + ".jpg"
+    # s3 = s3_connection()
+    global s3
+    save_cloth_path = "C:/Users/suhyun/PeachMarket/Fitting/" + save_url + cloth + ".jpg"
+    s3_put_object(s3, AWS_S3_BUCKET_NAME, save_cloth_path, save_url + cloth + ".jpg")
+
     save_url = "data/cloth-mask/"+ cloth +".jpg"
-    binaryMarking(image_url, save_url)
+    binaryMarking(save_cloth_path, save_url)
+
+    return zeros
 
 
 #----------------------------------------------------------------------------------------------------
 #mask 이진화
 def binaryMarking(image_url, save_url):
-    src = cv2.imread(image_url, 0)
-    ret,th = cv2.threshold(src, 251, 255,cv2.THRESH_BINARY_INV)
-    cv2.imwrite(save_url, th)
+
+    local_save_path = "C:/Users/suhyun/PeachMarket/Fitting/" + save_url
+    src = cv2.imread(image_url, cv2.IMREAD_GRAYSCALE)
+    _, th = cv2.threshold(src, 240, 255, cv2.THRESH_BINARY_INV)
+    th = sm.binary_fill_holes(th)
+
+    th = Image.fromarray(th)
+    th.save(local_save_path)
+
+    global s3
+    s3_put_object(s3, AWS_S3_BUCKET_NAME, local_save_path, save_url)
 
 
 #----------------------------------------------------------------------------------------------------
 #LIP_JPPNet에서 parsing 할 이미지 이름과 성별을 텍스트 파일에 기록
 def setParsingPath(id, gender):
-    with open("C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/LIP_JPPNet_pose/val.txt", 'w') as file:
+    set_parsing_path = "data/LIP_JPPNet_pose/val.txt"
+    local_parsing_path = "C:/Users/suhyun/PeachMarket/Fitting/" + set_parsing_path
+    with open(local_parsing_path, 'w') as file:
         file.seek(0)
         file.write(id+".jpg " + str(gender))
         file.truncate()
 
+        # s3 = s3_connection()
+        global s3
+        s3_put_object(s3, AWS_S3_BUCKET_NAME, local_parsing_path, set_parsing_path)
+
 #----------------------------------------------------------------------------------------------------
 #가상 피팅 할 모델 사진과 옷 사진을 텍스트 파일에 기록
 def setFittingPath(id, cloth):
-    with open("C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/test_pairs.txt", 'w') as file:
+    set_fitting_path = "data/test_pairs.txt"
+    local_fitting_path = "C:/Users/suhyun/PeachMarket/Fitting/" + set_fitting_path
+    with open(local_fitting_path, 'w') as file:
         file.seek(0)
         file.write(id + ".jpg " + cloth + ".jpg")
         file.truncate()
 
+        # s3 = s3_connection()
+        global s3
+        s3_put_object(s3, AWS_S3_BUCKET_NAME, local_fitting_path, set_fitting_path)
 
 
 
@@ -283,7 +313,7 @@ def resize192x256():
     image = image.resize({192,256})
     image.save("C:/Users/suhyun/VirtualTryOn/cp-vton-plus-master/data/origin_image/woman16058-resize.jpg")
 
-#def main():
+# def main():
     # 마이페이지에서 모델 생성 버튼 눌렀을 때 호출 할 함수
     # gender, id, weight, height = makePersonalModel()
     # createModel(id, gender, weight, height)
@@ -296,9 +326,9 @@ def resize192x256():
     # setParsingPath(id, gender)
     # setFittingPath(id, cloth)
 
-
     #resize192x256()
     
+
 
 # if __name__ == "__main__":
 #     main()
