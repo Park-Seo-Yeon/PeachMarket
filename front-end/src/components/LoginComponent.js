@@ -1,4 +1,4 @@
-import { Form, Col, Button, Stack} from "react-bootstrap";
+import { Form, Col, Button, Stack } from "react-bootstrap";
 import React, { useState } from "react";
 import styles from "./Login.module.css";
 
@@ -28,11 +28,18 @@ function LoginComponent() {
       <Stack gap={2} className="col-sm-4 mx-auto">
         <p className={styles.loginText}>LOGIN</p>
         <Form.Group>
-          <Form.Control type="text" placeholder="ID" onChange={idHandler}/>
+          <Form.Control type="text" placeholder="ID" onChange={idHandler} />
 
-          <Form.Control type="password" placeholder="PW" onChange={pwHandler} className={styles.loginForm} />
+          <Form.Control
+            type="password"
+            placeholder="PW"
+            onChange={pwHandler}
+            className={styles.loginForm}
+          />
         </Form.Group>
-        <Button className={styles.loginBtn} onClick={onClickLogin}>LOGIN</Button>
+        <Button className={styles.loginBtn} onClick={onClickLogin}>
+          LOGIN
+        </Button>
       </Stack>
     </div>
   );

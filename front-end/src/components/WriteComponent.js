@@ -38,7 +38,7 @@ function WriteComponent() {
     setContents(e.target.value);
   };
 
-  const [imgBase64, setImgBase64] = useState("");
+  const [imgBase64, setImgBase64] = useState(""); //미리보기
   const [imgFile, setImgFile] = useState(null);
 
   const handleChangeFile = (event) => {
