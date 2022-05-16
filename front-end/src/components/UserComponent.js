@@ -15,7 +15,7 @@ function UserComponent() {
       <div className={styles.mypage_container}>
         <p className={styles.title}>마이페이지</p>
         <img
-          src="https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/DefaultProfileImage.png"
+          src="https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/setting/DefaultProfileImage.png"
           alt=""
           className={styles.user_img}
         ></img>

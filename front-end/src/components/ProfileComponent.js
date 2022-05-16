@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function ProfileComponent() {
   const [userImg, setUserImg] = useState(
-    "https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/DefaultProfileImage.png"
+    "https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/DefaultProfileImage.png"
   );
   return (
     <div className={styles.profile_container}>
