@@ -18,7 +18,7 @@ function NavBar() {
         <Navbar.Brand>
           <Link to={"./"}>
             <img
-              src="https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/PeachMarketLogo.png"
+              src="https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/setting/PeachMarketLogo.png"
               className={styles.logo}
               alt=""
             />
@@ -43,7 +43,7 @@ function NavBar() {
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id="offcanvasNavbarLabel">
               <img
-                src="https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/PeachMarketLogo.png"
+                src="https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/setting/PeachMarketLogo.png"
                 width="250px"
                 alt=""
               />

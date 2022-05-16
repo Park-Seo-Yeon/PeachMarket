@@ -53,3 +53,16 @@
   margin-left: 2%;
   margin-right: 2%;
 }
+
+.inputFile {
+  display: none;
+}
+
+.uploadImg {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.uploadImg p img {
+  width: 90%;
+}
