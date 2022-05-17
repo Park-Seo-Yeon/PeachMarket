@@ -1,21 +1,28 @@
 package com.market.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,11 +32,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@DynamicInsert
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Builder
 @Entity
 @Table(name = "user")
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
 	
 	/**
 	 * 
@@ -42,8 +49,7 @@ public class User implements UserDetails {
 	private String password;
 	
 	private String nickname;
-	
-	//@Column(columnDefinition = "ivarchar(255) default 'https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/DefaultProfileImage.png'")
+
 	private String profileImg;
 	
 	private String modelImg;
@@ -54,7 +60,9 @@ public class User implements UserDetails {
 	
 	private Double weight;
 	
-	// private String role;
+	@OneToMany(mappedBy="userId", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Product> products;
+	
 	
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

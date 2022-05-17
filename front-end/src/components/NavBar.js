@@ -7,6 +7,7 @@ import useStore from "./useStore";
 
 function NavBar() {
   const { category, setCategory } = useStore();
+  const { userId, setUserId } = useStore();
   return (
     <div>
       <Navbar expand={false} className={styles.navbar}>
@@ -52,9 +53,14 @@ function NavBar() {
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <div>안녕하세요. 피치마켓입니다.</div>
-              <Nav.Link href="./login">
-                <p className={styles.title}>로그인</p>
-              </Nav.Link>
+
+              {userId === null ? (
+                <Link to={"./login"}>
+                  <p className={styles.title}>로그인</p>
+                </Link>
+              ) : (
+                <p className={styles.title}>환영합니다. {userId}님</p>
+              )}
               <p className={styles.title}>카테고리</p>
 
               <NavDropdown.Item

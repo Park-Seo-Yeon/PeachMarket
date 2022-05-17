@@ -42,7 +42,7 @@ public class ProductService {
 	}
 
 	// 글 작성
-	public void createProduct(MultipartFile mulfipartFile, Integer categoryId, ProductRequestDto requestDto) 
+	public void createProduct(MultipartFile multipartFile, Integer categoryId, ProductRequestDto requestDto) 
 			throws Exception {
 		requestDto.setCategory(categoryService.getCategoryByCategoryId(categoryId));
 		requestDto.setCreateTime(new Date());
@@ -58,7 +58,7 @@ public class ProductService {
 				requestDto.getProductState(),
 				requestDto.getCount()
 		);
-		s3Service.upload(mulfipartFile, product);
+		s3Service.upload(multipartFile, product);
 		productRepository.save(product);
 	}
 	

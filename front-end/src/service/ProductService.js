@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const PRODUCT_API_BASE_URL = "http://localhost:8080/api/products";
-// const LOGIN_API_BASE_URL = "http://localhost:8080/api/login";
+const LOGIN_API_BASE_URL = "http://localhost:8080/login";
 
 const CHAT_API_BASE_URL = "http://localhost:8080/api/chat";
-
+// 커밋용 주석
 class ProductService {
   getProducts() {
     return axios.get(PRODUCT_API_BASE_URL);

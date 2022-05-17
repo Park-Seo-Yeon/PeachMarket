@@ -8,11 +8,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// flask->spring boot
+@CrossOrigin("http://127.0.0.1:5000")
 @RestController
 public class FlaskController {
+	@GetMapping("/toSpring")
+	public String Test1() {
+		String name = "leejisoo";
+		return name;
+	}
+	
 	@GetMapping("/flaskTest")
 	public String Test() {
 		//ModelAndView mav = new ModelAndView();

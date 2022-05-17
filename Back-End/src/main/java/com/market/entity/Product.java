@@ -42,7 +42,7 @@ public class Product {
 	private String productState;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="userId")
 	private User userId;
 	
 	private Integer count;
