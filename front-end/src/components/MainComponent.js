@@ -8,7 +8,7 @@ import useStore from "./useStore";
 import ProductService from "../service/ProductService";
 import TimeCounting from "time-counting";
 
-function MainComponent() {
+function MainComponent(props) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const { category, setCategory } = useStore();
@@ -43,15 +43,19 @@ function MainComponent() {
   return (
     <div className={styles.container}>
       <Container>
-        <div>
-          <Form.Control
-            type="text"
-            placeholder="검색"
-            onChange={(event) => {
-              setSearch(event.target.value);
-            }}
-          />
-        </div>
+        {props.searchStatus ? (
+          <div>
+            <Form.Control
+              type="text"
+              placeholder="검색"
+              onChange={(event) => {
+                setSearch(event.target.value);
+              }}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <Row>
           {products
             .filter((item) => {
