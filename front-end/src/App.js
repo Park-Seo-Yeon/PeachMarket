@@ -9,15 +9,23 @@ import WriteComponent from "./components/WriteComponent";
 import ProfileComponent from "./components/ProfileComponent";
 import LoginComponent from "./components/LoginComponent";
 import ModelMenuComponent from "./components/ModelMenuComponent";
+import { useState } from "react";
 
 function App() {
+  const [searchStatus, setSearchStatus] = useState(false);
   return (
     <Container>
       <Router>
-        <NavBar />
+        <NavBar
+          searchStatus={searchStatus}
+          onChange={(newStatus) => setSearchStatus(newStatus)}
+        />
         <div>
           <Routes>
-            <Route path="/" element={<MainComponent />} />
+            <Route
+              path="/"
+              element={<MainComponent searchStatus={searchStatus} />}
+            />
             <Route path="/products/:productId" element={<ProductComponent />} />
             <Route path="/user/:userId" element={<UserComponent />} />
             <Route path="/write/:productId" element={<WriteComponent />} />
