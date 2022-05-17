@@ -58,6 +58,19 @@
   display: none;
 }
 
+.loading_container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.loading_spinner {
+  width: 30px;
+}
+
+.loading_text {
+  margin-top: 10px;
+}
+
 .uploadImg {
   margin-top: 30px;
   text-align: center;

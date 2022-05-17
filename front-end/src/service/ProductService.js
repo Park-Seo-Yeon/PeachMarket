@@ -14,7 +14,7 @@ class ProductService {
     return axios.get(PRODUCT_API_BASE_URL + "/" + productId);
   }
 
-  getChatList(userId){
+  getChatList(userId) {
     return axios.get(CHAT_API_BASE_URL + "/" + userId);
   }
 
@@ -26,11 +26,9 @@ class ProductService {
     return axios.delete(PRODUCT_API_BASE_URL + "/" + productId);
   }
 
-  login(userInfo){
+  login(userInfo) {
     return axios.post(LOGIN_API_BASE_URL, userInfo);
   }
-
-  
 }
 
 export default new ProductService();
