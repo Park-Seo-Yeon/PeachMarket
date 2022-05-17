@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const PRODUCT_API_BASE_URL = "http://localhost:8080/api/products";
+// const LOGIN_API_BASE_URL = "http://localhost:8080/api/login";
+
+const CHAT_API_BASE_URL = "http://localhost:8080/api/chat";
 
 class ProductService {
   getProducts() {
@@ -11,6 +14,10 @@ class ProductService {
     return axios.get(PRODUCT_API_BASE_URL + "/" + productId);
   }
 
+  getChatList(userId){
+    return axios.get(CHAT_API_BASE_URL + "/" + userId);
+  }
+
   updateProduct(productId, product) {
     return axios.put(PRODUCT_API_BASE_URL + "/" + productId, product);
   }
@@ -18,6 +25,12 @@ class ProductService {
   deleteProduct(productId) {
     return axios.delete(PRODUCT_API_BASE_URL + "/" + productId);
   }
+
+  login(userInfo){
+    return axios.post(LOGIN_API_BASE_URL, userInfo);
+  }
+
+  
 }
 
 export default new ProductService();
