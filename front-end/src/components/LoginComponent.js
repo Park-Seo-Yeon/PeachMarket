@@ -21,18 +21,21 @@ function LoginComponent() {
   };
 
   const onClickLogin = () => {
-    console.log(id);
-    console.log(pw);
     let userInfo = {
       id: id,
       pw: pw,
     };
 
-    ProductService.login(userInfo).then(res=>{
+    console.log(userInfo);
+
+    ProductService.login(userInfo).then((res) => {
       const token = res.data.token;
-      localStorage.setItem('jwtToken', token);
-    })
+      localStorage.setItem("jwtToken", token);
+
+      console.log(token);
+      
     navigate("/");
+    }).catch(alert("로그인 실패"));
   };
   return (
     <div className={styles.container}>

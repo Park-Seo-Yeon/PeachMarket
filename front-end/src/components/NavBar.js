@@ -52,9 +52,9 @@ function NavBar() {
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <div>안녕하세요. 피치마켓입니다.</div>
-              <Nav.Link href="./login">
+              <Link to={"./login"}>
                 <p className={styles.title}>로그인</p>
-              </Nav.Link>
+              </Link>
               <p className={styles.title}>카테고리</p>
 
               <NavDropdown.Item
