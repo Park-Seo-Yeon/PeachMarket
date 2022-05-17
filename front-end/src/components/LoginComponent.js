@@ -1,12 +1,14 @@
 import { Form, Col, Button, Stack } from "react-bootstrap";
 import React, { useState } from "react";
 import styles from "./Login.module.css";
+import useStore from "./useStore";
 
 import ProductService from "../service/ProductService";
 
 import { Link, useNavigate } from "react-router-dom";
 
 function LoginComponent() {
+  const { userId, setUserId } = useStore(); //useStore저장
   const navigate = useNavigate();
   const [id, setId] = useState("");
 
@@ -26,12 +28,12 @@ function LoginComponent() {
       pw: pw,
     };
 
-    console.log(userInfo);
-
     ProductService.login(userInfo).then((res) => {
       const token = res.data.token;
       localStorage.setItem("jwtToken", token);
 
+
+      setUserId(id);
       console.log(token);
       
     navigate("/");
