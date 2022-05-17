@@ -22,7 +22,6 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @Entity
-//@ToString(exclude = "category")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "category")
 public class Category implements Serializable {
