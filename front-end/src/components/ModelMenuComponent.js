@@ -5,6 +5,7 @@ import styles from "./Menu.module.css";
 function ModelMenuComponent() {
   const [imgBase64, setImgBase64] = useState(""); //미리보기
   const [imgFile, setImgFile] = useState(null);
+  const [modelImg, setModelImg] = useState(null);
 
   const handleChangeFile = (event) => {
     let reader = new FileReader();
@@ -31,17 +32,26 @@ function ModelMenuComponent() {
 
     const formData = new FormData();
     formData.append("file", imgFile);
-    const postSurvey = await axios({
-      method: "POST",
-      url: "http://localhost:5000",
-      mode: "cors",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      data: formData,
-    });
+    // const postSurvey = await axios({
+    //   method: "POST",
+    //   url: "http://localhost:5000/createModel",
+    //   mode: "cors",
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   data: formData,
+    // });
+    try{
+      const postSurvey = await axios.post(
+        "http://localhost:5000/createModel",
+        formData
+      )
+    console.log(postSurvey.data);
+    setModelImg(postSurvey.data);
+    }
+    catch{
 
-    console.log(postSurvey);
+    }
   };
 
   return (
@@ -58,7 +68,7 @@ function ModelMenuComponent() {
         <button onClick={onClickCreateModel}>모델 생성하기</button>
       </div>
       <div className={styles.uploadImg}>
-        <p>{imgFile && <img src={imgBase64} alt="" />}</p>
+        <p>{imgFile && <img src={modelImg} alt="" />}</p>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import UserComponent from "./components/UserComponent";
 import WriteComponent from "./components/WriteComponent";
 import ProfileComponent from "./components/ProfileComponent";
 import LoginComponent from "./components/LoginComponent";
+import ModelMenuComponent from "./components/ModelMenuComponent";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/write/:productId" element={<WriteComponent />} />
             <Route path="/profile/:userId" element={<ProfileComponent />} />
             <Route path="/login" element={<LoginComponent />} />
+            <Route path="/createModel" element={<ModelMenuComponent />} />
           </Routes>
         </div>
       </Router>
