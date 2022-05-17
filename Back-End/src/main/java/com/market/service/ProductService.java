@@ -37,10 +37,17 @@ public class ProductService {
 	}
 	
 	// 상품 상세페이지
-	public Product findProductDetail(Integer id) {
-		return productRepository.findById(id).get();
-	}
+//	public Product findProductDetail(Integer id) {
+//		System.out.println(productRepository.findById(id));
+//		return productRepository.findById(id).get();
+//	}
 
+	public ResponseEntity<Product> findProductDetail(Integer id) {
+		 Product product = productRepository.findById(id)
+				 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + id + "]"));
+		 System.out.println("보내진 상품 정보: " + product);
+		return ResponseEntity.ok(product);
+	}
 	// 글 작성
 	public void createProduct(MultipartFile multipartFile, Integer categoryId, ProductRequestDto requestDto) 
 			throws Exception {

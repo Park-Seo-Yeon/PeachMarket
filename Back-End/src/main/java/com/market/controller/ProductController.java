@@ -42,10 +42,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/{productId}")
-	public Product getProductDetail(@PathVariable Integer productId) {
+	public ResponseEntity<Product> getProductDetail(@PathVariable Integer productId) {
 		productService.updateCount(productId);
-		Product product = productService.findProductDetail(productId);
-		return product;
+		System.out.println("In 컨트롤러: " + productService.findProductDetail(productId));
+		return productService.findProductDetail(productId);
 	}
 	
 	

@@ -10,14 +10,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.market.jwt.JwtAuthenticationFilter;
-import com.market.jwt.JwtAuthorizationFilter;
-
-import lombok.RequiredArgsConstructor;
 
 // Secutiry 설정을 위한 class
 //@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")	// new 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	//private final JwtTokenProvider jwtTokenProvider;
@@ -41,18 +40,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		 http
-         .httpBasic().disable() // 기본 인증방식(ID/PW)은 disable 처리. Bearer 방식(Token)을 사용하기 위함.
+         //.httpBasic().disable() // 기본 인증방식(ID/PW)은 disable 처리. Bearer 방식(Token)을 사용하기 위함.
          .csrf().disable() // csrf 보안 토큰 disable처리.
-         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사
-         .and()
-         //.addFilter(corsFilter) // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O) 
-         .addFilter(new JwtAuthorizationFilter(authenticationManager()))
+         
          .authorizeRequests() // 요청에 대한 사용권한 체크
-         .antMatchers("/login", "/api/**").permitAll()
-         //.antMatchers("/api/products/**").permitAll()	
-         //.antMatchers("/test").hasRole("ADMIN")
+         //.addFilter(corsFilter) // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O) 
+         //.addFilter(new JwtAuthorizationFilter(authenticationManager()))
+        
+         .antMatchers("/login", "/api/**").permitAll()	// ADMIN
          .antMatchers("/mypage").hasRole("USER")	
          //.anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
+         .and()
+         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 X 
          .and()
          .addFilterBefore(jwtAuthenticationFilter,
                  UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
