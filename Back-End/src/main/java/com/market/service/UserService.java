@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.market.dto.ProductRequestDto;
+import com.market.dto.ProductDto;
 import com.market.entity.Product;
 import com.market.entity.User;
 import com.market.repository.UserRepository;

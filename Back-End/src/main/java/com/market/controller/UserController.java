@@ -1,30 +1,24 @@
 package com.market.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.market.dto.AuthenticationRequest;
-import com.market.dto.ProductRequestDto;
 import com.market.entity.User;
 import com.market.jwt.JwtTokenProvider;
 import com.market.repository.UserRepository;
-import com.market.service.CustomUserDetails;
 import com.market.service.CustomUserDetailsService;
 import com.market.service.UserService;
 
@@ -52,18 +46,8 @@ public class UserController {
 				.build()).getUserId();
 	}
 
-	// login 할 때 토큰 값 반환
-	// login 요청을 할 때마다 header에 Authorization(Key)에 Token(Value)을 저장해둠
-//	@PostMapping("/login")
-//	public String login(@RequestBody Map<String, String> user) {
-//		User member = userRepository.findByUserId(user.get("userId"))
-//				.orElseThrow(() -> new IllegalArgumentException("가입되지 않은 ID 입니다."));
-//		if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
-//			throw new IllegalArgumentException("잘못된 비밀번호입니다.");
-//		}
-//		System.out.println("인증된 사용자");
-//		return jwtTokenProvider.createToken(member.getUsername(), member.getRoles()); // 토큰 값 반환
-//	}
+
+	// 로그인 
 	@PostMapping("/login")
 	public ResponseEntity<String> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
@@ -73,6 +57,9 @@ public class UserController {
 //        } catch (BadCredentialsException e) {
 //            throw new Exception("Incorrect username or password", e);
 //        }
+//		Map<String, String> map = new HashMap<>();
+//		String userId = authenticationRequest.getUserId();
+		
 		User member = userRepository.findByUserId(authenticationRequest.getUserId())
 				.orElseThrow(() -> new IllegalArgumentException("가입되지 않은 ID 입니다."));
 		if (!passwordEncoder.matches(authenticationRequest.getPassword(), member.getPassword())) {
@@ -81,7 +68,10 @@ public class UserController {
 		// final UserDetails userDetails = customUserDetailsService.loadUserByUsername(authenticationRequest.getUserId());
 
 		String jwt = jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
+//		map.put("jwt", jwt);
+//		map.put("userId", userId);
 		System.out.println("토큰 보내기 성공!!!!!!!: " + jwt);
+		
 		return ResponseEntity.ok(jwt);
 	}
 
