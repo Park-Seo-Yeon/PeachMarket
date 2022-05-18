@@ -29,6 +29,14 @@ class ProductService {
   login(userInfo) {
     return axios.post(LOGIN_API_BASE_URL, userInfo);
   }
+
+  getMyPage() {
+    return axios.get("http://localhost:8080/mypage", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+      },
+    });
+  }
 }
 
 export default new ProductService();
