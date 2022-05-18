@@ -3,7 +3,7 @@ import json
 from m_connection import s3_connection, s3_put_object, s3_get_object
 from m_config import AWS_S3_BUCKET_NAME
 
-def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BODY_PARTS, img_id, gender):
+def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BODY_PARTS, img_id):
     global points
 
     # 네트워크 불러오기
@@ -61,17 +61,6 @@ def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BOD
         x1 = (frame_width * point[0]) / out_width
         x = int(x1)
         y1 = (frame_height * point[1]) / out_height
-
-        # if gender == "2":
-        #     if i==2:
-        #         y1 = (frame_height * point[1]) / out_height - 5
-        #         two_y = y1
-        #     elif i==5:
-        #         y1 = two_y
-            
-        if gender == "1" :
-            if i==8 or i==11:
-                y1 += 15
         y = int(y1)    
         
 
@@ -150,12 +139,11 @@ def main():
     weightsFile_coco = "openpose/models/pose/coco/pose_iter_440000.caffemodel"
 
     file = open("data/LIP_JPPNet_pose/val.txt", 'r') 
-    image_path = file.readline().strip()
-    img_id = image_path.split()[0].split(".")[0]
-    gender = image_path.split()[1]
+    # image_path = file.readline().strip()
+    # img_id = image_path.split()[0].split(".")[0]
+    img_id = file.readline().strip().split(".")[0]
 
     print("#########img id : ", img_id)
-    print("######### gener : ", gender)
 
     # 이미지 경로
     image = "./data/image/" + img_id + ".jpg"
@@ -168,7 +156,7 @@ def main():
 
     # COCO Model
     frame_COCO = output_keypoints(frame=frame_coco, proto_file=protoFile_coco, weights_file=weightsFile_coco,
-                                threshold=0.1, model_name="COCO", BODY_PARTS=BODY_PARTS_COCO, img_id = img_id, gender = gender)
+                                threshold=0.1, model_name="COCO", BODY_PARTS=BODY_PARTS_COCO, img_id = img_id)
     #output_keypoints_with_lines(frame=frame_COCO, POSE_PAIRS=POSE_PAIRS_COCO)
 
 
