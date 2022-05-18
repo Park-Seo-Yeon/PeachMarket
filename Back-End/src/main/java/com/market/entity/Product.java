@@ -32,6 +32,7 @@ public class Product {
 	
 	private String title;
 	
+	// 수정 
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
 	private Category category;
@@ -43,7 +44,7 @@ public class Product {
 	
 	@ManyToOne
 	@JoinColumn(name="userId")
-	public User userId;
+	private User userId;
 	
 	private Integer count;
 	

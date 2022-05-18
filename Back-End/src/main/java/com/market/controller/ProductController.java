@@ -41,14 +41,15 @@ public class ProductController {
 		return productService.findPopularProducts();
 	}
 	
+	// 글 상세보기 
 	@GetMapping("/products/{productId}")
 	public ResponseEntity<Product> getProductDetail(@PathVariable Integer productId) {
 		productService.updateCount(productId);
-		System.out.println("In 컨트롤러: " + productService.findProductDetail(productId));
+		//System.out.println("In 컨트롤러: " + productService.findProductDetail(productId));
 		return productService.findProductDetail(productId);
 	}
 	
-	
+	// 글 작성 
 	@PostMapping("/products")
 	public void createProduct(@RequestPart("file") MultipartFile multipartFile, 
 			@RequestPart("categoryId") Integer categoryId,
@@ -56,12 +57,14 @@ public class ProductController {
 		productService.createProduct(multipartFile, categoryId, requestDto);
 	}
 	
+	// 글 수정 
 	@PutMapping("/products/{productId}")
 	public ResponseEntity<Product> updateProductById(@PathVariable Integer productId,
 			@RequestBody Product product) {
 		return productService.updateProduct(productId, product);
 	}
 	
+	// 글 삭제 
 	@DeleteMapping("/products/{productId}")
 	public ResponseEntity<Map<String, Boolean>> deleteProductById (@PathVariable Integer productId) {
 		return productService.deleteProduct(productId);
