@@ -14,6 +14,7 @@ Fitting/shape_predictor_68_face_landmarks.dat
 Fitting/data/
 Fitting/keras-contrib/
 Fitting/LIP_JPPNet/
+Fitting/openpose/
 Fitting/.pytest_cache/
 Fitting/.vscode/
 
