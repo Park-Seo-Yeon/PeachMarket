@@ -11,7 +11,7 @@ import LoginComponent from "./components/LoginComponent";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [searchStatus, setSearchStatus] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("jwtToken") === null) {
