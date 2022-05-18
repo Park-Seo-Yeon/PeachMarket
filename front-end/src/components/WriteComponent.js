@@ -107,38 +107,61 @@ function WriteComponent() {
 
     let dataSet = {
       title: title,
-      //category: category,
+      categoryId: category,
       price: price,
       contents: contents,
     };
 
+    const json = JSON.stringify(dataSet);
+    const blob = new Blob([json], { type: "application/json" });
+
     if (productId === "new") {
-      const json = JSON.stringify(dataSet);
-      const blob = new Blob([json], { type: "application/json" });
-      const json1 = JSON.stringify(category);
-      const blob1 = new Blob([json1], { type: "application/json" });
+      try {
+        formData.append("data", blob);
 
-      formData.append("data", blob);
-      formData.append("categoryId", blob1);
-
-      //formData.append("data", JSON.stringify(dataSet));
-
-      const postSurvey = await axios({
-        method: "POST",
-        url: "http://localhost:8080/api/products",
-        mode: "cors",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        data: formData,
-      });
-
-      console.log(postSurvey);
-      navigate("/");
+        const postSurvey = await axios({
+          method: "POST",
+          url: "http://localhost:8080/api/products",
+          mode: "cors",
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          data: formData,
+        });
+        console.log(blob);
+        console.log(postSurvey);
+        navigate("/");
+      } catch {
+        Swal.fire({
+          text: "사진, 제목, 카테고리, 내용, 가격은 필수 입력 항목이에요",
+          confirmButtonColor: "#fea5ab",
+          confirmButtonText: "확인",
+          width: "350px",
+        });
+      }
     } else {
-      ProductService.updateProduct(productId, dataSet).then((res) => {
+      try {
+        formData.append("data", blob);
+        const putSurvey = await axios({
+          method: "PUT",
+          url: `http://localhost:8080/api/products/${productId}`,
+          mode: "cors",
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          data: formData,
+        });
+        console.log(blob);
+        console.log(putSurvey);
         navigate(`/products/${productId}`);
-      });
+      } catch {
+        Swal.fire({
+          text: "사진, 제목, 카테고리, 내용, 가격은 필수 입력 항목이에요",
+          confirmButtonColor: "#fea5ab",
+          confirmButtonText: "확인",
+          width: "350px",
+        });
+      }
     }
   };
 
