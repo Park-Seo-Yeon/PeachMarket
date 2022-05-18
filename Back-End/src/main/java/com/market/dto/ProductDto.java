@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.market.entity.Category;
 import com.market.entity.Product;
+import com.market.entity.User;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,10 +16,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class ProductRequestDto {
+public class ProductDto {
 	private Integer id;
 	private String title;
 	
+	private Integer categoryId;	// front에서 받아오는 용도 
 	private Category category;
 	
 	private Integer price;
@@ -27,8 +29,11 @@ public class ProductRequestDto {
 	private String productState;
 	private Integer count;
 	
+	private String userId;	// front에서 받아오는 용
+	private User user; 
+	
 	@Builder
-	public ProductRequestDto(Product entity) {
+	public ProductDto(Product entity) {
 		this.id = entity.getProductId();
 		this.title = entity.getTitle();
 		this.category = entity.getCategory();

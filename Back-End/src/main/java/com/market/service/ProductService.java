@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.market.dto.ProductRequestDto;
+import com.market.dto.ProductDto;
 import com.market.entity.Product;
 import com.market.exception.ResourceNotFoundException;
 import com.market.repository.ProductRepository;
@@ -31,8 +31,6 @@ public class ProductService {
 	// 메인 홈에서 보여지는 상품 리스트
 	public List<Product> findPopularProducts() {
 		return productRepository.findPopularList();
-		// List<Product> products = productRepository.findAll();
-		// test
 		
 	}
 
@@ -44,36 +42,43 @@ public class ProductService {
 		 System.out.println(product.getUserId());
 		return ResponseEntity.ok(product);
 	}
+
 	// 글 작성
-	public void createProduct(MultipartFile multipartFile, Integer categoryId, ProductRequestDto requestDto) 
-			throws Exception {
-		requestDto.setCategory(categoryService.getCategoryByCategoryId(categoryId));
-		requestDto.setCreateTime(new Date());
-		requestDto.setProductState("판매중");
-		requestDto.setCount(0);
+	public void createProduct(MultipartFile multipartFile, ProductDto createdProductDto) 
+		throws Exception {
+			createdProductDto.setCategory(categoryService.getCategoryByCategoryId(createdProductDto.getCategoryId()));
+			createdProductDto.setCreateTime(new Date());
+			createdProductDto.setProductState("판매중");
+			createdProductDto.setCount(0);
 		
 		Product product = new Product(
-				requestDto.getTitle(),
-				requestDto.getCategory(),
-				requestDto.getPrice(),
-				requestDto.getContents(),
-				requestDto.getCreateTime(),
-				requestDto.getProductState(),
-				requestDto.getCount()
+				createdProductDto.getTitle(),
+				createdProductDto.getCategory(),
+				createdProductDto.getPrice(),
+				createdProductDto.getContents(),
+				createdProductDto.getCreateTime(),
+				createdProductDto.getProductState(),
+				createdProductDto.getCount()
 		);
 		s3Service.upload(multipartFile, product);
 		productRepository.save(product);
 	}
 	
-	// 글 수정
-	public ResponseEntity<Product> updateProduct(Integer productId, Product updatedProduct)  {
-		
+
+	// 글 수정 
+	public ResponseEntity<Product> updateProduct(Integer productId, MultipartFile multipartFile,
+			ProductDto updatedProductDto) throws Exception {
+	System.out.println("In ProductService: " + updatedProductDto);
+	
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not exist Product by Id : ["+productId+"]"));
 		
-		product.setTitle(updatedProduct.getTitle());
-		product.setPrice(updatedProduct.getPrice());
-		product.setContents(updatedProduct.getContents());
+		product.setTitle(updatedProductDto.getTitle());	 // 제목
+		product.setCategory(categoryService.getCategoryByCategoryId(updatedProductDto.getCategoryId())); // 카테고리
+		product.setPrice(updatedProductDto.getPrice());	// 가격
+		product.setContents(updatedProductDto.getContents());	// 내용
+		s3Service.upload(multipartFile, product);
+		
 		Product endUpdateProduct = productRepository.save(product);
 		
 		return ResponseEntity.ok(endUpdateProduct);

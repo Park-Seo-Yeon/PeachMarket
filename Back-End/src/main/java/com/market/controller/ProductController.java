@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.market.dto.ProductRequestDto;
+import com.market.dto.ProductDto;
 import com.market.entity.Product;
 import com.market.service.ProductService;
 
@@ -48,20 +48,23 @@ public class ProductController {
 		//System.out.println("In 컨트롤러: " + productService.findProductDetail(productId));
 		return productService.findProductDetail(productId);
 	}
-	
+
 	// 글 작성 
 	@PostMapping("/products")
 	public void createProduct(@RequestPart("file") MultipartFile multipartFile, 
-			@RequestPart("categoryId") Integer categoryId,
-			@RequestPart("data") ProductRequestDto requestDto) throws Exception {
-		productService.createProduct(multipartFile, categoryId, requestDto);
+			@RequestPart("data") ProductDto productDto) throws Exception {
+		System.out.println("######글 작성 컨트롤러######: " + productDto);
+		productService.createProduct(multipartFile, productDto);
 	}
+	
 	
 	// 글 수정 
 	@PutMapping("/products/{productId}")
 	public ResponseEntity<Product> updateProductById(@PathVariable Integer productId,
-			@RequestBody Product product) {
-		return productService.updateProduct(productId, product);
+			@RequestPart("file") MultipartFile multipartFile, 
+			@RequestPart("data") ProductDto productDto) throws Exception {
+		System.out.println("######글 수정 컨트롤러######: " + productDto);
+		return productService.updateProduct(productId, multipartFile, productDto);
 	}
 	
 	// 글 삭제 
