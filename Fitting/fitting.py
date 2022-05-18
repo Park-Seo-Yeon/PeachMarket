@@ -11,5 +11,5 @@ def main():
     fitting("TOM")
 
 if __name__ == '__main__':
-    print("run lip jppnet #############################################################")
+    print("run lip jppnet ###################################")
     main()

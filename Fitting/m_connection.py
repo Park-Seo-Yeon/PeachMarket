@@ -1,12 +1,15 @@
 # import module
 from sre_constants import SUCCESS
 import boto3
-
+from werkzeug.utils import secure_filename
 from m_config import AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY
 from m_config import AWS_S3_BUCKET_NAME, AWS_S3_BUCKET_REGION
-
+from PIL import Image
+from io import BytesIO
+import numpy as np
+import cv2
 # from flaskext.mysql improt MySQL
-
+# s3 = boto3.resource('s3')
 def s3_connection():
     '''
     s3 bucket에 연결
@@ -53,16 +56,27 @@ def s3_get_object(s3, bucket, object_name, file_name):
     :return: 성공 시 True, 실패 시 False 반환
     '''
     try:
+        # s3.download_file(bucket, object_name, secure_filename(file_name))
         s3.download_file(bucket, object_name, file_name)
+        
     except Exception as e:
         print("#####################", e)
         return False
     return True
 
-# def main():
-#     s3 = s3_connection()
-#     s3_get_object(s3, AWS_S3_BUCKET_NAME, 'selca/chae.jpg', 'data/s3Test/chae.jpg')
-#     print("sucess! ########")
+# 로컬에 파일을 저장하지 않고 읽어만 온다.
+def read_image(filename):
+    s3 = s3_connection()
+    file_stream = s3.get_object(Bucket=AWS_S3_BUCKET_NAME, Key=filename)['Body'].read()
+    img = np.fromstring(file_stream, dtype=np.uint8)
+    img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+    return img
 
-# if __name__=="__main__":
-#     main()    
+# def write_image(image, filename):
+#     s3 = s3_connection()
+#     s3.put_object(
+#         Bucket = AWS_S3_BUCKET_NAME,
+#     	Body = image,
+#     	Key = filename,
+#     	ContentType = "image/jpg",)
+#     return "done"
