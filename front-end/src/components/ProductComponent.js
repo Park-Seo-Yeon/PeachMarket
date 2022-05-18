@@ -8,6 +8,7 @@ import ProductService from "../service/ProductService";
 import TimeCounting from "time-counting";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 function ProductComponent() {
   const navigate = useNavigate();
@@ -60,6 +61,25 @@ function ProductComponent() {
         }
       }
     });
+  };
+
+  const onClickFitting = async (e) => {
+    e.preventDefault();
+    e.persist();
+
+    const formData = new FormData();
+    //formData.append("user_id", ); //유저 아이디 부분 추가하기
+    formData.append("img", product.pictureUrl);
+
+    try {
+      const postSurvey = await axios.post(
+        "http://localhost:5000/createModel",
+        formData
+      );
+      console.log(postSurvey);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const option = {
@@ -158,7 +178,7 @@ function ProductComponent() {
         <p className={styles.product_price}>{product.price}원</p>
         <div className={styles.btn}>
           <button>채팅</button>
-          <button>피팅</button>
+          <button onClick={onClickFitting}>피팅</button>
         </div>
       </div>
     </div>

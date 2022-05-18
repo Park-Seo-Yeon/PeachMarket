@@ -22,7 +22,6 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @Entity
-//@ToString(exclude = "category")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "category")
 public class Category implements Serializable {
@@ -37,7 +36,8 @@ public class Category implements Serializable {
 	
 	private String category;
 	
-	@OneToMany(mappedBy="category", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Product> products;
+	// 주석 
+//	@OneToMany(mappedBy="category", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+//	private Set<Product> products;
 
 }

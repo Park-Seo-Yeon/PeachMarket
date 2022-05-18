@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navbar, Nav, Offcanvas, NavDropdown } from "react-bootstrap";
 import { BsSearch, BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import useStore from "./useStore";
 
-function NavBar() {
+function NavBar(props) {
   const { category, setCategory } = useStore();
+  const { userId, setUserId } = useStore();
+  const onClickSearch = () => {
+    const searchStatus = props.searchStatus;
+    props.onChange(!searchStatus);
+  };
   return (
     <div>
       <Navbar expand={false} className={styles.navbar}>
@@ -27,7 +32,11 @@ function NavBar() {
 
         <Nav className="flex-row">
           <Nav.Link to={"./"}>
-            <BsSearch size="24" className={styles.search} />
+            <BsSearch
+              size="24"
+              className={styles.search}
+              onClick={onClickSearch}
+            />
           </Nav.Link>
           <Nav.Link href="/">
             <BsChat size="24" className={styles.chat} />
@@ -52,9 +61,14 @@ function NavBar() {
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <div>안녕하세요. 피치마켓입니다.</div>
-              <Nav.Link href="./login">
-                <p className={styles.title}>로그인</p>
-              </Nav.Link>
+
+              {userId === null ? (
+                <Link to={"./login"}>
+                  <p className={styles.title}>로그인</p>
+                </Link>
+              ) : (
+                <p className={styles.title}>환영합니다. {userId}님</p>
+              )}
               <p className={styles.title}>카테고리</p>
 
               <NavDropdown.Item
