@@ -152,8 +152,8 @@ function WriteComponent() {
         setCategory(product.category?.category);
         setPrice(product.price);
         setContents(product.contents);
-        setImgBase64(product.imgBase64);
-        setImgFile(product.imgFile);
+        setImgBase64(product.pictureUrl);
+        setImgFile(product.pictureUrl);
       });
     }
   }, []);
@@ -204,11 +204,11 @@ function WriteComponent() {
             className="mb-3"
           >
             <option>카테고리 선택</option>
-            <option value="상의">상의</option>
-            <option value="아우터">아우터</option>
-            <option value="스커트">스커트</option>
-            <option value="팬츠">팬츠</option>
-            <option value="원피스">원피스</option>
+            <option value="1">상의</option>
+            <option value="2">아우터</option>
+            <option value="3">스커트</option>
+            <option value="4">팬츠</option>
+            <option value="5">원피스</option>
           </Form.Select>
 
           <Form.Group controlId="exampleForm.ControlInput1">
