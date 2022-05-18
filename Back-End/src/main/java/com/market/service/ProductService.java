@@ -30,22 +30,18 @@ public class ProductService {
 	
 	// 메인 홈에서 보여지는 상품 리스트
 	public List<Product> findPopularProducts() {
-		return productRepository.findAll();
+		return productRepository.findPopularList();
 		// List<Product> products = productRepository.findAll();
 		// test
 		
 	}
-	
-	// 상품 상세페이지
-//	public Product findProductDetail(Integer id) {
-//		System.out.println(productRepository.findById(id));
-//		return productRepository.findById(id).get();
-//	}
 
+	// 글 상세보기 
 	public ResponseEntity<Product> findProductDetail(Integer id) {
 		 Product product = productRepository.findById(id)
-				 .orElseThrow(() -> new ResourceNotFoundException("Not exist Board Data by no : [" + id + "]"));
-		 System.out.println("보내진 상품 정보: " + product);
+				 .orElseThrow(() -> new ResourceNotFoundException("Not exist Product Data by id : [" + id + "]"));
+		 System.out.println("In ProductService = 보내진 상품 정보: " + product);
+		 System.out.println(product.getUserId());
 		return ResponseEntity.ok(product);
 	}
 	// 글 작성
