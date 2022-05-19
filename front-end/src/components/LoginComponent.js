@@ -8,7 +8,10 @@ import ProductService from "../service/ProductService";
 import { Link, useNavigate } from "react-router-dom";
 
 function LoginComponent() {
-  const { userId, setUserId } = useStore(); //useStore저장
+  const { userId, setUserId } = useStore();
+  const { userToken, setUserToken } = useStore();
+  
+  const {isLoggedIn, setIsLoggedIn} = useStore();
   const navigate = useNavigate();
   const [id, setId] = useState("");
 
@@ -28,17 +31,18 @@ function LoginComponent() {
       password: pw,
     };
 
-    ProductService.login(userInfo)
-      .then((res) => {
-        const token = res.data;
-        localStorage.setItem("jwtToken", token);
+    ProductService.login(userInfo).then((res) => {
+      const token = res.data;
+      localStorage.setItem("jwtToken", token);
 
-        setUserId(id);
-        console.log(token);
+      localStorage.setItem("loginId", id);
+      setIsLoggedIn(true);
+      alert("로그인 성공")
 
-        navigate("/");
-      })
-      .catch(alert("로그인 실패"));
+
+      
+    navigate("/");
+    }).catch(error => (alert("로그인 실패")));
   };
   return (
     <div className={styles.container}>

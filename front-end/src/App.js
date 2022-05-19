@@ -9,18 +9,19 @@ import WriteComponent from "./components/WriteComponent";
 import ProfileComponent from "./components/ProfileComponent";
 import LoginComponent from "./components/LoginComponent";
 import { useEffect, useState } from "react";
+import useStore from "./components/useStore";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const {isLoggedIn, setIsLoggedIn} = useStore();
   const [searchStatus, setSearchStatus] = useState(false);
-  useEffect(() => {
-    if (localStorage.getItem("jwtToken") === null) {
-      console.log(isLoggedIn);
-    } else {
-      setIsLoggedIn(true);
-      console.log(isLoggedIn);
-    }
-  });
+  // useEffect(() => {
+  //   if (localStorage.getItem("jwtToken") === null) {
+  //     console.log(isLoggedIn);
+  //   } else {
+  //     setIsLoggedIn(true);
+  //     console.log(isLoggedIn);
+  //   }
+  // }, []);
   return (
     <Container>
       <Router>
