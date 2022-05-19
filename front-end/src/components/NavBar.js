@@ -118,11 +118,18 @@ function NavBar(props) {
                 ""
               ) : (
                 <div>
-                  <Nav.Link href="/mypage">
+                  <Link to={"./mypage"}>
                     <p className={styles.title}>마이페이지</p>
-                  </Nav.Link>
+                  </Link>
                   <Nav.Link href="/">
-                    <p className={styles.title}>로그아웃</p>
+                    <p
+                      className={styles.title}
+                      onClick={() => {
+                        localStorage.clear();
+                      }}
+                    >
+                      로그아웃
+                    </p>
                   </Nav.Link>
                 </div>
               )}
