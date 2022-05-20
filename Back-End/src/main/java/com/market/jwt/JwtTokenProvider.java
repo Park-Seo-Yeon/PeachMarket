@@ -30,7 +30,8 @@ public class JwtTokenProvider {
     private String secretKey = "peachmarket";
 
     // 토큰 유효시간 30분
-    private long tokenValidTime = 30 * 60 * 1000L;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME  = 1000 * 60 * 30; 
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
     
     private final CustomUserDetailsService customuserDetailsService;
 
@@ -40,7 +41,7 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    // JWT 토큰 생성
+    // access token 생성 
     public String createToken(String userPk, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
         claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
@@ -48,11 +49,23 @@ public class JwtTokenProvider {
         String jwtToken = Jwts.builder()
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
-                .setExpiration(new Date(now.getTime() + tokenValidTime)) // 토큰 만료 시
+                .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME)) // 토큰 만료 시
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과 
                                                                 // signature 에 들어갈 secret값 세팅
                 .compact();
         return jwtToken;
+    }
+    
+    // refresh token 생성 
+    public String createRefreshToken() {
+    	Date now = new Date();
+    	String jwtRefreshToken = Jwts.builder()
+    			.setIssuedAt(now)
+    			.setExpiration(new Date(now.getTime() + REFRESH_TOKEN_EXPIRE_TIME))
+    			.signWith(SignatureAlgorithm.HS256, secretKey) 
+    			.compact();
+    	return jwtRefreshToken;
+    	
     }
 
     // JWT 토큰에서 인증 정보 조회
