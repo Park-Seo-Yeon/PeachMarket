@@ -94,7 +94,7 @@ function ProductComponent() {
   return (
     <div className={styles.product_container}>
       <div className={styles.img_container}>
-        {userId === product.userId?.userId ? (
+        {userId === product.user?.userId ? (
           <GoKebabVertical
             size="30"
             color="white"
@@ -159,11 +159,11 @@ function ProductComponent() {
       </div>
       <div className={styles.user_container}>
         <img
-          src={product.userId?.profileImg}
+          src={product.user?.profileImg}
           alt=""
           className={styles.user_img}
         ></img>
-        <p className={styles.user_name}>{product.userId?.nickname}</p>
+        <p className={styles.user_name}>{product.user?.nickname}</p>
         <hr />
       </div>
       <div className={styles.content_container}>
