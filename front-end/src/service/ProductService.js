@@ -1,13 +1,17 @@
 import axios from "axios";
 
-const PRODUCT_API_BASE_URL = "http://43.200.34.51:8080/api/products";
-const LOGIN_API_BASE_URL = "http://43.200.34.51:8080/login";
+// const PRODUCT_API_BASE_URL = "http://43.200.34.51:8080/api/products";
+// const LOGIN_API_BASE_URL = "http://43.200.34.51:8080/login";
 
-const CHAT_API_BASE_URL = "http://43.200.34.51:8080/api/chat";
+// const CHAT_API_BASE_URL = "http://43.200.34.51:8080/api/chat";
+const PRODUCT_API_BASE_URL = "http://localhost:8080/api/products";
+const LOGIN_API_BASE_URL = "http://localhost:8080/login";
+
+const CHAT_API_BASE_URL = "http://localhost:8080/api/chat";
 
 class ProductService {
   getProducts() {
-    return axios.get(PRODUCT_API_BASE_URL);
+    return axios.get(PRODUCT_API_BASE_URL + "/");
   }
 
   getOneProduct(productId) {
