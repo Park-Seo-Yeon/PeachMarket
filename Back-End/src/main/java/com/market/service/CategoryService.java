@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class CategoryService {
 	private final CategoryRepository categoryRepository;
+
 	
 	public Category getCategoryByCategoryId(Integer categoryId) {
 		return categoryRepository.getCategoryByCategoryId(categoryId);

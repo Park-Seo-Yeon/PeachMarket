@@ -1,6 +1,5 @@
 package com.market.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,10 +26,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
@@ -43,7 +40,6 @@ public class User implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="user_id")
 	private String userId;
 	
 	private String password;
@@ -60,9 +56,17 @@ public class User implements UserDetails {
 	
 	private Double weight;
 	
-	@OneToMany(mappedBy="userId", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Product> products;
 	
+	
+	@Builder
+	public User(String userId, String password, String nickname, String profileImg) {
+		this.userId = userId;
+		this.password = password;
+		this.nickname = nickname;
+		this.profileImg = profileImg;
+	}
 	
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
@@ -77,33 +81,31 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return userId;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	
+	public void updateProfileImage(String profileImg) {
+		this.profileImg = profileImg;
+	}
 
 }

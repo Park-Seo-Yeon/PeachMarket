@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class ProductDto {
-	private Integer id;
+	private Integer productId;
 	private String title;
 	
 	private Integer categoryId;	// front에서 받아오는 용도 
@@ -27,26 +27,24 @@ public class ProductDto {
 	private String contents;
 	private Date createTime;
 	private String productState;
-	private Integer count;
 	
-	private String userId;	// front에서 받아오는 용
+	private String userId;	// front에서 받아오는 용도
 	private User user; 
+	
+	private Integer count;
 	
 	@Builder
 	public ProductDto(Product entity) {
-		this.id = entity.getProductId();
+		this.productId = entity.getProductId();
 		this.title = entity.getTitle();
 		this.category = entity.getCategory();
 		this.price = entity.getPrice();
 		this.contents = entity.getContents();
 		this.createTime = entity.getCreateTime();	
 		this.productState = entity.getProductState();
+		this.user = entity.getUser();
 		this.count = entity.getCount();
 	}
 
-	public void setCategory(Integer categoryId, String categoryIdByName) {
-	
-		
-	}
 
 }
