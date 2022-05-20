@@ -12,7 +12,10 @@ import { useEffect, useState } from "react";
 import useStore from "./components/useStore";
 
 function App() {
-  const {isLoggedIn, setIsLoggedIn} = useStore();
+  const { isLoggedIn, setIsLoggedIn } = useStore();
+
+  const { userId, setUserId } = useStore();
+  const { userToken, setUserToken } = useStore();
   const [searchStatus, setSearchStatus] = useState(false);
   // useEffect(() => {
   //   if (localStorage.getItem("jwtToken") === null) {
@@ -22,6 +25,15 @@ function App() {
   //     console.log(isLoggedIn);
   //   }
   // }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("jwtToken") != null) {
+      setIsLoggedIn(true);
+    }
+    setUserToken(localStorage.getItem("jwtToken"));
+    setUserId(localStorage.getItem("loginId"));
+  }, []);
+
   return (
     <Container>
       <Router>

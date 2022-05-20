@@ -4,6 +4,7 @@ import { AiFillCamera } from "react-icons/ai";
 import { Form } from "react-bootstrap";
 import styles from "./Write.module.css";
 import axios from "axios";
+import $ from "jquery"; // jQuery 사용을 위해 추가
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ProductService from "../service/ProductService";
@@ -25,6 +26,14 @@ function WriteComponent() {
     e.preventDefault();
     setCategory(e.target.value);
   };
+
+  const [productState, setProductState] = useState();
+
+  const productStateHandler = (e) => {
+    e.preventDefault();
+    setProductState(e.target.value);
+  };
+
   const [price, setPrice] = useState("");
 
   const priceHandler = (e) => {
@@ -108,6 +117,7 @@ function WriteComponent() {
     let dataSet = {
       title: title,
       categoryId: category,
+      productState: productState,
       price: price,
       contents: contents,
     };
@@ -121,7 +131,7 @@ function WriteComponent() {
 
         const postSurvey = await axios({
           method: "POST",
-          url: "http://localhost:8080/api/products",
+          url: "http://43.200.34.51:8080/api/products",
           mode: "cors",
           headers: {
             "Content-Type": "multipart/form-data",
@@ -144,7 +154,7 @@ function WriteComponent() {
         formData.append("data", blob);
         const putSurvey = await axios({
           method: "PUT",
-          url: `http://localhost:8080/api/products/${productId}`,
+          url: `http://43.200.34.51:8080/api/products/${productId}`,
           mode: "cors",
           headers: {
             "Content-Type": "multipart/form-data",
@@ -173,10 +183,14 @@ function WriteComponent() {
         let product = res.data;
         setTitle(product.title);
         setCategory(product.category?.category);
+        setProductState(product.productState);
         setPrice(product.price);
         setContents(product.contents);
         setImgBase64(product.pictureUrl);
         setImgFile(product.pictureUrl);
+        $(
+          "#selectCategory option[value=" + product.category?.categoryId + "]"
+        ).attr("selected", true);
       });
     }
   }, []);
@@ -225,6 +239,7 @@ function WriteComponent() {
             size="lg"
             onChange={categoryHandler}
             className="mb-3"
+            id="selectCategory"
           >
             <option>카테고리 선택</option>
             <option value="1">상의</option>
@@ -232,6 +247,19 @@ function WriteComponent() {
             <option value="3">스커트</option>
             <option value="4">팬츠</option>
             <option value="5">원피스</option>
+          </Form.Select>
+
+          <Form.Select
+            aria-label="Default select example"
+            size="lg"
+            onChange={productStateHandler}
+            className="mb-3"
+            value={productState}
+          >
+            <option>판매상태 선택</option>
+            <option value="판매중">판매중</option>
+            <option value="예약중">예약중</option>
+            <option value="판매완료">판매완료</option>
           </Form.Select>
 
           <Form.Group controlId="exampleForm.ControlInput1">

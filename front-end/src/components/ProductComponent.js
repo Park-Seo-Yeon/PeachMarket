@@ -9,11 +9,13 @@ import TimeCounting from "time-counting";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useStore from "./useStore";
 
 function ProductComponent() {
   const navigate = useNavigate();
   const [product, setProduct] = useState([]);
   const productId = useParams().productId;
+  const { userId, setUserId } = useStore();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -92,12 +94,16 @@ function ProductComponent() {
   return (
     <div className={styles.product_container}>
       <div className={styles.img_container}>
-        <GoKebabVertical
-          size="30"
-          color="white"
-          className={styles.icon_kebab}
-          onClick={onClickDropDown}
-        />
+        {userId === product.userId?.userId ? (
+          <GoKebabVertical
+            size="30"
+            color="white"
+            className={styles.icon_kebab}
+            onClick={onClickDropDown}
+          />
+        ) : (
+          ""
+        )}
         {open && (
           <div className={styles.dropdown}>
             <ul>
@@ -161,11 +167,12 @@ function ProductComponent() {
         <hr />
       </div>
       <div className={styles.content_container}>
-        <select value={product.productState}>
+        {/* <select value={product.productState}>
           <option value="판매중">판매중</option>
           <option value="예약중">예약중</option>
           <option value="거래완료">거래완료</option>
-        </select>
+        </select> */}
+        <div className={styles.product_state}>{product.productState}</div>
         <p className={styles.product_title}>{product.title}</p>
         <p className={styles.product_category}>
           {product.category?.category} ·{" "}
@@ -178,7 +185,9 @@ function ProductComponent() {
         <p className={styles.product_price}>{product.price}원</p>
         <div className={styles.btn}>
           <button>채팅</button>
-          <button onClick={onClickFitting}>피팅</button>
+          <Link to={"/fitting"}>
+            <button>피팅</button> {/* onClick={onClickFitting} */}
+          </Link>
         </div>
       </div>
     </div>

@@ -15,7 +15,6 @@ function UserComponent() {
   useEffect(() => {
     ProductService.getMyPage().then((res) => {
       setUser(res.data);
-      console.log(user);
     });
   }, []);
   return (
