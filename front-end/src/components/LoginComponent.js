@@ -6,12 +6,13 @@ import useStore from "./useStore";
 import ProductService from "../service/ProductService";
 
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function LoginComponent() {
   const { userId, setUserId } = useStore();
   const { userToken, setUserToken } = useStore();
-  
-  const {isLoggedIn, setIsLoggedIn} = useStore();
+
+  const { isLoggedIn, setIsLoggedIn } = useStore();
   const navigate = useNavigate();
   const [id, setId] = useState("");
 
@@ -31,18 +32,30 @@ function LoginComponent() {
       password: pw,
     };
 
-    ProductService.login(userInfo).then((res) => {
-      const token = res.data;
-      localStorage.setItem("jwtToken", token);
+    ProductService.login(userInfo)
+      .then((res) => {
+        const token = res.data;
+        localStorage.setItem("jwtToken", token);
 
-      localStorage.setItem("loginId", id);
-      setIsLoggedIn(true);
-      alert("로그인 성공")
+        localStorage.setItem("loginId", id);
+        setIsLoggedIn(true);
+        Swal.fire({
+          text: "로그인에 성공했습니다",
+          confirmButtonColor: "#fea5ab",
+          confirmButtonText: "확인",
+          width: "350px",
+        });
 
-
-      
-    navigate("/");
-    }).catch(error => (alert("로그인 실패")));
+        navigate("/");
+      })
+      .catch((error) =>
+        Swal.fire({
+          text: "로그인에 실패했습니다",
+          confirmButtonColor: "#fea5ab",
+          confirmButtonText: "확인",
+          width: "350px",
+        })
+      );
   };
   return (
     <div className={styles.container}>

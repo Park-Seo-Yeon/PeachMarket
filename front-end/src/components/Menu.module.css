@@ -32,8 +32,8 @@
 .message {
   color: gray;
   text-align: center;
-  margin-top: 50%;
-  margin-bottom: 50%;
+  height: 35vh;
+  margin-top: 35vh;
 }
 
 .btn {
@@ -52,6 +52,7 @@
   border-radius: 10px;
   margin-left: 2%;
   margin-right: 2%;
+  margin-bottom: 70vh;
 }
 
 .inputFile {
@@ -78,4 +79,55 @@
 
 .uploadImg p img {
   width: 50%;
+}
+
+/* ==================================================== */
+.product_container {
+  display: flex;
+  border-bottom: 1px solid #d3d3d3;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 0;
+}
+
+.product_img {
+  height: 128px;
+  width: 128px;
+  border-radius: 10px;
+}
+
+.product_info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-top: 8px;
+}
+
+.product_title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.product_time {
+  font-size: 12px;
+  color: gray;
+}
+
+.product_div {
+  width: 200px;
+}
+
+.product_state {
+  float: left;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  color: gray;
+  padding: 5px 5px 5px 5px;
+  font-size: 10px;
+  margin-right: 10px;
+}
+
+.product_price {
+  font-size: 20px;
+  font-weight: bold;
 }

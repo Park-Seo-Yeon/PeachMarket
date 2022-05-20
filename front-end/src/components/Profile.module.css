@@ -1,11 +1,11 @@
-.profile_container {
+.profile_container, .fitting_container {
     position: relative;
     margin: 0 auto;
     width: 100%;
     max-width: 650px;
 }
 
-.profile_title {
+.profile_title, .fitting_title {
     display: flex;
     justify-content: space-between;
 }

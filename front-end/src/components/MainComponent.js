@@ -12,10 +12,10 @@ function MainComponent(props) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const { category, setCategory } = useStore();
-  
+
   const { userId, setUserId } = useStore();
   const { userToken, setUserToken } = useStore();
-  const {isLoggedIn, setIsLoggedIn} = useStore();
+  const { isLoggedIn, setIsLoggedIn } = useStore();
 
   /*
   useEffect(() => {
@@ -27,15 +27,16 @@ function MainComponent(props) {
     ProductService.getProducts().then((res) => {
       changeCategory(category, res.data);
     });
+
+    console.log(products);
   }, [category]);
 
-  useEffect(() =>{
-    
-    if(localStorage.getItem('jwtToken') != null){
+  useEffect(() => {
+    if (localStorage.getItem("jwtToken") != null) {
       setIsLoggedIn(true);
     }
-    setUserToken(localStorage.getItem('jwtToken'));
-    setUserId(localStorage.getItem('loginId'));
+    setUserToken(localStorage.getItem("jwtToken"));
+    setUserId(localStorage.getItem("loginId"));
   }, []);
 
   const changeCategory = (category, data) => {
