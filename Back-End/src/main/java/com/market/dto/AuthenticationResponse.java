@@ -9,11 +9,8 @@ import lombok.Setter;
 @Setter
 public class AuthenticationResponse {
 
-//	private String userId;
-//    // private String password;
     private final String accessToken;
     private final String refreshToken;
-    
     
    
     @Builder
@@ -22,29 +19,5 @@ public class AuthenticationResponse {
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;
 	}
-    
-//    public String getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(String userId) {
-//		this.userId = userId;
-//	}
-
-//	public String getAccessToken() {
-//		return accessToken;
-//	}
-//
-//	public void setAccessToken(String accessToken) {
-//		this.accessToken = accessToken;
-//	}
-//
-//	public String getRefreshToken() {
-//		return refreshToken;
-//	}
-//
-//	public void setRefreshToken(String refreshToken) {
-//		this.refreshToken = refreshToken;
-//	}
-	
 }
+    

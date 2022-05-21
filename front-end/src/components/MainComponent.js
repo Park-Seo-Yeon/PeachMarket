@@ -32,10 +32,10 @@ function MainComponent(props) {
   }, [category]);
 
   useEffect(() => {
-    if (localStorage.getItem("jwtToken") != null) {
+    if (localStorage.getItem("token") != null) {
       setIsLoggedIn(true);
     }
-    setUserToken(localStorage.getItem("jwtToken"));
+    setUserToken(localStorage.getItem("token"));
     setUserId(localStorage.getItem("loginId"));
   }, []);
 

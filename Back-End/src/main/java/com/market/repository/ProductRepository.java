@@ -17,11 +17,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Modifying
 	@Query("update Product p set p.count = p.count + 1 where p.productId = :productId")
 	int updateCount(Integer productId);
-	
-//	@Query(value="select * from product p, Category c where p.category_id=c.category_id "
-//			+ "and "
-//			+ "p.category_id = :categoryId "
-//			+ "order by p.count desc", nativeQuery = true)
-//	List<Product> findProductByCategoryId(Integer categoryId);
-	
+
 }

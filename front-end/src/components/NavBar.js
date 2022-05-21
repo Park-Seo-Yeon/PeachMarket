@@ -66,7 +66,7 @@ function NavBar(props) {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              {localStorage.getItem("jwtToken") === null ? (
+              {localStorage.getItem("token") === null ? (
                 <div>
                   <NavDropdown.Item className={styles.title} href="./login">
                     로그인
@@ -149,11 +149,11 @@ function NavBar(props) {
               >
                 원피스
               </NavDropdown.Item>
-              {localStorage.getItem("jwtToken") === null ? (
+              {localStorage.getItem("token") === null ? (
                 ""
               ) : (
                 <div>
-                  <NavDropdown.Item className={styles.title} href="./mypage">
+                  <NavDropdown.Item className={styles.title} href="/mypage">
                     마이페이지
                   </NavDropdown.Item>
 

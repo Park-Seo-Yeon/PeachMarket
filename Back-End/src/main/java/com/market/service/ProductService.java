@@ -27,8 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
 	
 	private final ProductRepository productRepository;
-	private final CategoryService categoryService;
 	private final UserService userService;
+	private final CategoryService categoryService;
 	private final S3Service s3Service;
 	
 	// 메인 홈에서 보여지는 상품 리스트
@@ -37,17 +37,6 @@ public class ProductService {
 		return ResponseEntity.ok(products);
 		
 	}
-
-//	public List<Product> findProductByCategory(Integer categoryId) {
-//		if (categoryId == 0) {
-//			System.out.println("@@@@@@@@@@@@@@@ : " + productRepository.findPopularList());
-//			return productRepository.findPopularList(); 
-//		}
-//		else {
-//			System.out.println("@@@@@@@@@@@@@@@ : " + productRepository.findProductByCategoryId(categoryId));
-//			return productRepository.findProductByCategoryId(categoryId);
-//		}	
-//	}
 	
 	// 글 상세보기 
 	public ResponseEntity<Product> findProductDetail(Integer id) {
@@ -59,11 +48,10 @@ public class ProductService {
 	// 글 작성
 	public void createProduct(MultipartFile multipartFile, ProductDto createdProductDto) 
 		throws Exception {
-		// 검사
+		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = userDetails.getUsername();
-		
-		
+		System.out.println(userId);
 		
 			createdProductDto.setCategory(categoryService.getCategoryByCategoryId(createdProductDto.getCategoryId()));
 			createdProductDto.setCreateTime(new Date());
@@ -119,7 +107,7 @@ public class ProductService {
 		return ResponseEntity.ok(response);
 	}
 	
-	// 조회수 기능 
+	// 조회수
 	public int updateCount(Integer id) {
 		return productRepository.updateCount(id);
 	}

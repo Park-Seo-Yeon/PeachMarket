@@ -10,13 +10,34 @@ function SaleMenuComponent() {
   const [user, setUser] = useState([]);
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    ProductService.getMyPage().then((res) => {
+    useEffect(() => {
+    ProductService.getMyPage().then((res) =>{
       setUser(res.data);
       setProducts(res.data.products);
-    });
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+      // 수정한 부분
+      // 근데 판매내역 같은 경우에는 마이페이지 안에 (?) 있는 거라 이렇게 추가 안 해도 오류 안 나는듯 .. ???? => 잘 모름 .. 
+      // 401 에러가 나면 POST 메소드로 /refresh로 요청을 보내게끔 짜두었음
+      // 코드의 간결한 정리가 가능하다면 부탁... 
+      // 주석은 없애도 상관 없음
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+    // }).catch((error) => { 
+    //   if (error.response.status === 401 ) {
+    //     console.log("토큰 만료로 인한 판매내역 로드 에러");
+    //     ProductService.getRefreshToken()
+    //     .then((res) => {
+    //       localStorage.setItem("token",res.data.accessToken); // 재발급 받은 토큰 저장
+    //     })
+    //     .then(()=>{
+    //       // 토큰 재발급 요청 시 새로고침을 해야지만 로컬스토리지에 저장된 값이 반영이 돼서 새로고침 코드도 포함시켰음
+    //       window.location.reload();
+    //     });
+    //   }  
+    // })
+    })
   }, []);
-
   const option = {
     lang: "ko",
     calculate: {
