@@ -131,50 +131,93 @@ function WriteComponent() {
 
         const postSurvey = await axios({
           method: "POST",
-          url: "http://43.200.34.51:8080/api/products/create",
-          // url: "http://localhost:8080/api/products/create",
+          // url: "http://43.200.34.51:8080/api/products/create",
+          url: "http://localhost:8080/api/products/create",
           mode: "cors",
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
           data: formData,
-        });
+        })
         console.log(blob);
         console.log(postSurvey);
         navigate("/");
-      } catch {
+      } catch(error) {
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+      // 수정한 부분
+      // 500 에러가 나면 POST 메소드로 /refresh로 요청을 보내게끔 짜두었음
+      // 이유는 모르겠으나 토큰이 만료된 상태로 '완료' 버튼을 누르면 401 에러가 아니라 500 에러가 남
+      // 보고 거기에도 이러한 코드들을 추가하는게 맞는 것인지 판단 부탁 ...  
+      // 코드의 간결한 정리가 가능하다면 부탁... 
+      // 주석은 없애도 상관 없음
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+      if (error.response.status === 500) {
+        console.log("토큰 만료로 인한 글 작성 에러");
+        ProductService.getRefreshToken()
+        .then((res) => {
+          localStorage.setItem("token",res.data.accessToken);
+        }).then(()=>{
+          // 토큰 재발급 요청 시 새로고침을 해야지만 로컬스토리지에 저장된 값이 반영이 돼서 새로고침 코드도 포함시켰음
+          window.location.reload();
+        });
+      } else {
         Swal.fire({
           text: "사진, 제목, 카테고리, 내용, 가격은 필수 입력 항목이에요",
           confirmButtonColor: "#fea5ab",
           confirmButtonText: "확인",
           width: "350px",
-        });
+        })
+      };
       }
     } else {
       try {
         formData.append("data", blob);
         const putSurvey = await axios({
           method: "PUT",
-          url: "http://43.200.34.51:8080/api/products/edit/" + productId,
-          //url: "http://localhost:8080/api/products/edit/" + productId,
+          // url: "http://43.200.34.51:8080/api/products/edit/" + productId,
+          url: "http://localhost:8080/api/products/edit/" + productId,
           mode: "cors",
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
           data: formData,
         });
         console.log(blob);
         console.log(putSurvey);
         navigate(`/products/${productId}`);
-      } catch {
-        Swal.fire({
-          text: "사진, 제목, 카테고리, 내용, 가격은 필수 입력 항목이에요",
-          confirmButtonColor: "#fea5ab",
-          confirmButtonText: "확인",
-          width: "350px",
-        });
+      } catch (error) {
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+      // 수정한 부분
+      // 글 수정은 어차피 본인일 때만 버튼이 보여서 일단은 주석 처리해둠 
+      // 주석처리해도 동작은 잘 되더라 ...
+      // 추가하는게 맞는 것인지 판단 부탁 ...   
+      // 코드의 간결한 정리가 가능하다면 부탁... 
+      // 주석은 없애도 상관 없음
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+      // if (error.response.status === 401) {
+      //   console.log("토큰 만료로 인한 수정 에러");
+      //   ProductService.getRefreshToken()
+      //   .then((res) => {
+      //     localStorage.setItem("token",res.data.accessToken);
+      //   })
+      //   .then(()=>{
+      //     // 토큰 재발급 요청 시 새로고침을 해야지만 로컬스토리지에 저장된 값이 반영이 돼서 새로고침 코드도 포함시켰음
+      //     window.location.reload();
+      //   });
+      // } else {
+          Swal.fire({
+            text: "사진, 제목, 카테고리, 내용, 가격은 필수 입력 항목이에요",
+            confirmButtonColor: "#fea5ab",
+            confirmButtonText: "확인",
+            width: "350px",
+          });
+        //}
       }
     }
   };

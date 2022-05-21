@@ -27,52 +27,37 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
 	
 	private final ProductRepository productRepository;
-	private final CategoryService categoryService;
 	private final UserService userService;
+	private final CategoryService categoryService;
 	private final S3Service s3Service;
 	
 	// 메인 홈에서 보여지는 상품 리스트
 	public ResponseEntity<List<Product>> findPopularProducts() {
-		System.out.println("############" +productRepository.findPopularList());
 		List<Product> products = productRepository.findPopularList();
 		return ResponseEntity.ok(products);
 		
 	}
-
-//	public List<Product> findProductByCategory(Integer categoryId) {
-//		if (categoryId == 0) {
-//			System.out.println("@@@@@@@@@@@@@@@ : " + productRepository.findPopularList());
-//			return productRepository.findPopularList(); 
-//		}
-//		else {
-//			System.out.println("@@@@@@@@@@@@@@@ : " + productRepository.findProductByCategoryId(categoryId));
-//			return productRepository.findProductByCategoryId(categoryId);
-//		}	
-//	}
 	
 	// 글 상세보기 
 	public ResponseEntity<Product> findProductDetail(Integer id) {
 		 Product product = productRepository.findById(id)
 				 .orElseThrow(() -> new ResourceNotFoundException("Not exist Product Data by id : [" + id + "]"));
-		 System.out.println("In ProductService = 보내진 상품 정보: " + product);
 		return ResponseEntity.ok(product);
 	}
 
 	// 글 작성
 	public void createProduct(MultipartFile multipartFile, ProductDto createdProductDto) 
 		throws Exception {
-		// 검사
+		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = userDetails.getUsername();
-		
-		
+		System.out.println(userId);
 		
 			createdProductDto.setCategory(categoryService.getCategoryByCategoryId(createdProductDto.getCategoryId()));
 			createdProductDto.setCreateTime(new Date());
 			createdProductDto.setProductState("판매중");
 			createdProductDto.setCount(0);
 			createdProductDto.setUser(userService.findUserById(userId));
-			System.out.println("글작성시 보내지는 상품 정보" + createdProductDto);
 		
 		Product product = new Product(
 				createdProductDto.getTitle(),
@@ -93,8 +78,6 @@ public class ProductService {
 	public void updateProduct(Integer productId, MultipartFile multipartFile,
 			ProductDto updatedProductDto) throws Exception {
 		
-	System.out.println("In ProductService: " + updatedProductDto);
-	
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not exist Product by Id : ["+productId+"]"));
 		
@@ -104,14 +87,10 @@ public class ProductService {
 		product.setProductState(updatedProductDto.getProductState()); // 판매 상태 
 		product.setContents(updatedProductDto.getContents());	// 내용
 		
-		
 		if (multipartFile != null) {
 			s3Service.upload(multipartFile, product);
 		}
-		
-		System.out.println(product);
-		productRepository.save(product);
-		
+		productRepository.save(product);		
 		
 	}
 	
@@ -128,7 +107,7 @@ public class ProductService {
 		return ResponseEntity.ok(response);
 	}
 	
-	// 조회수 기능 
+	// 조회수
 	public int updateCount(Integer id) {
 		return productRepository.updateCount(id);
 	}
