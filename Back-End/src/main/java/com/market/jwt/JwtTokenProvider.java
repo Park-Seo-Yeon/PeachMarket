@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.market.service.CustomUserDetailsService;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,10 +28,11 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class JwtTokenProvider {
 
-    private String secretKey = "peachmarket";
+	@Value("${jwt.secret}")
+    private String SECRET_KET;
 
     // 토큰 유효시간 30분
-    private static final long ACCESS_TOKEN_EXPIRE_TIME  = 1000 * 60 * 30; 
+    private static final long ACCESS_TOKEN_EXPIRE_TIME  = 1000 * 60 ; // 30분 
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
     
     private final CustomUserDetailsService customuserDetailsService;
@@ -38,7 +40,7 @@ public class JwtTokenProvider {
     // 객체 초기화, secretKey를 Base64로 인코딩한다.
     @PostConstruct
     protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    	SECRET_KET = Base64.getEncoder().encodeToString(SECRET_KET.getBytes());
     }
 
     // access token 생성 
@@ -50,19 +52,22 @@ public class JwtTokenProvider {
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME)) // 토큰 만료 시
-                .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과 
+                .signWith(SignatureAlgorithm.HS256, SECRET_KET)  // 사용할 암호화 알고리즘과 
                                                                 // signature 에 들어갈 secret값 세팅
                 .compact();
         return jwtToken;
     }
     
     // refresh token 생성 
-    public String createRefreshToken() {
+    public String createRefreshToken(String userPk, List<String> roles) {
+    	Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
+        claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
     	Date now = new Date();
     	String jwtRefreshToken = Jwts.builder()
+    			.setClaims(claims) // 정보 저장
     			.setIssuedAt(now)
     			.setExpiration(new Date(now.getTime() + REFRESH_TOKEN_EXPIRE_TIME))
-    			.signWith(SignatureAlgorithm.HS256, secretKey) 
+    			.signWith(SignatureAlgorithm.HS256, SECRET_KET) 
     			.compact();
     	return jwtRefreshToken;
     	
@@ -76,19 +81,25 @@ public class JwtTokenProvider {
 
     // 토큰에서 회원 정보 추출
     public String getUserPk(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(SECRET_KET).parseClaimsJws(token).getBody().getSubject();
     }
 
-    // front end의 header에서 가져옴 (?)
-    // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+
+    // Request의 Header에서 access token 값을 가져온다 
+    public String resolveAccessToken(HttpServletRequest request) {
+        return request.getHeader("X-AUTH-TOKEN");
     }
+    
+    // Request의 Header에서 refresh token 값을 가져온다 
+    public String resolveRefreshToken(HttpServletRequest request) {
+        return request.getHeader("REFRESH-TOKEN");
+    }
+    
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KET).parseClaimsJws(jwtToken);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
             return false;

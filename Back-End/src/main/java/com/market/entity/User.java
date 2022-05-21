@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,8 +25,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
@@ -55,6 +56,8 @@ public class User implements UserDetails {
 	private Double height;
 	
 	private Double weight;
+	
+	private String refreshToken;
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Product> products;
@@ -107,5 +110,7 @@ public class User implements UserDetails {
 	public void updateProfileImage(String profileImg) {
 		this.profileImg = profileImg;
 	}
+	
+
 
 }

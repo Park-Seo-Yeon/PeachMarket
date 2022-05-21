@@ -13,18 +13,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.market.jwt.JwtAuthenticationFilter;
-import com.market.jwt.JwtAuthorizationFilter;
+import com.market.jwt.JwtAuthenticationEntryPoint;
+//import com.market.jwt.JwtAuthenticationFilter;
+import com.market.jwt.JwtExceptionFilter;
+
+import lombok.RequiredArgsConstructor;
+//import com.market.jwt.JwtExceptionFilter;
 
 // Secutiry 설정을 위한 class
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	//private final JwtTokenProvider jwtTokenProvider;
 	@Autowired
-	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	
+	@Autowired
+	private JwtExceptionFilter jwtExceptionFilter;
+	
+	@Autowired
+	//private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	// 암호화에 필요한 PasswordEncoder 를 Bean 등록
 	@Bean
@@ -56,14 +66,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          //.addFilter(corsFilter) // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O) 
          //.addFilter(new JwtAuthorizationFilter(authenticationManager()))
         
-         .antMatchers("/join", "/login", "/api/products/**").permitAll()	
-         .antMatchers("/mypage", "/api/products/create", "/api/products/edit", "/api/products/delete/**").hasRole("USER")
-         .anyRequest().denyAll()	
+         .antMatchers("/join", "/login", "/api/products/**", "/refresh").permitAll()	
+         .antMatchers( "/api/products/create", "/api/products/edit", "/api/products/delete/**").hasRole("USER")
+         .anyRequest().denyAll()
          .and()
+         .exceptionHandling()
+         .authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+//         .exceptionHandling()
+//         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+//         .and()
          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 X 
          .and()
-         .addFilterBefore(jwtAuthenticationFilter,
-                 UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+//         .addFilterBefore(jwtAuthenticationFilter,
+//           UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
+         .addFilterBefore(jwtExceptionFilter,UsernamePasswordAuthenticationFilter.class);
 		 http.cors();
 	}
 }
