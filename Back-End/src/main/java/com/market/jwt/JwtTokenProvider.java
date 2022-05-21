@@ -31,7 +31,7 @@ public class JwtTokenProvider {
     private String SECRET_KET;
 
     // 토큰 유효시간 30분
-    private static final long ACCESS_TOKEN_EXPIRE_TIME  = 1000 * 60  ; // 30분 
+    private static final long ACCESS_TOKEN_EXPIRE_TIME  = 1000 * 60 * 30; // 30분 
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;	// 일주일
     
     @Autowired

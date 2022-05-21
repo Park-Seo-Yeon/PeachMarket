@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          //.addFilter(corsFilter) // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O) 
          //.addFilter(new JwtAuthorizationFilter(authenticationManager()))
         
-         .antMatchers("/join", "/login", "/api/products/**", "/refresh").permitAll()	
+         .antMatchers("/join", "/login", "/api/products/**", "/refresh", "/app/**").permitAll()	
          .antMatchers( "/mypage", "/api/products/create", "/api/products/edit", "/api/products/delete/**").hasRole("USER")
          .anyRequest().denyAll()
          .and()
