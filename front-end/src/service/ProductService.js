@@ -23,6 +23,13 @@ class ProductService {
   getChatList(userId) {
     return axios.get(CHAT_API_BASE_URL + userId);
   }
+  updateUserProfile(userProfile) {
+    return axios.post(MYPAGE_API_BASE_URL + "/update/" + localStorage.getItem("loginId", userProfile), {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+      },
+    }); 
+  }
 
   deleteProduct(productId) {
     return axios.delete(PRODUCT_API_BASE_URL + "delete/" + productId, {
