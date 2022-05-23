@@ -64,10 +64,10 @@ function ProfileComponent() {
 
   const onClickOk = () => {
     let userProfile = {
-      userNickName: userNickName,
-      userHeight: userHeight,
-      userHWight: userWeight,
-      userGender: userGender,
+      nickname: userNickName,
+      height: userHeight,
+      weight: userWeight,
+      gender: userGender,
     };
 
     console.log(userProfile);
