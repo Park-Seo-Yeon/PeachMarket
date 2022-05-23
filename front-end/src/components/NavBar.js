@@ -4,7 +4,6 @@ import { BsSearch, BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import useStore from "./useStore";
-import $ from "jquery"; // jQuery 사용을 위해 추가
 
 function NavBar(props) {
   const { category, setCategory } = useStore();
@@ -71,9 +70,7 @@ function NavBar(props) {
               {localStorage.getItem("token") === null ? (
                 <div>
                   <Link to={"/login"}>
-                  <p className={styles.title}>
-                    로그인
-                  </p>
+                    <p className={styles.title}>로그인</p>
                   </Link>
                   {/* <p>안녕하세요. 피치마켓입니다.</p>
                   <Link to={"./login"}>
@@ -170,9 +167,7 @@ function NavBar(props) {
               ) : (
                 <div>
                   <Link to={"/mypage"}>
-                    <p className={styles.title}>
-                      마이페이지
-                    </p>
+                    <p className={styles.title}>마이페이지</p>
                   </Link>
 
                   <a
