@@ -19,13 +19,14 @@
 }
 
 .ok {
-    color: white
+    color: #fea5ab;
+    font-weight: bold;
 }
 
 .user_img {
     text-align: center;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .user_img img {
@@ -35,13 +36,23 @@
     object-fit: cover;
 }
 
-.user_name {
+.edit_container {
+    width: 90%;
+    text-align: center;
+}
+
+.user_name, .user_height, .user_weight {
     text-align: center;
     margin-bottom: 10px;
 }
 
-.user_name input {
-    width: 90%;
+.user_name p, .user_height p, .user_weight p, .user_gender p {
+    float: left;
+    width: 20%;
+}
+
+.user_name input, .user_height input, .user_weight input, .user_gender select {
+    width: 80%;
     height: 35px;
     border-style: none;
     border: 1.5px solid lightgray;
@@ -54,6 +65,7 @@
     color: red;
     font-size: 15px;
     text-align: center;
+    margin-top: 20px;
 }
 
 .btn button {
@@ -65,4 +77,9 @@
     color: white;
     width: 100%;
     height: 50px;
+}
+
+.fittingImg_container {
+    text-align: center;
+    margin-top: 50px;
 }

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
+import ProductService from "../service/ProductService";
 import styles from "./Menu.module.css";
 
 function ModelMenuComponent() {
@@ -10,6 +11,11 @@ function ModelMenuComponent() {
   const [modelImg, setModelImg] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isShown, setIsShown] = useState(true);
+  const [user, setUser] = useState([]);
+
+  ProductService.getMyPage().then((res) => {
+    setUser(res.data);
+  });
 
   const handleChangeFile = (event) => {
     let reader = new FileReader();
@@ -40,18 +46,14 @@ function ModelMenuComponent() {
 
     const formData = new FormData();
     formData.append("file", imgFile);
-    // const postSurvey = await axios({
-    //   method: "POST",
-    //   url: "http://localhost:5000/createModel",
-    //   mode: "cors",
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   data: formData,
-    // });
+    formData.append("gender", user.gender);
+    formData.append("height", user.height);
+    formData.append("weight", user.weight);
+    formData.append("id", user.userId);
+
     try {
       const postSurvey = await axios.post(
-        "http://localhost:5000/createModel",
+        "http://localhost:5000/model",
         formData
       );
       setModelImg(postSurvey.data);

@@ -24,6 +24,12 @@ function ProfileComponent() {
     e.preventDefault();
     setUserWeight(e.target.value);
   };
+  const [userGender, setUserGender] = useState("");
+  const userGenderHandler = (e) => {
+    e.preventDefault();
+    if (e.target.value === "남성") setUserGender("m");
+    else setUserGender("f");
+  };
 
   // const [userImg, setUserImg] = useState(
   //   {user.profileImg}
@@ -35,10 +41,11 @@ function ProfileComponent() {
       setUserNickName(res.data.nickname);
       setUserHeight(res.data.height);
       setUserWeight(res.data.weight);
+      setUserGender(res.data.gender);
     });
   }, []);
 
-  const onClickCancel =() =>{
+  const onClickCancel = () => {
     Swal.fire({
       text: "프로필 수정을 취소하시겠어요?",
       showCancelButton: true,
@@ -50,17 +57,17 @@ function ProfileComponent() {
       width: "350px",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/");
+        navigate("/mypage");
       }
     });
-
-  }
+  };
 
   const onClickOk = () => {
     let userProfile = {
       userNickName: userNickName,
       userHeight: userHeight,
       userHWight: userWeight,
+      userGender: userGender,
     };
 
     console.log(userProfile);
@@ -74,7 +81,7 @@ function ProfileComponent() {
           width: "350px",
         });
 
-        navigate("/");
+        navigate("/mypage");
       })
       .catch((error) =>
         Swal.fire({
@@ -88,41 +95,64 @@ function ProfileComponent() {
   return (
     <div className={styles.profile_container}>
       <div className={styles.profile_title}>
-          <IoClose size="30" onClick={onClickCancel} className={styles.icon_close} />
+        <IoClose
+          size="30"
+          onClick={onClickCancel}
+          className={styles.icon_close}
+        />
         <p className={styles.title}>프로필 수정</p>
-        <p className={styles.ok}>완료</p>
+        <p className={styles.ok} onClick={onClickOk}>
+          완료
+        </p>
       </div>
       <div className={styles.user_img}>
         <img src={user.profileImg} alt=""></img>
       </div>
-      <div className={styles.user_name}>
-        <input
-          type="text"
-          onChange={userNickNameHandler}
-          placeholder={userNickName}
-          required
-        ></input>
-
-        <input
-          type="text"
-          onChange={userHeightHandler}
-          placeholder={userHeight}
-          required
-        ></input>
-
-        <input
-          type="text"
-          onChange={userWeightHandler}
-          placeholder={userWeight}
-          required
-        ></input>
+      <div className={styles.edit_container}>
+        <div className={styles.user_name}>
+          <p>닉네임</p>
+          <input
+            type="text"
+            onChange={userNickNameHandler}
+            value={userNickName}
+            required
+          ></input>
+        </div>
+        <div className={styles.user_height}>
+          <p>키</p>
+          <input
+            type="text"
+            onChange={userHeightHandler}
+            value={userHeight}
+            required
+          ></input>
+        </div>
+        <div className={styles.user_weight}>
+          <p>몸무게</p>
+          <input
+            type="text"
+            onChange={userWeightHandler}
+            value={userWeight}
+            required
+          ></input>
+        </div>
+        <div className={styles.user_gender}>
+          <p>성별</p>
+          <select
+            onChange={userGenderHandler}
+            value={userGender ? userGender : ""}
+          >
+            <option value="m">남성</option>
+            <option value="f">여성</option>
+          </select>
+        </div>
       </div>
       <div className={styles.message}>
         <p>닉네임은 띄어쓰기 없이 한글, 영문, 숫자만 가능해요.</p>
       </div>
-      <div className={styles.btn}>
+      {/* <div className={styles.btn}>
         <button onClick={onClickOk}>완료</button>
-      </div>
+      </div> */}
     </div>
   );
 }

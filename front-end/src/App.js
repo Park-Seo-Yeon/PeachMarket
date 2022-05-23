@@ -31,20 +31,20 @@ function App() {
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////
   // 수정한 부분
-  // 원래는 토큰 하나만 받아와서 로컬 스토리지에 저장했다면 이제는 2개를 받아옴 
+  // 원래는 토큰 하나만 받아와서 로컬 스토리지에 저장했다면 이제는 2개를 받아옴
   ///////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////// 
+  ///////////////////////////////////////////////////////////////
   useEffect(() => {
-    if (localStorage.getItem("token") != null 
-      && localStorage.getItem("refreshToken") != null) {
+    if (
+      localStorage.getItem("token") != null &&
+      localStorage.getItem("refreshToken") != null
+    ) {
       setIsLoggedIn(true);
     }
-    
+
     setUserToken(localStorage.getItem("token"));
     setUserRefreshToken(localStorage.getItem("refreshToken"));
     setUserId(localStorage.getItem("loginId"));
-
-    
   }, []);
 
   return (
@@ -70,13 +70,10 @@ function App() {
               element={isLoggedIn ? <WriteComponent /> : <LoginComponent />}
             />
             <Route
-              path="/profile/:userId"
+              path="/profile/edit"
               element={isLoggedIn ? <ProfileComponent /> : <LoginComponent />}
             />
-            <Route
-              path="/fitting"
-              element={isLoggedIn ? <FittingComponent /> : <LoginComponent />}
-            />
+            <Route path="/fitting" element={<FittingComponent />} />
             <Route path="/login" element={<LoginComponent />} />
           </Routes>
         </div>
