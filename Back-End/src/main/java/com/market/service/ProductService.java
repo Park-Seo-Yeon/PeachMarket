@@ -75,22 +75,30 @@ public class ProductService {
 	
 
 	// 글 수정 
-	public void updateProduct(Integer productId, MultipartFile multipartFile,
+	public void updateProduct(String userId, Integer productId, MultipartFile multipartFile,
 			ProductDto updatedProductDto) throws Exception {
-		
+
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not exist Product by Id : ["+productId+"]"));
 		
-		product.setTitle(updatedProductDto.getTitle());	 // 제목
-		product.setCategory(categoryService.getCategoryByCategoryId(updatedProductDto.getCategoryId())); // 카테고리
-		product.setPrice(updatedProductDto.getPrice());	// 가격
-		product.setProductState(updatedProductDto.getProductState()); // 판매 상태 
-		product.setContents(updatedProductDto.getContents());	// 내용
+		String productOwner = productRepository.findUserByProduct(productId);	// 원글 작성자 ID
 		
-		if (multipartFile != null) {
-			s3Service.upload(multipartFile, product);
+		// 수정을 요청한 사용자ID가 글 작성자의 ID와 같은지 비교 
+		if (!(userId.equals(productOwner))) {
+			System.out.println("글 작성자만 수정 가능합니다.");
+		} else {
+			product.setTitle(updatedProductDto.getTitle());	 // 제목
+			product.setCategory(categoryService.getCategoryByCategoryId(updatedProductDto.getCategoryId())); // 카테고리
+			product.setPrice(updatedProductDto.getPrice());	// 가격
+			product.setProductState(updatedProductDto.getProductState()); // 판매 상태 
+			product.setContents(updatedProductDto.getContents());	// 내용
+			
+			if (multipartFile != null) {
+				s3Service.upload(multipartFile, product);
+			}
+			productRepository.save(product);
 		}
-		productRepository.save(product);		
+		
 		
 	}
 	
