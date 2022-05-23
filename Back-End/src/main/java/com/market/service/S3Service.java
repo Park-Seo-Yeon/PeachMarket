@@ -47,9 +47,9 @@ public class S3Service {
                 .build();
     }
 
-    // 게시글을 올릴 때 첨부되는 사진 
+    // 게시글을 올릴 때 & 수정될 때 첨부되는 사진 
     public String upload(MultipartFile file, Product product) throws IOException {
-        String fileName = "data/origin-cloth/" + UUID.randomUUID() + file.getOriginalFilename();	// 파일명 중복 방지를 위해 원본 파일명 앞에 UUID를 랜덤으로 생성한다 
+        String fileName = "data/origin_cloth/" + UUID.randomUUID() + file.getOriginalFilename();	// 파일명 중복 방지를 위해 원본 파일명 앞에 UUID를 랜덤으로 생성한다 
         s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
@@ -59,14 +59,5 @@ public class S3Service {
         return "upload-clothe";
     }
     
-    // 모델 생성 시, 사용되는 사용자의 셀카 이미지 
-//    public String uploadUserSelca(MultipartFile file, String userId) throws IOException {
-//    	String fileName = "selca/" + userId + ".jpg";	// jpg? png?
-//    	
-//    	s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
-//    		.withCannedAcl(CannedAccessControlList.PublicRead));
-//    	
-//    	return "upload-user-selca";
-//    }
 
 }

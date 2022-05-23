@@ -23,7 +23,10 @@ function MainComponent(props) {
     ProductService.getProducts().then((res) => {
       changeCategory(category, res.data);
     });
+
+    console.log(products);
   }, [category]);
+
 
   const changeCategory = (category, data) => {
     if (category == "0") {

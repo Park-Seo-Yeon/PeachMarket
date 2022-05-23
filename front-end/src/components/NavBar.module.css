@@ -30,3 +30,13 @@
   font-weight: bold;
   margin-top: 20px;
 }
+
+ul {
+  list-style: none;
+  padding-left: 8px;
+
+}
+
+li {
+  padding-top: 16px;
+}

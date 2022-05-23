@@ -32,7 +32,6 @@ public class Product {
 	
 	private String title;
 	
-	// 수정 
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
 	private Category category;
@@ -44,7 +43,7 @@ public class Product {
 	
 	@ManyToOne
 	@JoinColumn(name="userId")
-	private User userId;
+	private User user;
 	
 	private Integer count;
 	
@@ -52,13 +51,14 @@ public class Product {
 	
 	@Builder
 	public Product(String title, Category category,
-			Integer price, String contents, Date createTime, String productState, Integer count) {
+			Integer price, String contents, Date createTime, String productState, User user, Integer count) {
 		this.title = title;
 		this.category = category;
 		this.price = price;
 		this.contents = contents;
 		this.createTime = createTime;
 		this.productState = productState;
+		this.user = user;
 		this.count = count;
 		
 	}

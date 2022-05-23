@@ -8,11 +8,45 @@ import UserComponent from "./components/UserComponent";
 import WriteComponent from "./components/WriteComponent";
 import ProfileComponent from "./components/ProfileComponent";
 import LoginComponent from "./components/LoginComponent";
-import ModelMenuComponent from "./components/ModelMenuComponent";
-import { useState } from "react";
+import FittingComponent from "./components/FittingComponent";
+import { useEffect, useState } from "react";
+import useStore from "./components/useStore";
 
 function App() {
+  const { isLoggedIn, setIsLoggedIn } = useStore();
+
+  const { userId, setUserId } = useStore();
+  const { userToken, setUserToken } = useStore();
+  const { userRefreshToken, setUserRefreshToken } = useStore();
   const [searchStatus, setSearchStatus] = useState(false);
+  // useEffect(() => {
+  //   if (localStorage.getItem("jwtToken") === null) {
+  //     console.log(isLoggedIn);
+  //   } else {
+  //     setIsLoggedIn(true);
+  //     console.log(isLoggedIn);
+  //   }
+  // }, []);
+
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  // 수정한 부분
+  // 원래는 토큰 하나만 받아와서 로컬 스토리지에 저장했다면 이제는 2개를 받아옴
+  ///////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////
+  useEffect(() => {
+    if (
+      localStorage.getItem("token") != null &&
+      localStorage.getItem("refreshToken") != null
+    ) {
+      setIsLoggedIn(true);
+    }
+
+    setUserToken(localStorage.getItem("token"));
+    setUserRefreshToken(localStorage.getItem("refreshToken"));
+    setUserId(localStorage.getItem("loginId"));
+  }, []);
+
   return (
     <Container>
       <Router>
@@ -27,11 +61,20 @@ function App() {
               element={<MainComponent searchStatus={searchStatus} />}
             />
             <Route path="/products/:productId" element={<ProductComponent />} />
-            <Route path="/user/:userId" element={<UserComponent />} />
-            <Route path="/write/:productId" element={<WriteComponent />} />
-            <Route path="/profile/:userId" element={<ProfileComponent />} />
+            <Route
+              path="/mypage"
+              element={isLoggedIn ? <UserComponent /> : <LoginComponent />}
+            />
+            <Route
+              path="/write/:productId"
+              element={isLoggedIn ? <WriteComponent /> : <LoginComponent />}
+            />
+            <Route
+              path="/profile/edit"
+              element={isLoggedIn ? <ProfileComponent /> : <LoginComponent />}
+            />
+            <Route path="/fitting" element={<FittingComponent />} />
             <Route path="/login" element={<LoginComponent />} />
-            <Route path="/createModel" element={<ModelMenuComponent />} />
           </Routes>
         </div>
       </Router>
