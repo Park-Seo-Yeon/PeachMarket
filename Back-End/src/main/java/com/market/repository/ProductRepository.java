@@ -18,4 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("update Product p set p.count = p.count + 1 where p.productId = :productId")
 	int updateCount(Integer productId);
 
+	@Query(value="select user_id from product p where product_id = :productId", nativeQuery = true)
+	String findUserByProduct(Integer productId);
 }

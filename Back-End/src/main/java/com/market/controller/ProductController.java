@@ -6,6 +6,8 @@ import java.util.Map;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,7 +60,9 @@ public class ProductController {
 	public void updateProductById(@PathVariable Integer productId,
 			@RequestPart(required=false, value="file") MultipartFile multipartFile, 
 			@RequestPart("data") ProductDto productDto) throws Exception {
-		productService.updateProduct(productId, multipartFile, productDto);
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId = userDetails.getUsername();
+		productService.updateProduct(userId, productId, multipartFile, productDto);
 	}
 	
 	// 글 삭제 
