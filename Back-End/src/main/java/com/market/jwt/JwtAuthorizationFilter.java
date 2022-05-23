@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-// security가 갖고 있는 filter 중 BasicAuthenticationFilter라는 것이 있는데
-// 권한이나 인증이 필요한 특정 주소를 요청했을 때 이 필터를 무조건 타게 되어있음 
-// 만약 권한이나 인증이 필요한 주소가 아니라면 이 필터를 타지 않음 
+// 인가 필터 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 	public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {

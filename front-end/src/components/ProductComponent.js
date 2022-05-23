@@ -49,7 +49,8 @@ function ProductComponent() {
           width: "350px",
         });
         {
-          ProductService.deleteProduct(productId).then((res) => {
+          ProductService.deleteProduct(productId)
+          .then((res) => {
             if (res.status == 200) {
               navigate("/");
             } else {
@@ -60,7 +61,30 @@ function ProductComponent() {
                 width: "350px",
               });
             }
-          });
+          })
+        ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+        // 수정한 부분
+        // 글 삭제는 어차피 본인일 때만 버튼이 보여서 일단 주석처리 해둠 
+        // 주석처리해도 동작은 잘 되더라 ...
+        // 추가하는게 맞는 것인지 판단 부탁 ...  
+        // 코드의 간결한 정리가 가능하다면 부탁... 
+        // 주석은 없애도 상관 없음
+        ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+      //     .catch((error) => {
+      //   if (error.response.status === 401 ) {
+      //     console.log("글 삭제 에러");
+      //     ProductService.getRefreshToken()
+      //     .then((res) => {
+      //       localStorage.setItem("token",res.data.accessToken);
+      //     })
+      //     .then(() => {
+      //       window.location.reload();
+      //     });
+      //   }
+        
+      // });
         }
       }
     });

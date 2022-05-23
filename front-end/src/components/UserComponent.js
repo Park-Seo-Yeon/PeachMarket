@@ -8,14 +8,38 @@ import PurchaseMenuComponent from "./PurchaseMenuComponent";
 import ModelMenuComponent from "./ModelMenuComponent";
 import { Link } from "react-router-dom";
 import ProductService from "../service/ProductService";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 function UserComponent() {
   const [user, setUser] = useState([]);
   const [clickedMenu, setClickedMenu] = useState("SaleMenu");
+  const [status, setStatus] = useState("");
+
   useEffect(() => {
-    ProductService.getMyPage().then((res) => {
+    ProductService.getMyPage().then((res) =>{
       setUser(res.data);
-    });
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+      // 수정한 부분
+      // 401 에러가 나면 POST 메소드로 /refresh로 요청을 보내게끔 짜두었음
+      // 코드의 간결한 정리가 가능하다면 부탁... 
+      // 주석은 없애도 상관 없음
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+    }).catch((error) => {
+      if (error.response.status === 401 ) {
+        console.log("토큰 만료로 인한 마이페이지 로드 에러");
+        ProductService.getRefreshToken().then((res) => {
+          localStorage.setItem("token",res.data.accessToken);
+        })
+        // 토큰 재발급 요청 시 새로고침을 해야지만 로컬스토리지에 저장된 값이 반영이 돼서 새로고침 코드도 포함시켰음
+        .then(()=>{
+          window.location.reload();
+        });
+      }
+      
+    })
   }, []);
   return (
     <div className={styles.user_container}>

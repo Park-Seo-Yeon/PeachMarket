@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 function LoginComponent() {
   const { userId, setUserId } = useStore();
   const { userToken, setUserToken } = useStore();
+  const { userRefreshToken, setUserRefreshToken } = useStore();
 
   const { isLoggedIn, setIsLoggedIn } = useStore();
   const navigate = useNavigate();
@@ -34,9 +35,20 @@ function LoginComponent() {
 
     ProductService.login(userInfo)
       .then((res) => {
-        const token = res.data;
-        localStorage.setItem("jwtToken", token);
-
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+      // 수정한 부분
+      // 로그인 시, 액세스 토큰과 재발급을 위한 리프레쉬 토큰을 함께 받는다.
+      // 리프레쉬 토큰은 DB 유저테이블에 따로 저장 중이고 
+      // 이후에 로그인 인증이 필요한 요청이 오면 /refresh로 토큰과 리프레쉬 토큰을 헤더에 담아서 보내는데
+      // 이때 보내진 리프레쉬 토큰과 DB에 저장되어있는 리프레쉬 토큰 값이 같을 경우에만 토큰을 재발급 해주는 식으로 코드를 짬
+      ///////////////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////
+        const token = res.data.accessToken;
+        const refreshToken = res.data.refreshToken;
+        console.log(res.data);
+        localStorage.setItem("token", token);
+        localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("loginId", id);
         setIsLoggedIn(true);
         Swal.fire({

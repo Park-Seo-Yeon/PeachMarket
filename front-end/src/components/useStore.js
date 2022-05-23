@@ -10,6 +10,9 @@ const useStore = create((set)=>({
   userToken : "",
   setUserToken:(input) =>set({userToken:input}),
 
+  userRefreshToken : "",
+  setUserRefreshToken:(input) =>set({userRefreshToken:input}),
+
   
   isLoggedIn : false,
   setIsLoggedIn:(input) =>set({isLoggedIn:input}),
