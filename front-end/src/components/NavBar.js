@@ -37,7 +37,7 @@ function NavBar(props) {
         </Navbar.Brand>
 
         <Nav className="flex-row">
-          <Nav.Link to={"./"}>
+          <Nav.Link href="/">
             <BsSearch
               size="24"
               className={styles.search}
@@ -68,7 +68,7 @@ function NavBar(props) {
             <Nav className="justify-content-end flex-grow-1 pe-3">
               {localStorage.getItem("jwtToken") === null ? (
                 <div>
-                  <NavDropdown.Item className={styles.title} href="./login">
+                  <NavDropdown.Item className={styles.title} href="/login">
                     로그인
                   </NavDropdown.Item>
                   {/* <p>안녕하세요. 피치마켓입니다.</p>
@@ -153,7 +153,7 @@ function NavBar(props) {
                 ""
               ) : (
                 <div>
-                  <NavDropdown.Item className={styles.title} href="./mypage">
+                  <NavDropdown.Item className={styles.title} href="/mypage">
                     마이페이지
                   </NavDropdown.Item>
 
