@@ -36,7 +36,7 @@ class ProductService {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-    },); 
+    },);
   }
 
   login(userInfo) {

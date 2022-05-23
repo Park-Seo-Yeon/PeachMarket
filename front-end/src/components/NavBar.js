@@ -174,7 +174,6 @@ function NavBar(props) {
                       마이페이지
                     </p>
                   </Link>
-
                   <a
                     className={styles.title}
                     onClick={() => {

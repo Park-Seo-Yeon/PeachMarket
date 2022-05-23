@@ -8,6 +8,7 @@ import UserComponent from "./components/UserComponent";
 import WriteComponent from "./components/WriteComponent";
 import ProfileComponent from "./components/ProfileComponent";
 import LoginComponent from "./components/LoginComponent";
+import FittingComponent from "./components/FittingComponent";
 import { useEffect, useState } from "react";
 import useStore from "./components/useStore";
 
@@ -69,6 +70,10 @@ function App() {
             <Route
               path="/profile/:userId"
               element={isLoggedIn ? <ProfileComponent /> : <LoginComponent />}
+            />
+            <Route
+              path="/fitting"
+              element={isLoggedIn ? <FittingComponent /> : <LoginComponent />}
             />
             <Route path="/login" element={<LoginComponent />} />
           </Routes>

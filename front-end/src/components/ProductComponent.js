@@ -17,6 +17,7 @@ function ProductComponent() {
   const productId = useParams().productId;
   const { userId, setUserId } = useStore();
   const [open, setOpen] = useState(false);
+  const [fittingImg, setFittingImg] = useState(null);
 
   useEffect(() => {
     ProductService.getOneProduct(productId).then((res) => {
@@ -94,15 +95,16 @@ function ProductComponent() {
     e.persist();
 
     const formData = new FormData();
-    //formData.append("user_id", ); //유저 아이디 부분 추가하기
+    formData.append("userId", userId);
     formData.append("img", product.pictureUrl);
 
     try {
       const postSurvey = await axios.post(
-        "http://localhost:5000/createModel",
+        "http://localhost:5000/fitting",
         formData
       );
       console.log(postSurvey);
+      setFittingImg(postSurvey.data);
     } catch (e) {
       console.error(e);
     }
@@ -209,8 +211,8 @@ function ProductComponent() {
         <p className={styles.product_price}>{product.price}원</p>
         <div className={styles.btn}>
           <button>채팅</button>
-          <Link to={"/fitting"}>
-            <button>피팅</button> {/* onClick={onClickFitting} */}
+          <Link to={"/fitting"} state={{ fittingImg: fittingImg }}>
+            <button onClick={onClickFitting}>피팅</button>
           </Link>
         </div>
       </div>
