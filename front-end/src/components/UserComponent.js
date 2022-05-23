@@ -51,7 +51,7 @@ function UserComponent() {
         <p className={styles.title}>마이페이지</p>
         <img src={user.profileImg} alt="" className={styles.user_img}></img>
         <p className={styles.user_name}>{user.nickname}</p>
-        <Link to={"/profile/1"}>
+        <Link to={"/profile/edit"}>
           <button className={styles.btn_edit}>프로필 수정</button>
         </Link>
       </div>

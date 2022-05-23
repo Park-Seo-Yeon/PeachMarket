@@ -1,21 +1,23 @@
 import create from "zustand";
 
-const useStore = create((set)=>({
-  category :"0",
-  setCategory:(input) => set({category:input}),
+const useStore = create((set) => ({
+  category: "0",
+  setCategory: (input) => set({ category: input }),
 
-  userId : "",
-  setUserId:(input) =>set({userId:input}),
+  userId: "",
+  setUserId: (input) => set({ userId: input }),
 
-  userToken : "",
-  setUserToken:(input) =>set({userToken:input}),
+  userToken: "",
+  setUserToken: (input) => set({ userToken: input }),
 
-  userRefreshToken : "",
-  setUserRefreshToken:(input) =>set({userRefreshToken:input}),
+  userRefreshToken: "",
+  setUserRefreshToken: (input) => set({ userRefreshToken: input }),
 
-  
-  isLoggedIn : false,
-  setIsLoggedIn:(input) =>set({isLoggedIn:input}),
+  isLoggedIn: false,
+  setIsLoggedIn: (input) => set({ isLoggedIn: input }),
+
+  fittingImg: "",
+  setFittingImg: (input) => set({ fittingImg: input }),
 }));
 
 export default useStore;
