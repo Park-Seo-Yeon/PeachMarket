@@ -6,13 +6,36 @@ import styles from "./Write.module.css";
 import axios from "axios";
 import $ from "jquery"; // jQuery 사용을 위해 추가
 
+import useStore from "./useStore";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ProductService from "../service/ProductService";
 import Swal from "sweetalert2";
 
 function WriteComponent() {
+
+  
   const navigate = useNavigate();
   const productId = useParams().productId;
+  const { userToken, setUserToken } = useStore();
+
+  useEffect(() => {
+    ProductService.getMyPage()
+      .then((res) => {
+        console.log("토큰 확인");
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          console.log("토큰 만료로 인한 페이지 로드 에러");
+          ProductService.getRefreshToken().then((res) => {
+            console.log(res.data.accessToken)
+            localStorage.setItem("token", res.data.accessToken);
+            setUserToken(res.data.accessToken);
+          });
+        }
+      });
+  }, [userToken]);
+  
 
   const [title, setTitle] = useState("");
 
