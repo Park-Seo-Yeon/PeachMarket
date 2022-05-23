@@ -58,9 +58,10 @@ function ProfileComponent() {
 
   const onClickOk = () => {
     let userProfile = {
-      userNickName: userNickName,
-      userHeight: userHeight,
-      userHWight: userWeight,
+      // 이름 수정
+      nickname: userNickName,
+      height: userHeight,
+      weight: userWeight,
     };
 
     console.log(userProfile);
