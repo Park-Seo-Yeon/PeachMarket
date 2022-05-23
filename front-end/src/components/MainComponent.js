@@ -13,10 +13,6 @@ function MainComponent(props) {
   const [search, setSearch] = useState("");
   const { category, setCategory } = useStore();
 
-  const { userId, setUserId } = useStore();
-  const { userToken, setUserToken } = useStore();
-  const { isLoggedIn, setIsLoggedIn } = useStore();
-
   /*
   useEffect(() => {
     changeCategory(category, exdata.product);
@@ -31,13 +27,6 @@ function MainComponent(props) {
     console.log(products);
   }, [category]);
 
-  useEffect(() => {
-    if (localStorage.getItem("token") != null) {
-      setIsLoggedIn(true);
-    }
-    setUserToken(localStorage.getItem("token"));
-    setUserId(localStorage.getItem("loginId"));
-  }, []);
 
   const changeCategory = (category, data) => {
     if (category == "0") {

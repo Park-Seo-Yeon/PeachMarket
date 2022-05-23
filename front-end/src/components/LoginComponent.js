@@ -50,6 +50,9 @@ function LoginComponent() {
         localStorage.setItem("token", token);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("loginId", id);
+        setUserToken(token);
+        setUserRefreshToken(refreshToken);
+        setUserId(id);
         setIsLoggedIn(true);
         Swal.fire({
           text: "로그인에 성공했습니다",

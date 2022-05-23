@@ -5,10 +5,14 @@ import TimeCounting from "time-counting";
 import ProductService from "../service/ProductService";
 import styles from "./Menu.module.css";
 
+import useStore from "./useStore";
+
+
 function SaleMenuComponent() {
   const [clickedMenu, setClickedMenu] = useState("ForSale");
   const [user, setUser] = useState([]);
   const [products, setProducts] = useState([]);
+  const { userToken, setUserToken } = useStore();
 
     useEffect(() => {
     ProductService.getMyPage().then((res) =>{
@@ -37,7 +41,7 @@ function SaleMenuComponent() {
     //   }  
     // })
     })
-  }, []);
+  }, [userToken]);
   const option = {
     lang: "ko",
     calculate: {
