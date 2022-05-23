@@ -38,13 +38,6 @@ public class ProductController {
 		return productService.findPopularProducts();
 	}
 	
-	// 카테고리 번호에 따른 페이지 로딩 
-//	@PostMapping("/{categoryId}")
-//	public List<Product> getCategoryById(@PathVariable Integer categoryId) {
-//		System.out.println("#########: " + categoryId);
-//		return productService.findProductByCategory(categoryId);
-//	}
-	
 	// 글 상세보기 
 	@GetMapping("/{productId}")
 	public ResponseEntity<Product> getProductDetail(@PathVariable Integer productId) {

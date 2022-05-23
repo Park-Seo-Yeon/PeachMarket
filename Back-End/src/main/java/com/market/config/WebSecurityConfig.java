@@ -66,8 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          //.addFilter(corsFilter) // @CrossOrigin(인증X), 시큐리티 필터에 등록 인증(O) 
          //.addFilter(new JwtAuthorizationFilter(authenticationManager()))
         
-         .antMatchers("/join", "/login", "/api/products/**", "/refresh", "/app/**").permitAll()	
-         .antMatchers( "/mypage", "/api/products/create", "/api/products/edit", "/api/products/delete/**").hasRole("USER")
+         .antMatchers("/join", "/login", "/api/products/**", "/refresh", "/app/**", "/ws/**", "/user/**", "/chatroom/**").permitAll()	
+         .antMatchers( "/mypage/**", "/api/products/create", "/api/products/edit", "/api/products/delete/**").hasRole("USER")
          .anyRequest().denyAll()
          .and()
          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 사용 X 
