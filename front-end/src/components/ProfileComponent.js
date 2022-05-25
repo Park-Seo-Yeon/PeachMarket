@@ -27,13 +27,9 @@ function ProfileComponent() {
   const [userGender, setUserGender] = useState("");
   const userGenderHandler = (e) => {
     e.preventDefault();
-    if (e.target.value === "남성") setUserGender("m");
-    else setUserGender("f");
+    setUserGender(e.target.value);
   };
 
-  // const [userImg, setUserImg] = useState(
-  //   {user.profileImg}
-  // );
   useEffect(() => {
     ProductService.getMyPage().then((res) => {
       setUser(res.data);
@@ -138,10 +134,7 @@ function ProfileComponent() {
         </div>
         <div className={styles.user_gender}>
           <p>성별</p>
-          <select
-            onChange={userGenderHandler}
-            value={userGender ? userGender : ""}
-          >
+          <select onChange={userGenderHandler} value={userGender}>
             <option value="m">남성</option>
             <option value="f">여성</option>
           </select>

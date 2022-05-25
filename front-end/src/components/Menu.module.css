@@ -29,11 +29,18 @@
   border-bottom: 2px solid black;
 }
 
+.sale_container, .purchase_container {
+  height: 35vh;
+  margin-top: 35vh;
+}
+
 .message {
   color: gray;
   text-align: center;
-  height: 35vh;
-  margin-top: 35vh;
+}
+
+.model_container {
+  height: 70vh;
 }
 
 .btn {
@@ -72,7 +79,7 @@
 }
 
 .uploadImg {
-  margin-top: 30px;
+  margin-top: 40px;
   text-align: center;
 }
 
@@ -129,4 +136,8 @@
 .product_price {
   font-size: 20px;
   font-weight: bold;
+}
+
+.hidden {
+  display: none;
 }
