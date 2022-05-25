@@ -23,6 +23,10 @@
     font-weight: bold;
 }
 
+.ok_hidden{
+    color: white;
+}
+
 .user_img {
     text-align: center;
     margin-top: 30px;
@@ -83,3 +87,21 @@
     text-align: center;
     margin-top: 50px;
 }
+
+.fittingImg {
+    width: 300px;
+    height: 400px;
+}
+
+.loading_container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .loading_spinner {
+    width: 30px;
+  }
+  
+  .loading_text {
+    margin-top: 10px;
+  }

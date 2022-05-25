@@ -73,34 +73,43 @@ function ModelMenuComponent() {
   return (
     <div>
       <div className={styles.title_noTab}>개인모델</div>
-      <div className={styles.btn}>
-        <input
-          type="file"
-          id="inputFile"
-          onChange={handleChangeFile}
-          className={styles.inputFile}
-        />
-        <button onClick={onClickInputFile}>사진 업로드하기</button>
-        <button onClick={onClickCreateModel}>모델 생성하기</button>
-      </div>
-      {isShown ? (
-        <div className={styles.uploadImg}>
-          <p>{imgFile && <img src={imgBase64} alt="" />}</p>
-        </div>
-      ) : loading ? (
-        <div className={styles.loading_container}>
-          <Spinner
-            animation="border"
-            style={{ color: "#fea5ab" }}
-            className={styles.loading_spinner}
+      <div className={styles.model_container}>
+        <div className={styles.btn}>
+          <input
+            type="file"
+            id="inputFile"
+            onChange={handleChangeFile}
+            className={styles.inputFile}
           />
-          <p className={styles.loading_text}>모델 생성 중</p>
+          <button onClick={onClickInputFile}>사진 업로드하기</button>
+          <button onClick={onClickCreateModel}>모델 생성하기</button>
         </div>
-      ) : (
-        <div className={styles.uploadImg}>
-          <p>{imgFile && <img src={modelImg} alt="" />}</p>
-        </div>
-      )}
+        {user.modelImg !== null ? (
+          <div className={imgFile === null ? styles.uploadImg : styles.hidden}>
+            <img src={user.modelImg}></img>
+          </div>
+        ) : (
+          ""
+        )}
+        {isShown ? (
+          <div className={styles.uploadImg}>
+            <p>{imgFile && <img src={imgBase64} alt="" />}</p>
+          </div>
+        ) : loading ? (
+          <div className={styles.loading_container}>
+            <Spinner
+              animation="border"
+              style={{ color: "#fea5ab" }}
+              className={styles.loading_spinner}
+            />
+            <p className={styles.loading_text}>모델 생성 중</p>
+          </div>
+        ) : (
+          <div className={styles.uploadImg}>
+            <p>{imgFile && <img src={modelImg} alt="" />}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

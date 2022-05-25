@@ -90,6 +90,7 @@ function ProductComponent() {
   };
 
   const onClickFitting = async (e) => {
+    navigate("/fitting");
     e.preventDefault();
     e.persist();
 
@@ -105,10 +106,14 @@ function ProductComponent() {
       );
       console.log(postSurvey);
       setFittingImg(postSurvey.data);
-      console.log(fittingImg);
-      navigate("/fitting");
     } catch (e) {
       console.error(e);
+      Swal.fire({
+        text: "가상 피팅에 실패했습니다",
+        confirmButtonColor: "#fea5ab",
+        confirmButtonText: "확인",
+        width: "350px",
+      });
     }
   };
 
@@ -212,7 +217,7 @@ function ProductComponent() {
       <div className={styles.function_container}>
         <p className={styles.product_price}>{product.price}원</p>
         <div className={styles.btn}>
-          <button>채팅</button>
+          {/* <button>채팅</button> */}
           <button onClick={onClickFitting}>피팅</button>
         </div>
       </div>

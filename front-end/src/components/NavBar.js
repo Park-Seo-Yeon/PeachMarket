@@ -43,9 +43,9 @@ function NavBar(props) {
               onClick={onClickSearch}
             />
           </Nav.Link>
-          <Nav.Link href="/">
+          {/* <Nav.Link href="/">
             <BsChat size="24" className={styles.chat} />
-          </Nav.Link>
+          </Nav.Link> */}
         </Nav>
 
         <Navbar.Offcanvas
