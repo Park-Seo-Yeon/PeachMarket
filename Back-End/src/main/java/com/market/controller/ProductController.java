@@ -40,6 +40,11 @@ public class ProductController {
 		return productService.findPopularProducts();
 	}
 	
+//	@GetMapping("/category/{categoryId}")
+//	public ResponseEntity<List<Product>> getProductByCategory(@PathVariable Integer categoryId) {
+//		return productService.findProductsByCategory(categoryId);
+//	}
+	
 	// 글 상세보기 
 	@GetMapping("/{productId}")
 	public ResponseEntity<Product> getProductDetail(@PathVariable Integer productId) {
