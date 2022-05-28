@@ -19,22 +19,33 @@ function MainComponent(props) {
   }, [category]);
   */
 
-  useEffect(() => {
-    ProductService.getProducts().then((res) => {
-      changeCategory(category, res.data);
-    });
+  useEffect(()=>{
+    setCategory("0");
+  }, []);
 
-    console.log(products);
+  //카테고리 요청
+  useEffect(()=>{
+    ProductService.getProducts(category).then((res)=>{
+      setProducts(res.data);
+    });
   }, [category]);
 
+  // useEffect(() => {
+  //   ProductService.getProducts().then((res) => {
+  //     changeCategory(category, res.data);
+  //   });
 
-  const changeCategory = (category, data) => {
-    if (category == "0") {
-      setProducts(data);
-    } else {
-      setProducts(data.filter((d) => d.category == category));
-    }
-  };
+  //   console.log(products);
+  // }, [category]);
+
+
+  // const changeCategory = (category, data) => {
+  //   if (category == "0") {
+  //     setProducts(data);
+  //   } else {
+  //     setProducts(data.filter((d) => d.category == category));
+  //   }
+  // };
 
   const option = {
     lang: "ko",

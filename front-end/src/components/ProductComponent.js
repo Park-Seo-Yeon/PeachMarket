@@ -51,7 +51,7 @@ function ProductComponent() {
         {
           ProductService.deleteProduct(productId).then((res) => {
             if (res.status == 200) {
-              navigate("/");
+              navigate(-1);
             } else {
               Swal.fire({
                 text: "게시글 삭제에 실패했습니다",
