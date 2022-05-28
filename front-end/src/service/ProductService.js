@@ -12,8 +12,13 @@ const MYPAGE_API_BASE_URL = "http://localhost:8080/mypage";
 const CHAT_API_BASE_URL = "http://localhost:8080/api/chat";
 
 class ProductService {
-  getProducts() {
-    return axios.get(PRODUCT_API_BASE_URL);
+  // getProducts() {
+  //   return axios.get(PRODUCT_API_BASE_URL);
+  // }
+
+  //카테고리 요청
+  getProducts(category) {
+    return axios.get(PRODUCT_API_BASE_URL + "category/" + category);
   }
 
   getOneProduct(productId) {
