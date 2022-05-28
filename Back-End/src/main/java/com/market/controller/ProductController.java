@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "http://localhost:3000")
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/products")
 public class ProductController {
@@ -40,10 +39,11 @@ public class ProductController {
 		return productService.findPopularProducts();
 	}
 	
-//	@GetMapping("/category/{categoryId}")
-//	public ResponseEntity<List<Product>> getProductByCategory(@PathVariable Integer categoryId) {
-//		return productService.findProductsByCategory(categoryId);
-//	}
+	// 카테고리별로 인기순 정렬 
+	@GetMapping("/category/{categoryId}")
+	public ResponseEntity<List<Product>> getProductByCategory(@PathVariable Integer categoryId) {
+		return productService.findProductsByCategory(categoryId);
+	}
 	
 	// 글 상세보기 
 	@GetMapping("/{productId}")

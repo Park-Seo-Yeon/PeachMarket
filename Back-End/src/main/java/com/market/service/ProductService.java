@@ -38,6 +38,11 @@ public class ProductService {
 		
 	}
 	
+	public ResponseEntity<List<Product>> findProductsByCategory(Integer categoryId) {
+		List<Product> products = productRepository.findPopularListWithCategory(categoryId);
+		return ResponseEntity.ok(products);
+	}
+	
 	// 글 상세보기 
 	public ResponseEntity<Product> findProductDetail(Integer id) {
 		 Product product = productRepository.findById(id)
