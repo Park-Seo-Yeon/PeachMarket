@@ -1,8 +1,8 @@
 import create from "zustand";
 
 const useStore = create((set) => ({
-  category: "0",
-  setCategory: (input) => set({ category: input }),
+  changeCategory: "0",
+  setChangeCategory: (input) => set({ changeCategory: input }),
 
   userId: "",
   setUserId: (input) => set({ userId: input }),

@@ -6,15 +6,11 @@ import styles from "./NavBar.module.css";
 import useStore from "./useStore";
 
 function NavBar(props) {
-  const { category, setCategory } = useStore();
+  const { changeCategory, setChangeCategory } = useStore();
   const { userId, setUserId } = useStore();
   const onClickSearch = () => {
     const searchStatus = props.searchStatus;
     props.onChange(!searchStatus);
-  };
-
-  const categoryChange = () => {
-    console.log(category);
   };
 
   return (
@@ -104,8 +100,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
-                      setCategory("0");
-                      categoryChange();
+                      setChangeCategory("0");
                     }}
                   >
                     전체보기
@@ -114,8 +109,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
-                      setCategory("1");
-                      categoryChange();
+                      setChangeCategory("1");
                     }}
                   >
                     상의
@@ -124,8 +118,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
-                      setCategory("2");
-                      categoryChange();
+                      setChangeCategory("2");
                     }}
                   >
                     아우터
@@ -134,8 +127,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
-                      setCategory("3");
-                      categoryChange();
+                      setChangeCategory("3");
                     }}
                   >
                     스커트
@@ -144,8 +136,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
-                      setCategory("4");
-                      categoryChange();
+                      setChangeCategory("4");
                     }}
                   >
                     팬츠
@@ -154,8 +145,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
-                      setCategory("5");
-                      categoryChange();
+                      setChangeCategory("5");
                     }}
                   >
                     원피스

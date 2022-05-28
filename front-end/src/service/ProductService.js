@@ -12,9 +12,9 @@ const MYPAGE_API_BASE_URL = "http://localhost:8080/mypage";
 const CHAT_API_BASE_URL = "http://localhost:8080/api/chat";
 
 class ProductService {
-  // getProducts() {
-  //   return axios.get(PRODUCT_API_BASE_URL);
-  // }
+  getAllProducts() {
+    return axios.get(PRODUCT_API_BASE_URL);
+  }
 
   //카테고리 요청
   getProducts(category) {
@@ -30,11 +30,15 @@ class ProductService {
   }
   updateUserProfile(userProfile) {
     // 수정
-    return axios.post(MYPAGE_API_BASE_URL + "/update/" + localStorage.getItem("loginId"), userProfile, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"), // token으로 수정
-      },
-    }); 
+    return axios.post(
+      MYPAGE_API_BASE_URL + "/update/" + localStorage.getItem("loginId"),
+      userProfile,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"), // token으로 수정
+        },
+      }
+    );
   }
 
   deleteProduct(productId) {
@@ -42,7 +46,7 @@ class ProductService {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
-    },);
+    });
   }
 
   login(userInfo) {
@@ -50,21 +54,24 @@ class ProductService {
   }
 
   getMyPage() {
-    return axios.get('http://localhost:8080/mypage', {
-        headers: {
+    return axios.get("http://localhost:8080/mypage", {
+      headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
-      },  
-      })
+      },
+    });
   }
 
   // 토큰을 재발급 받기 위한 요청을 보내는 부분
   // 이때는 'X-AUTH-TOKEN','REFRESH_TOKEN'에 토큰2개를 각각 담아서 보낸다.
   getRefreshToken() {
-    axios.defaults.headers.common['X-AUTH-TOKEN'] = `Bearer ${localStorage.getItem("token")}`;
-    axios.defaults.headers.common['REFRESH_TOKEN'] = `Bearer ${localStorage.getItem("refreshToken")}`;
+    axios.defaults.headers.common[
+      "X-AUTH-TOKEN"
+    ] = `Bearer ${localStorage.getItem("token")}`;
+    axios.defaults.headers.common[
+      "REFRESH_TOKEN"
+    ] = `Bearer ${localStorage.getItem("refreshToken")}`;
     return axios.post("http://localhost:8080/refresh");
   }
-    
 }
 
 export default new ProductService();
