@@ -11,7 +11,7 @@ import TimeCounting from "time-counting";
 function MainComponent(props) {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const { category, setCategory } = useStore();
+  const { changeCategory, setChangeCategory } = useStore();
 
   /*
   useEffect(() => {
@@ -19,16 +19,18 @@ function MainComponent(props) {
   }, [category]);
   */
 
-  useEffect(()=>{
-    setCategory("0");
-  }, []);
-
   //카테고리 요청
-  useEffect(()=>{
-    ProductService.getProducts(category).then((res)=>{
-      setProducts(res.data);
-    });
-  }, [category]);
+  useEffect(() => {
+    if (changeCategory === "0") {
+      ProductService.getAllProducts().then((res) => {
+        setProducts(res.data);
+      });
+    } else {
+      ProductService.getProducts(changeCategory).then((res) => {
+        setProducts(res.data);
+      });
+    }
+  }, [changeCategory]);
 
   // useEffect(() => {
   //   ProductService.getProducts().then((res) => {
@@ -37,7 +39,6 @@ function MainComponent(props) {
 
   //   console.log(products);
   // }, [category]);
-
 
   // const changeCategory = (category, data) => {
   //   if (category == "0") {

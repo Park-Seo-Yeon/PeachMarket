@@ -18,9 +18,12 @@ function UserComponent() {
   const [clickedMenu, setClickedMenu] = useState("SaleMenu");
   const [status, setStatus] = useState("");
 
+  const { changeCategory, setChangeCategory } = useStore();
+
   const { userToken, setUserToken } = useStore();
 
   useEffect(() => {
+    setChangeCategory("0");
     ProductService.getMyPage()
       .then((res) => {
         console.log("before setUser");
