@@ -43,9 +43,7 @@ public class LoginService {
 		String refreshToken = jwtTokenProvider.createRefreshToken(user.getUsername(), user.getRoles());
 		
 		user.setRefreshToken(refreshToken);
-		
-//		response.setHeader("X-AUTH-TOKEN", accessToken);
-//		response.setHeader("REFRESH-TOKEN", refreshToken);
+
 		return new AuthenticationResponse(accessToken, refreshToken);
 	}
 
@@ -97,10 +95,10 @@ public class LoginService {
 	}
 
 	// 회원가입
-	public String signUp(Map<String, String> user) {
-		return userRepository.save(User.builder().userId(user.get("userId"))
-				.password(passwordEncoder.encode(user.get("password")))
-				.nickname(user.get("userId")) // 최초 닉네임은 유저 아이디와 동일하게 설정
+	public String signUp(AuthenticationRequest authenticationRequest) {
+		return userRepository.save(User.builder().userId(authenticationRequest.getUserId())
+				.password(passwordEncoder.encode(authenticationRequest.getPassword()))
+				.nickname(authenticationRequest.getUserId()) // 최초 닉네임은 유저 아이디와 동일하게 설정
 				.profileImg(
 						"https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/setting/DefaultProfileImage.png") // 최초 프사는 기본 이미지 
 				.roles(Collections.singletonList("ROLE_USER")) // 최초 권한 설정

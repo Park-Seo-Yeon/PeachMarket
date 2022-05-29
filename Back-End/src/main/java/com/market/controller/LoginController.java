@@ -1,7 +1,5 @@
 package com.market.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,10 +35,10 @@ public class LoginController {
 		return loginService.issueAccessToken(request);
 	}
 
-	// 회원가입(실제로 프론트와 연동한 완전한 기능 구현은 X, postman을 이용하여 사용자를 생성함)
-	@PostMapping("/signUp")
-	public String join(@RequestBody Map<String, String> user) {
-		return loginService.signUp(user);
+	// 회원가입(실제로 프론트와 연동한 완전한 기능 구현은 X, 현재는 postman을 이용하여 사용자를 생성함)
+	@PostMapping("/signup")
+	public String join(@RequestBody AuthenticationRequest authenticationRequest) {
+		return loginService.signUp(authenticationRequest);
 	}
 	
 }

@@ -38,6 +38,7 @@ public class ProductService {
 		
 	}
 	
+	// 카테고리를 선택할 시 보여지는 상품 리스트
 	public ResponseEntity<List<Product>> findProductsByCategory(Integer categoryId) {
 		List<Product> products = productRepository.findPopularListWithCategory(categoryId);
 		return ResponseEntity.ok(products);
