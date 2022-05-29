@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Nav, Offcanvas } from "react-bootstrap";
 import { BsSearch, BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -8,9 +8,15 @@ import useStore from "./useStore";
 function NavBar(props) {
   const { changeCategory, setChangeCategory } = useStore();
   const { userId, setUserId } = useStore();
+  const [isShown, setIsShown] = useState(false);
+
   const onClickSearch = () => {
     const searchStatus = props.searchStatus;
     props.onChange(!searchStatus);
+  };
+
+  const onClickToggle = () => {
+    setIsShown(!isShown);
   };
 
   return (
@@ -19,6 +25,7 @@ function NavBar(props) {
         <Navbar.Toggle
           aria-controls="offcanvasNavbar"
           className={styles.toggle}
+          onClick={onClickToggle}
         />
 
         <Navbar.Brand>
@@ -49,6 +56,10 @@ function NavBar(props) {
           aria-labelledby="offcanvasNavbarLabel"
           placement="start"
           className={styles.offcanvas}
+          show={isShown}
+          onHide={() => {
+            setIsShown(false);
+          }}
         >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id="offcanvasNavbarLabel">
@@ -66,7 +77,9 @@ function NavBar(props) {
               {localStorage.getItem("token") === null ? (
                 <div>
                   <Link to={"/login"}>
-                    <p className={styles.title}>로그인</p>
+                    <p className={styles.title} onClick={onClickToggle}>
+                      로그인
+                    </p>
                   </Link>
                   {/* <p>안녕하세요. 피치마켓입니다.</p>
                   <Link to={"./login"}>
@@ -100,6 +113,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
+                      onClickToggle();
                       setChangeCategory("0");
                     }}
                   >
@@ -109,6 +123,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
+                      onClickToggle();
                       setChangeCategory("1");
                     }}
                   >
@@ -118,6 +133,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
+                      onClickToggle();
                       setChangeCategory("2");
                     }}
                   >
@@ -127,6 +143,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
+                      onClickToggle();
                       setChangeCategory("3");
                     }}
                   >
@@ -136,6 +153,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
+                      onClickToggle();
                       setChangeCategory("4");
                     }}
                   >
@@ -145,6 +163,7 @@ function NavBar(props) {
                 <Link to={"/"}>
                   <li
                     onClick={() => {
+                      onClickToggle();
                       setChangeCategory("5");
                     }}
                   >
@@ -157,7 +176,9 @@ function NavBar(props) {
               ) : (
                 <div>
                   <Link to={"/mypage"}>
-                    <p className={styles.title}>마이페이지</p>
+                    <p className={styles.mypage} onClick={onClickToggle}>
+                      마이페이지
+                    </p>
                   </Link>
                   <a
                     className={styles.title}

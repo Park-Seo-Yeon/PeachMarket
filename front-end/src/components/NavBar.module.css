@@ -25,10 +25,14 @@
   width: 320px;
 }
 
-.title {
+.title, .mypage {
   color: black;
   font-weight: bold;
   margin-top: 20px;
+}
+
+.mypage {
+  margin-bottom: 30px;
 }
 
 ul {
