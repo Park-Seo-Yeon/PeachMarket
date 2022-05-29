@@ -27,7 +27,6 @@ public class UserController {
 	// 마이페이지
 	@GetMapping("/mypage")
 	public User getMyPage() {
-		System.out.println("마이페이지");
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = userDetails.getUsername();
 		return userService.findUserById(userId);
@@ -37,8 +36,6 @@ public class UserController {
 	// 프로필 수정 (닉네임, 프로필사진, 성별, 키, 몸무게)
 	@PostMapping("/mypage/update/{userId}")
 	public User updateMyPage(@PathVariable String userId, @RequestBody UserProfileEditDto userProfileEditDto) {
-		System.out.println("수정");
-		System.out.println(userProfileEditDto);
 		return userService.updateMyPage(userId, userProfileEditDto);
 	}
 
