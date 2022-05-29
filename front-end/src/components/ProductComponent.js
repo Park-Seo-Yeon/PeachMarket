@@ -114,6 +114,7 @@ function ProductComponent() {
         confirmButtonText: "확인",
         width: "350px",
       });
+      navigate(-1);
     }
   };
 
