@@ -12,6 +12,7 @@
 
 .icon_close {
     float: left;
+    cursor: pointer;
 }
 
 .title {
@@ -21,6 +22,7 @@
 .ok {
     color: #fea5ab;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .ok_hidden{
@@ -96,12 +98,12 @@
 .loading_container {
     text-align: center;
     margin-top: 50px;
-  }
+}
   
-  .loading_spinner {
+.loading_spinner {
     width: 30px;
-  }
+}
   
-  .loading_text {
+.loading_text {
     margin-top: 10px;
-  }
+}

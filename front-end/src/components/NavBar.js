@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Offcanvas, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Offcanvas } from "react-bootstrap";
 import { BsSearch, BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";

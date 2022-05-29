@@ -41,11 +41,23 @@ function SaleMenuComponent() {
       // })
     });
   }, [userToken]);
+
   const option = {
     lang: "ko",
     calculate: {
       justNow: 60,
     },
+  };
+
+  const filterProductsForSale = () => {
+    return products.filter(
+      (product) =>
+        product.productState === "판매중" || product.productState === "예약중"
+    );
+  };
+
+  const filterProductsSoldOut = () => {
+    return products.filter((product) => product.productState === "판매완료");
   };
 
   return (
@@ -73,105 +85,93 @@ function SaleMenuComponent() {
         {clickedMenu === "ForSale" ? (
           <div>
             <Container>
-              {
-                products
-                  .filter(
-                    (product) =>
-                      product.productState === "판매중" ||
-                      product.productState === "예약중"
-                  )
-                  .map((product) =>
-                    products ? (
-                      <div lg={6} key={product.productId}>
-                        <Link to={`../products/${product.productId}`}>
-                          <div className={styles.product_container}>
-                            <img
-                              className={styles.product_img}
-                              src={product.pictureUrl}
-                              alt=""
-                            ></img>
-                            <div className={styles.product_info}>
-                              <p className={styles.product_title}>
-                                {product.title}
-                              </p>
-                              <p className={styles.product_time}>
-                                {TimeCounting(product.createTime, option)}
-                              </p>
-                              <div className={styles.product_div}>
-                                <div className={styles.product_state}>
-                                  {product.productState}
-                                </div>
-                                <p className={styles.product_price}>
-                                  {product.price}원
-                                </p>
+              {filterProductsForSale().length > 0 ? (
+                filterProductsForSale()
+                  .map((product) => (
+                    <div lg={6} key={product.productId}>
+                      <Link to={`../products/${product.productId}`}>
+                        <div className={styles.product_container}>
+                          <img
+                            className={styles.product_img}
+                            src={product.pictureUrl}
+                            alt=""
+                          ></img>
+                          <div className={styles.product_info}>
+                            <p className={styles.product_title}>
+                              {product.title}
+                            </p>
+                            <p className={styles.product_time}>
+                              {TimeCounting(product.createTime, option)}
+                            </p>
+                            <div className={styles.product_div}>
+                              <div className={styles.product_state}>
+                                {product.productState}
                               </div>
+                              <p className={styles.product_price}>
+                                {product.price}원
+                              </p>
                             </div>
                           </div>
-                        </Link>
-                      </div>
-                    ) : (
-                      <div className={styles.sale_container}>
-                        <div className={styles.message}>
-                          판매중인 상품이 없어요.
                         </div>
-                      </div>
-                    )
-                  )
-                // .sort((a, b) => {
-                //   return a.count.localeCompare(b.count);
-                // })
-              }
+                      </Link>
+                    </div>
+                  ))
+                  .sort((a, b) => {
+                    //console.log(filterProductsForSale());
+                    return b.key - a.key; //최신순 정렬
+                  })
+              ) : (
+                <div className={styles.sale_container}>
+                  <div className={styles.message}>판매중인 상품이 없어요.</div>
+                </div>
+              )}
             </Container>
-            {/* <div className={styles.message}>판매중인 상품이 없어요.</div> */}
           </div>
         ) : (
           <div>
             <Container>
-              {products
-                .filter((product) => product.productState === "판매완료")
-                .map((product) => {
-                  if (products.length > 0) {
-                    return (
-                      <div lg={6} key={product.productId}>
-                        <Link to={`../products/${product.productId}`}>
-                          <div className={styles.product_container}>
-                            <img
-                              className={styles.product_img}
-                              src={product.pictureUrl}
-                              alt=""
-                            ></img>
-                            <div className={styles.product_info}>
-                              <p className={styles.product_title}>
-                                {product.title}
-                              </p>
-                              <p className={styles.product_time}>
-                                {TimeCounting(product.createTime, option)}
-                              </p>
-                              <div className={styles.product_div}>
-                                <div className={styles.product_state}>
-                                  {product.productState}
-                                </div>
-                                <p className={styles.product_price}>
-                                  {product.price}원
-                                </p>
+              {filterProductsSoldOut().length > 0 ? (
+                filterProductsSoldOut()
+                  .map((product) => (
+                    <div lg={6} key={product.productId}>
+                      <Link to={`../products/${product.productId}`}>
+                        <div className={styles.product_container}>
+                          <img
+                            className={styles.product_img}
+                            src={product.pictureUrl}
+                            alt=""
+                          ></img>
+                          <div className={styles.product_info}>
+                            <p className={styles.product_title}>
+                              {product.title}
+                            </p>
+                            <p className={styles.product_time}>
+                              {TimeCounting(product.createTime, option)}
+                            </p>
+                            <div className={styles.product_div}>
+                              <div className={styles.product_state}>
+                                {product.productState}
                               </div>
+                              <p className={styles.product_price}>
+                                {product.price}원
+                              </p>
                             </div>
                           </div>
-                        </Link>
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div className={styles.sale_container}>
-                        <div className={styles.message}>
-                          판매 완료된 상품이 없어요.
                         </div>
-                      </div>
-                    );
-                  }
-                })}
+                      </Link>
+                    </div>
+                  ))
+                  .sort((a, b) => {
+                    return b.key - a.key; //최신순 정렬
+                  })
+              ) : (
+                <div className={styles.sale_container}>
+                  <div className={styles.message}>
+                    판매 완료된 상품이 없어요.
+                  </div>
+                </div>
+              )}
             </Container>
-            {/* <div className={styles.message}>판매 완료된 상품이 없어요.</div> */}
           </div>
         )}
       </div>
