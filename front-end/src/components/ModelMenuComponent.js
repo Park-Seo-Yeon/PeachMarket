@@ -17,14 +17,22 @@ function ModelMenuComponent() {
     ProductService.getMyPage().then((res) => {
       setUser(res.data);
     });
+
     const getModelImg = async (e) => {
+      const formData = new FormData();
+      formData.append("id", user.userId);
       try {
-        const response = await axios.get("http://3.38.132.59:5000/getModel");
-        setModelImg(response);
+        const postSurvey = await axios.post(
+          "http://3.38.132.59:5000/getModel",
+          formData
+        );
+        setModelImg(postSurvey.data);
       } catch {
         console.error(e);
       }
     };
+
+    getModelImg();
   }, []);
 
   const handleChangeFile = (event) => {
