@@ -17,6 +17,14 @@ function ModelMenuComponent() {
     ProductService.getMyPage().then((res) => {
       setUser(res.data);
     });
+    const getModelImg = async (e) => {
+      try {
+        const response = await axios.get("http://3.38.132.59:5000/getModel");
+        setModelImg(response);
+      } catch {
+        console.error(e);
+      }
+    };
   }, []);
 
   const handleChangeFile = (event) => {
@@ -87,9 +95,9 @@ function ModelMenuComponent() {
           <button onClick={onClickInputFile}>사진 업로드하기</button>
           <button onClick={onClickCreateModel}>모델 생성하기</button>
         </div>
-        {user.modelImg !== null ? (
+        {modelImg !== null ? (
           <div className={imgFile === null ? styles.uploadImg : styles.hidden}>
-            <img src={user.modelImg}></img>
+            <img src={modelImg}></img>
           </div>
         ) : (
           ""
