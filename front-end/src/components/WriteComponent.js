@@ -8,7 +8,7 @@ import $ from "jquery"; // jQuery 사용을 위해 추가
 
 import useStore from "./useStore";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProductService from "../service/ProductService";
 import Swal from "sweetalert2";
 

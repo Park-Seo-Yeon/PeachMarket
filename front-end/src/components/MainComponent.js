@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styles from "./Main.module.css";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { Container, Col, Row, Form } from "react-bootstrap";
-import exdata from "./exdata.json";
 import useStore from "./useStore";
 import ProductService from "../service/ProductService";
 import TimeCounting from "time-counting";

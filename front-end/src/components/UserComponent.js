@@ -10,8 +10,6 @@ import { Link } from "react-router-dom";
 import ProductService from "../service/ProductService";
 
 import useStore from "./useStore";
-import Swal from "sweetalert2";
-import axios from "axios";
 
 function UserComponent() {
   const [user, setUser] = useState([]);
