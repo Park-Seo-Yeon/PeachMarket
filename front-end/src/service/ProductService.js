@@ -1,15 +1,15 @@
 import axios from "axios";
 import { Navigate } from "react-router";
 
-// const PRODUCT_API_BASE_URL = "http://43.200.34.51:8080/api/products/";
-// const LOGIN_API_BASE_URL = "http://43.200.34.51:8080/login";
-// const MYPAGE_API_BASE_URL = "http://43.200.34.51:8080/mypage";
-// const CHAT_API_BASE_URL = "http://43.200.34.51:8080/api/chat";
+const PRODUCT_API_BASE_URL = "http://3.38.132.59:8080/api/products/";
+const LOGIN_API_BASE_URL = "http://3.38.132.59:8080/login";
+const MYPAGE_API_BASE_URL = "http://3.38.132.59:8080/mypage";
+const CHAT_API_BASE_URL = "http://3.38.132.59:8080/api/chat";
 
-const PRODUCT_API_BASE_URL = "http://localhost:8080/api/products/";
-const LOGIN_API_BASE_URL = "http://localhost:8080/login";
-const MYPAGE_API_BASE_URL = "http://localhost:8080/mypage";
-const CHAT_API_BASE_URL = "http://localhost:8080/api/chat";
+// const PRODUCT_API_BASE_URL = "http://localhost:8080/api/products/";
+// const LOGIN_API_BASE_URL = "http://localhost:8080/login";
+// const MYPAGE_API_BASE_URL = "http://localhost:8080/mypage";
+// const CHAT_API_BASE_URL = "http://localhost:8080/api/chat";
 
 class ProductService {
   getAllProducts() {
@@ -54,7 +54,7 @@ class ProductService {
   }
 
   getMyPage() {
-    return axios.get("http://localhost:8080/mypage", {
+    return axios.get("http://3.38.132.59:8080/mypage", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -70,7 +70,7 @@ class ProductService {
     axios.defaults.headers.common[
       "REFRESH_TOKEN"
     ] = `Bearer ${localStorage.getItem("refreshToken")}`;
-    return axios.post("http://localhost:8080/refresh");
+    return axios.post("http://3.38.132.59:8080/refresh");
   }
 }
 

@@ -154,8 +154,8 @@ function WriteComponent() {
 
         const postSurvey = await axios({
           method: "POST",
-          // url: "http://43.200.34.51:8080/api/products/create",
-          url: "http://localhost:8080/api/products/create",
+          url: "http://3.38.132.59:8080/api/products/create",
+          //url: "http://localhost:8080/api/products/create",
           mode: "cors",
           headers: {
             "Content-Type": "multipart/form-data",
@@ -201,8 +201,8 @@ function WriteComponent() {
         formData.append("data", blob);
         const putSurvey = await axios({
           method: "PUT",
-          // url: "http://43.200.34.51:8080/api/products/edit/" + productId,
-          url: "http://localhost:8080/api/products/edit/" + productId,
+          url: "http://3.38.132.59:8080/api/products/edit/" + productId,
+          //url: "http://localhost:8080/api/products/edit/" + productId,
           mode: "cors",
           headers: {
             "Content-Type": "multipart/form-data",

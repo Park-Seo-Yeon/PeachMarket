@@ -100,8 +100,8 @@ function ProductComponent() {
 
     try {
       const postSurvey = await axios.post(
-        "http://localhost:5000/fitting",
-
+        //"http://localhost:5000/fitting",
+        "http://3.38.132.59:5000/fitting",
         formData
       );
       console.log(postSurvey);
@@ -218,7 +218,9 @@ function ProductComponent() {
       <div className={styles.function_container}>
         <p className={styles.product_price}>{product.price}원</p>
         <div className={styles.btn}>
-          {/* <button>채팅</button> */}
+          <Link to={"/chat/" + userId + "/" + productId}>
+            <button>채팅</button>
+          </Link>
           <button onClick={onClickFitting}>피팅</button>
         </div>
       </div>
