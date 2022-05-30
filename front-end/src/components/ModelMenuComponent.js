@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import Swal from "sweetalert2";
 import ProductService from "../service/ProductService";
@@ -13,9 +13,11 @@ function ModelMenuComponent() {
   const [isShown, setIsShown] = useState(true);
   const [user, setUser] = useState([]);
 
-  ProductService.getMyPage().then((res) => {
-    setUser(res.data);
-  });
+  useEffect(() => {
+    ProductService.getMyPage().then((res) => {
+      setUser(res.data);
+    });
+  }, []);
 
   const handleChangeFile = (event) => {
     let reader = new FileReader();

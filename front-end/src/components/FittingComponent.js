@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import { IoClose } from "react-icons/io5";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useStore from "./useStore";
 import { Spinner } from "react-bootstrap";
 
@@ -9,6 +9,10 @@ function FittingComponent() {
   const navigate = useNavigate();
   const { fittingImg, setFittingImg } = useStore();
   const [viewImg, setViewImg] = useState("");
+
+  useEffect(() => {
+    setFittingImg("");
+  }, []);
 
   useEffect(() => {
     setViewImg(fittingImg);

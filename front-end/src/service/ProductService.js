@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Navigate } from "react-router";
 
 const PRODUCT_API_BASE_URL = "http://3.38.132.59:8080/api/products/";
 const LOGIN_API_BASE_URL = "http://3.38.132.59:8080/login";
