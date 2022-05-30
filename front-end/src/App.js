@@ -11,6 +11,7 @@ import LoginComponent from "./components/LoginComponent";
 import FittingComponent from "./components/FittingComponent";
 import { useEffect, useState } from "react";
 import useStore from "./components/useStore";
+import ChatComponent from "./components/ChatComponent";
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useStore();
@@ -75,6 +76,10 @@ function App() {
             />
             <Route path="/fitting" element={<FittingComponent />} />
             <Route path="/login" element={<LoginComponent />} />
+            <Route
+              path="/chat/:userId/:productId"
+              element={<ChatComponent />}
+            />
           </Routes>
         </div>
       </Router>

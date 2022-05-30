@@ -53,7 +53,8 @@ function ModelMenuComponent() {
 
     try {
       const postSurvey = await axios.post(
-        "http://localhost:5000/model",
+        //"http://localhost:5000/model",
+        "http://3.38.132.59:5000/model",
         formData
       );
       setModelImg(postSurvey.data);
