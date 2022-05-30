@@ -85,15 +85,17 @@ public class JwtTokenProvider {
     }
 
 
-    // Request의 Header에서 access token 값을 가져온다 
+    // Request의 Header에서 (access)token 값을 가져온다 
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("Authorization");
     }
     
+    // Request의 Header에서 access token 값을 가져온다 
     public String resolveAccessToken(HttpServletRequest request) {
         return request.getHeader("X-AUTH-TOKEN");
     }
     
+    // Request의 Header에서 refresh token 값을 가져온다 
     public String resolveRefreshToken(HttpServletRequest request) {
         return request.getHeader("REFRESH_TOKEN");
     }

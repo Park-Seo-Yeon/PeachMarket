@@ -49,8 +49,6 @@ public class User implements UserDetails {
 
 	private String profileImg;
 	
-	private String modelImg;
-	
 	private char gender;
 	
 	private Double height;
