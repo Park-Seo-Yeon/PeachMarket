@@ -1,7 +1,7 @@
 # 🍑PeachMarket
 
-<div align = "center">
-<img src = "https://user-images.githubusercontent.com/71807768/171102116-b4a23e55-d93a-43c3-adea-988ee2e64ede.png" width = "80%">
+<div>
+<img src = "https://user-images.githubusercontent.com/71807768/171102116-b4a23e55-d93a-43c3-adea-988ee2e64ede.png" width = "100%">
 	</div>
 중고 거래 마켓 서비스에 가상 피팅 기능을 도입한 웹페이지이다. 판매자와 구매자간의 사이즈와 관련한 반복적인 질문의 빈도수를 
 줄이고, 구매 전 시착이 어려운 중고 마켓의 특성을 해결하여 성공적인 구매 결정을 돕는다.
@@ -58,12 +58,12 @@
 </ul>
 
 ## 🎈실행 화면
-<img src = "https://user-images.githubusercontent.com/71807768/171151141-d3e6babc-1e00-4254-8126-1b4ca751e038.png" width = "80%">
+<img src = "https://user-images.githubusercontent.com/71807768/171151141-d3e6babc-1e00-4254-8126-1b4ca751e038.png" width = "100%">
 
 
 ## 🔍작품 구조
 
-<img src = "https://user-images.githubusercontent.com/71807768/171114826-550b320f-58f6-4c26-adee-91f5346ca665.png" width = "80%">
+<img src = "https://user-images.githubusercontent.com/71807768/171114826-550b320f-58f6-4c26-adee-91f5346ca665.png" width = "100%">
 
 ## 🚀기대 효과
 
