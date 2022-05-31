@@ -23,11 +23,11 @@
 
 ## 실행화면
 <img src = "https://user-images.githubusercontent.com/71807768/171114027-8e7e217f-bb59-40b9-9a7e-fe3fd74045e7.png
-" width = "100%">
+" width = "90%">
 
 ## 작품 구조
 <img src = "https://user-images.githubusercontent.com/71807768/171113952-7313b906-4e1f-429c-86df-c21e748e041a.png
-" width = "100%">
+" width = "90%">
 
 ## 기대 효과
 
