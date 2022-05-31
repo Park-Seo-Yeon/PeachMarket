@@ -22,12 +22,12 @@
 </ul>
 
 ## 실행화면
-<img src = "https://user-images.githubusercontent.com/71807768/171114714-1f07b104-9a02-4e2f-a274-0a8ca5c77235.png
-" width = "100%">
+<img src = "https://user-images.githubusercontent.com/71807768/171114714-1f07b104-9a02-4e2f-a274-0a8ca5c77235.png" width = "80%">
+
 
 ## 작품 구조
-<img src = "https://user-images.githubusercontent.com/71807768/171114826-550b320f-58f6-4c26-adee-91f5346ca665.png
-" width = "100%">
+
+<img src = "https://user-images.githubusercontent.com/71807768/171114826-550b320f-58f6-4c26-adee-91f5346ca665.png" width = "80%">
 
 ## 기대 효과
 
