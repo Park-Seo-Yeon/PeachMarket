@@ -4,6 +4,20 @@
 중고 거래 마켓 서비스에 가상 피팅 기능을 도입한 웹페이지이다. 판매자와 구매자간의 사이즈와 관련한 반복적인 질문의 빈도수를 
 줄이고, 구매 전 시착이 어려운 중고 마켓의 특성을 해결하여 성공적인 구매 결정을 돕는다.
 
+## 📋목차
+
+* [팀 구성](#👩‍💻팀-구성👨‍💻)
+
+* [개발 도구](#🏗️개발-도구)
+
+* [실행 화면](#🎈실행-화면)
+
+* [작품 구조](#🔍작품-구조)
+
+* [기대 효과](#🚀기대-효과)
+
+* [참고자료](#📝참고자료)
+
 ## 👩‍💻팀 구성👨‍💻
 <table border="1" width = "100%" >
 <tr  align ="center">
@@ -39,7 +53,7 @@
 <li>주요 기술 : Spring boot, React, Bootstrap, Flask, Tensorflow, PyTorch, Amazon S3, Amazon EC2, Amazon RDS, REST API
 </ul>
 
-## 🎈실행화면
+## 🎈실행 화면
 <img src = "https://user-images.githubusercontent.com/71807768/171114714-1f07b104-9a02-4e2f-a274-0a8ca5c77235.png" width = "80%">
 
 
