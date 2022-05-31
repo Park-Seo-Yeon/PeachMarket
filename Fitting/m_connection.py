@@ -4,12 +4,9 @@ import boto3
 from werkzeug.utils import secure_filename
 from m_config import AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY
 from m_config import AWS_S3_BUCKET_NAME, AWS_S3_BUCKET_REGION
-from PIL import Image
-from io import BytesIO
 import numpy as np
 import cv2
-# from flaskext.mysql improt MySQL
-# s3 = boto3.resource('s3')
+
 def s3_connection():
     '''
     s3 bucket에 연결
@@ -32,10 +29,10 @@ def s3_connection():
 def s3_put_object(s3, bucket, filepath, access_key):
     '''
     s3 bucket에 지정 파일 업로드
-    :param s3: 연결된 s3 객체(boto3 client)
-    :param bucket: 버킷명
-    :param filepath: 파일 위치
-    :param access_key: 저장 파일명
+    : s3: 연결된 s3 객체(boto3 client)
+    : bucket: 버킷명
+    : filepath: 파일 위치
+    : access_key: 저장 파일명
     :return: 성공 시 True, 실패 시 False 반환
     '''
     try:
@@ -49,14 +46,13 @@ def s3_put_object(s3, bucket, filepath, access_key):
 def s3_get_object(s3, bucket, object_name, file_name):
     '''
     s3 bucket에서 지정 파일 다운로드
-    :param s3: 연결된 s3 객체(boto3 client)
-    :param bucket: 버킷명
-    :param object_name: s3에 저장된 object 명
-    :param file_name: 저장할 파일 명(path)
+    : s3: 연결된 s3 객체(boto3 client)
+    : bucket: 버킷명
+    : object_name: s3에 저장된 object 명
+    : file_name: 저장할 파일 명(path)
     :return: 성공 시 True, 실패 시 False 반환
     '''
     try:
-        # s3.download_file(bucket, object_name, secure_filename(file_name))
         s3.download_file(bucket, object_name, file_name)
         
     except Exception as e:
@@ -64,19 +60,11 @@ def s3_get_object(s3, bucket, object_name, file_name):
         return False
     return True
 
-# 로컬에 파일을 저장하지 않고 읽어만 온다.
-def read_image(filename):
-    s3 = s3_connection()
-    file_stream = s3.get_object(Bucket=AWS_S3_BUCKET_NAME, Key=filename)['Body'].read()
-    img = np.fromstring(file_stream, dtype=np.uint8)
-    img = cv2.imdecode(img, cv2.IMREAD_COLOR)
-    return img
-
-# def write_image(image, filename):
+# # 로컬에 파일을 저장하지 않고 읽어만 온다.
+# def read_image(filename):
 #     s3 = s3_connection()
-#     s3.put_object(
-#         Bucket = AWS_S3_BUCKET_NAME,
-#     	Body = image,
-#     	Key = filename,
-#     	ContentType = "image/jpg",)
-#     return "done"
+#     file_stream = s3.get_object(Bucket=AWS_S3_BUCKET_NAME, Key=filename)['Body'].read()
+#     img = np.fromstring(file_stream, dtype=np.uint8)
+#     img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+#     return img
+
