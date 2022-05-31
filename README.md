@@ -6,6 +6,9 @@
 
 ## 👩‍💻팀 구성👨‍💻
 <table border="1" width = "100%" >
+<tr  align ="center">
+	<td colspan = "4" >한성대학교 컴퓨터공학부 캡스톤디자인 #18팀</td>
+    </tr>
     <tr  align ="center">
 	<td colspan = "4" >Peaches</td>
     </tr>
