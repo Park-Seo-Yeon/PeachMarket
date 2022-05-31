@@ -62,8 +62,9 @@
 
 
 ## 🔍작품 구조
+	
 
-<img src = "https://user-images.githubusercontent.com/71807768/171114826-550b320f-58f6-4c26-adee-91f5346ca665.png" width = "100%">
+<img src = "https://user-images.githubusercontent.com/71807768/171154488-524ecf91-1e07-4f50-b778-e22faccee749.png" width = "100%">
 
 ## 🚀기대 효과
 
