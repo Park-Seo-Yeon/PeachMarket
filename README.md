@@ -55,7 +55,7 @@
 </ul>
 
 ## 🎈실행 화면
-<img src = "https://user-images.githubusercontent.com/71807768/171114714-1f07b104-9a02-4e2f-a274-0a8ca5c77235.png" width = "80%">
+<img src = "https://user-images.githubusercontent.com/71807768/171151141-d3e6babc-1e00-4254-8126-1b4ca751e038.png" width = "80%">
 
 
 ## 🔍작품 구조
