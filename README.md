@@ -1,6 +1,8 @@
 # 🍑PeachMarket
 
-<img src = "https://user-images.githubusercontent.com/71807768/171102116-b4a23e55-d93a-43c3-adea-988ee2e64ede.png" width = "60%">
+<div align = "center">
+<img src = "https://user-images.githubusercontent.com/71807768/171102116-b4a23e55-d93a-43c3-adea-988ee2e64ede.png" width = "80%">
+	</div>
 중고 거래 마켓 서비스에 가상 피팅 기능을 도입한 웹페이지이다. 판매자와 구매자간의 사이즈와 관련한 반복적인 질문의 빈도수를 
 줄이고, 구매 전 시착이 어려운 중고 마켓의 특성을 해결하여 성공적인 구매 결정을 돕는다.
 
