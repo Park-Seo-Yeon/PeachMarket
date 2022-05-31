@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import { IoClose } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProductService from "../service/ProductService";
 import Swal from "sweetalert2";
 

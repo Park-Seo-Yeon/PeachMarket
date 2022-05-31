@@ -12,28 +12,33 @@ function ModelMenuComponent() {
   const [loading, setLoading] = useState(false);
   const [isShown, setIsShown] = useState(true);
   const [user, setUser] = useState([]);
+  const [userId, setUserId] = useState(null);
+
+  const getModelImg = async (e) => {
+    const formData = new FormData();
+    formData.append("id", user.userId);
+    try {
+      const postSurvey = await axios.post(
+        "http://3.38.132.59:5000/getModel",
+        formData
+      );
+      console.log(postSurvey.data);
+      setModelImg(postSurvey.data);
+    } catch {
+      console.error("error:" + e);
+    }
+  };
 
   useEffect(() => {
     ProductService.getMyPage().then((res) => {
       setUser(res.data);
+      setUserId(user.userId);
     });
-
-    const getModelImg = async (e) => {
-      const formData = new FormData();
-      formData.append("id", user.userId);
-      try {
-        const postSurvey = await axios.post(
-          "http://3.38.132.59:5000/getModel",
-          formData
-        );
-        setModelImg(postSurvey.data);
-      } catch {
-        console.error(e);
-      }
-    };
-
-    getModelImg();
   }, []);
+
+  useEffect(() => {
+    if (userId !== null) getModelImg();
+  }, [userId]);
 
   const handleChangeFile = (event) => {
     let reader = new FileReader();
