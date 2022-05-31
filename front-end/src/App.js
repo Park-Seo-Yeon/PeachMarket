@@ -19,14 +19,6 @@ function App() {
   const { userToken, setUserToken } = useStore();
   const { userRefreshToken, setUserRefreshToken } = useStore();
   const [searchStatus, setSearchStatus] = useState(false);
-  // useEffect(() => {
-  //   if (localStorage.getItem("jwtToken") === null) {
-  //     console.log(isLoggedIn);
-  //   } else {
-  //     setIsLoggedIn(true);
-  //     console.log(isLoggedIn);
-  //   }
-  // }, []);
 
   ///////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Product.module.css";
-import { GoKebabVertical, GoChevronLeft, GoChevronRight } from "react-icons/go";
-// import { Carousel } from "react-responsive-carousel";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { GoKebabVertical } from "react-icons/go";
 import { useNavigate, useParams } from "react-router-dom";
 import ProductService from "../service/ProductService";
 import TimeCounting from "time-counting";
@@ -18,6 +16,7 @@ function ProductComponent() {
   const { userId, setUserId } = useStore();
   const [open, setOpen] = useState(false);
   const { fittingImg, setFittingImg } = useStore();
+  const { isLoggedIn, setIsLoggedIn } = useStore();
 
   useEffect(() => {
     ProductService.getOneProduct(productId).then((res) => {
@@ -148,40 +147,6 @@ function ProductComponent() {
             </ul>
           </div>
         )}
-        {/* <Carousel
-          infiniteLoop={true}
-          showStatus={false}
-          showThumbs={false}
-          renderArrowPrev={(onClickHandler, hasPrev) =>
-            hasPrev && (
-              <GoChevronLeft
-                size="30"
-                color="white"
-                onClick={onClickHandler}
-                className={styles.arrow}
-                style={{ left: 0 }}
-              />
-            )
-          }
-          renderArrowNext={(onClickHandler, hasNext) =>
-            hasNext && (
-              <GoChevronRight
-                size="30"
-                color="white"
-                onClick={onClickHandler}
-                className={styles.arrow}
-                style={{ right: 0 }}
-              />
-            )
-          }
-          onClickItem={() => {
-            window.open(
-              "https://peachmarket-2022-bucket.s3.ap-northeast-2.amazonaws.com/clothes1.png"
-            );
-          }}
-        >
-          <img src={product.pictureUrl} alt="" className={styles.product_img} />
-        </Carousel> */}
         <img
           src={product.pictureUrl}
           alt=""
@@ -201,11 +166,6 @@ function ProductComponent() {
         <hr />
       </div>
       <div className={styles.content_container}>
-        {/* <select value={product.productState}>
-          <option value="판매중">판매중</option>
-          <option value="예약중">예약중</option>
-          <option value="거래완료">거래완료</option>
-        </select> */}
         <div className={styles.product_state}>{product.productState}</div>
         <p className={styles.product_title}>{product.title}</p>
         <p className={styles.product_category}>
@@ -218,10 +178,7 @@ function ProductComponent() {
       <div className={styles.function_container}>
         <p className={styles.product_price}>{product.price}원</p>
         <div className={styles.btn}>
-          {/* <Link to={"/chat/" + userId + "/" + productId}>
-            <button>채팅</button>
-          </Link> */}
-          <button onClick={onClickFitting}>피팅</button>
+          {isLoggedIn ? <button onClick={onClickFitting}>피팅</button> : ""}
         </div>
       </div>
     </div>
