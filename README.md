@@ -13,7 +13,7 @@
 <li>이지수 : 마켓 서버 구현, DB 관리
 </ul>
 
-## 개발 도구
+## 🏗️개발 도구
 
 <ul>
 <li>개발 언어 : Java, Python, MySQL, JavaScript, CSS, HTML
