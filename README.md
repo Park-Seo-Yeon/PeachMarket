@@ -15,12 +15,21 @@
 
 <li><a href="#display">실행 화면</a></li>
 
+
+
+
+
+
+
+
 <li><a href="#architecture">작품 구조</a></li>
 
 <li><a href="#effect">기대 효과</a></li>
 
 <li><a href="#References">참고자료</a></li>
 </details>
+
+<hr>
 
 <h2 id = "team"> 👩‍💻팀 구성👨‍💻</h2>
 <table border="1" width = "100%" >
