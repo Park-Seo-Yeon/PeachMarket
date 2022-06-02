@@ -73,9 +73,11 @@
 <li> 보장성 : 옷 핏 및 자신의 피부색과의 어울림을 가상 피팅을 통해 미리 확인함으로써 구매 실패를 방지
 <li>편의성 : 판매자와 구매자간의 사이즈와 관련한 반복적인 문답 및 치수 정보 획득을 위한 인터넷 조사의 번거로움 감소
 </ul>
-<details>
+<details open>
 <summary><h2 id = "environment">⚙️가상피팅 환경설정</h2></summary>
-<h3>python version : 3.7.10</h3>
+<details><summary><h3>[모델 생성 환경]: 배경 제거, 모델 생성, 옷 전처리
+</h3></summary>
+<h4>python version : 3.9.12</h4>
 <ol>
 <li>rembg 오픈소스 clone 후 
 <ul>
@@ -125,6 +127,62 @@
 </ul>
 
 </ol>
+</details>
+
+<details><summary><h3>[가상 피팅 환경]: 가상 피팅 전처리, 가상 피팅
+</h3></summary>
+<h4>python version : 3.7.13
+</h4>
+<ol>
+<li>
+AWS EC2 유형 : g4dn.xlarge(GPU가 최소 1개 이상인 환경필요)
+<ul>
+<li>GPU : Tesla T4
+<li>Driver Version : 510.47.03
+<li>cuda version : 9.0
+<li>cudnn version : 7.6.5 
+</ul>
+<li>AWS EC2 Amazon linux 환경
+<ul>
+<li>sudo yum install libXext libSM libXrender
+<li>AWS CLI 환경 구축
+</ul>
+<li>설치가 필요한 파이썬 라이브러리
+<ul>
+
+<li>flask==2.0.3
+<li>flask-cors==3.0.10
+<li>opencv-contrib-python==4.1.0.25
+<li>opencv-python==4.5.5.64
+<li>opencv-python-headless==4.5.5.64
+<li>jinja2==3.0.3
+<li>boto3==1.23.9
+<li>boto==2.24.0
+<li>awscli==1.24.10
+<li>werkzeug==2.0.1
+<li>numpy==1.21.5
+<li>tensorboardx==2.5
+<li>tensorflow==1.15.0
+<li>tensorflow-gpu==1.15.0
+<li>keras==2.9.0
+<li>scipy==1.1.0
+<li>matplotlib==3.2.2
+<li>opencv-python-headless==4.5.5.64
+<li>torch==1.2.0
+<li>torchvision==0.2.1
+<li>nbformat==5.1.3
+<li>Pillow==8.4.0
+<li>cPython==0.0.6
+<li>PyQt5==5.15.6
+<li>Markdown==3.3.7
+<li>MarkupSafe==2.1.1
+<li>urllib3==1.26.9
+
+</ul>
+
+</ol>
+</details>
+
 </details>
 
 <h2 id = "references">📝참고자료</h2>
