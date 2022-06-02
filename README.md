@@ -19,9 +19,11 @@
 
 <li><a href="#effect">기대 효과</a></li>
 
-<li><a href="#References">참고자료</a></li>
-</details>
+<li><a href="#environment">가상피팅 환경설정</a></li>
 
+<li><a href="#references">참고자료</a></li>
+
+</details>
 
 <h2 id = "team"> 👩‍💻팀 구성👨‍💻</h2>
 <table border="1" width = "100%" >
@@ -71,8 +73,60 @@
 <li> 보장성 : 옷 핏 및 자신의 피부색과의 어울림을 가상 피팅을 통해 미리 확인함으로써 구매 실패를 방지
 <li>편의성 : 판매자와 구매자간의 사이즈와 관련한 반복적인 문답 및 치수 정보 획득을 위한 인터넷 조사의 번거로움 감소
 </ul>
+<details>
+<summary><h2 id = "environment">⚙️가상피팅 환경설정</h2></summary>
+<h3>python version : 3.7.10</h3>
+<ol>
+<li>rembg 오픈소스 clone 후 
+<ul>
+<li>pip install rembg
+</ul>
+<li>AWS EC2-Amazon linux 환경
+<ul>
+<li>sudo yum install -y gcc
 
-<h2 id = "References">📝참고자료</h2>
+<li>sudo yum install -y gcc-c++
+</ul>
+<li>설치가 필요한 파이썬 라이브러리
+<ul>aiohttp==3.8.1
+<li>asyncer==0.0.1
+<li>click==8.0.3
+<li>fastapi==0.72.0
+<li>filetype==1.0.9
+<li>gdown==4.4.0
+<li>numpy==1.22.3
+<li>onnxruntime==1.10.0
+<li>pillow==9.0.1
+<li>pymatting==1.1.5
+<li>python-multipart==0.0.5
+<li>scikit-image==0.19.1
+<li>scipy==1.8.0
+<li>tqdm==4.62.3
+<li>uvicorn==0.17.0
+<li>watchdog==2.1.7
+<li>flask==1.1.2
+<li>flask-cors==3.0.10
+<li>boto==2.49.0
+<li>boto3==1.23.9
+<li>matplotlib==3.4.3
+<li>werkzeug==2.0.2
+<li>jinja2==2.10.1
+<li>MarkupSafe==2.0.1
+<li>itsdangerous==2.0.1
+<li>opencv-contrib-python==4.5.5.64
+<li>opencv-python==4.5.5.64
+<li>opencv-python-headless==4.5.5.64
+<li>parso
+<li>imutils==0.5.4
+<li>cmake==3.22.4
+<li>dlib==19.24.0
+
+</ul>
+
+</ol>
+</details>
+
+<h2 id = "references">📝참고자료</h2>
 
 <ul>
 <li>배경제거 : Daniel Gatis. 2020. Rembg. https://github.com/danielgatis/rembg. (2022).
