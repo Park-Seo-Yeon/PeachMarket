@@ -88,7 +88,8 @@
 <li>sudo yum install -y gcc-c++
 </ul>
 <li>설치가 필요한 파이썬 라이브러리
-<ul>aiohttp==3.8.1
+<ul>
+<li>aiohttp==3.8.1
 <li>asyncer==0.0.1
 <li>click==8.0.3
 <li>fastapi==0.72.0
