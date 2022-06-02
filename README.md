@@ -75,8 +75,9 @@
 </ul>
 
 <h2 id = "environment">⚙️환경설정</h2>
-<details><summary><h3>[모델 생성 환경]: 배경 제거, 모델 생성, 옷 전처리
+<details><summary><h3>[모델 생성 환경]
 </h3></summary>
+<h4>배경 제거(Rembg), 모델 생성, 옷 전처리 </h4>
 <h4>python version : 3.9.12</h4>
 <ol>
 <li>rembg 오픈소스 clone 후 
@@ -129,8 +130,10 @@
 </ol>
 </details>
 
-<details><summary><h3>[가상 피팅 환경]: 가상 피팅 전처리, 가상 피팅
+<details><summary><h3>[가상 피팅 환경]
 </h3></summary>
+
+<h4> 가상 피팅 전처리, 모델 파싱 및 포즈 추정(LIP_JPPNet), OpenPose(COCO-18), 가상 피팅 </h4>
 <h4>python version : 3.7.13
 </h4>
 <ol>
