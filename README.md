@@ -29,7 +29,6 @@
 <li><a href="#References">참고자료</a></li>
 </details>
 
-<hr>
 
 <h2 id = "team"> 👩‍💻팀 구성👨‍💻</h2>
 <table border="1" width = "100%" >
