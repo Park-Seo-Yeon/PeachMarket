@@ -1,15 +1,12 @@
 import LIP_JPPNet.evaluate_pose_JPPNet as pose
 import LIP_JPPNet.evaluate_parsing_JPPNet as parsing
-from openPoseCoco import main as createPose
-from test import main as fitting
+import openPoseCoco as createPose
 
 def main():
     pose.main()
     parsing.main()
-    createPose()
-    fitting("GMM")
-    fitting("TOM")
+    createPose.main()
 
 if __name__ == '__main__':
-    print("run lip jppnet ###################################")
+    print("run LIP_JPPNet ###################################")
     main()
