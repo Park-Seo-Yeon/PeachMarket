@@ -1,5 +1,5 @@
 import cv2
-import json
+import json 
 
 def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BODY_PARTS, img_id):
     global points
@@ -51,8 +51,6 @@ def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BOD
             points.append(x1)
             points.append(y1)
             points.append(prob)
-            
-            # print(f"[pointed] {BODY_PARTS[i]} ({i}) => x: {x1} / y: {y1} / prob: {prob:.5f}")
 
         else:  # point 없음
             points.append(0)
@@ -67,7 +65,7 @@ def output_keypoints(frame, proto_file, weights_file, threshold, model_name, BOD
                 "hand_left_keypoints": []
             }]}
 
-    save_keypoints_path = "data/pose_origin/" + img_id + "_keypoints.json"
+    save_keypoints_path = "data/pose_origin/" + img_id + "_keypoints.json" 
     with open(save_keypoints_path, 'w') as outfile:
         json.dump(json_data, outfile)
 
@@ -102,22 +100,23 @@ def main():
     # 훈련된 모델의 weight 를 저장하는 caffemodel 파일
     weightsFile_coco = "pose/pose_iter_440000.caffemodel"
 
+    # 포즈값을 추출할 사진명이 저장된 파일의 경로
     file = open("data/LIP_JPPNet_pose/val.txt", 'r') 
-    # for i in range(1):
+ 
     img_id = file.readline().strip().split(".")[0]
-    print("##### img id : ", img_id)
-        # 이미지 경로
+
+    # 이미지 경로
     image = "./data/image/" + img_id + ".jpg"
-        # 키포인트를 저장할 빈 리스트
+    
+    # 키포인트를 저장할 빈 리스트
     points = []
 
-        # 이미지 읽어오기
+    # 이미지 읽어오기
     frame_coco = cv2.imread(image)
 
-        # COCO Model
+    # COCO Model 추출
     frame_COCO = output_keypoints(frame=frame_coco, proto_file=protoFile_coco, weights_file=weightsFile_coco,
                                     threshold=0.1, model_name="COCO", BODY_PARTS=BODY_PARTS_COCO, img_id = img_id)
-        #output_keypoints_with_lines(frame=frame_COCO, POSE_PAIRS=POSE_PAIRS_COCO)
 
 
 if __name__ == "__main__":

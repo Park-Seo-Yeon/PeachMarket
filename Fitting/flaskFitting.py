@@ -20,12 +20,12 @@ def flaskFitting(id):
     # pose.main()
     # parsing.main()
     # createPose.main()
-    # test.main()
+    test.main()
     # return redirect("http://3.38.132.59:5000/rembg/"+id)
-    # return model_s3_url
+    return model_s3_url
 
     # time.sleep(1)
-    return "https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/data/result/TOM/try_on/suhyun_clothes6.jpg"
+    # return "https://peachmarket-bucket.s3.ap-northeast-2.amazonaws.com/data/result/TOM/try_on/suhyun_clothes6.jpg"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5001")

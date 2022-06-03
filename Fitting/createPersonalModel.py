@@ -1,3 +1,4 @@
+from operator import ge
 import cv2
 from PIL import Image, ImageOps
 from matplotlib.pyplot import axis
@@ -8,12 +9,10 @@ import numpy as np
 from imutils import face_utils
 import imutils
 import dlib
-import scipy.ndimage.morphology as sm
+import scipy.ndimage as sm
 
 from m_connection import s3_connection, s3_put_object, s3_get_object
 from m_config import AWS_S3_BUCKET_NAME
-import os
-import urllib
 
 s3 = s3_connection()
 
@@ -72,45 +71,18 @@ def createModel(id, gender, weight, height, selca):
     # 얼굴을 합성하기 위한 기본 모델을 성별, 몸무게, 키 정보로 가져온다.
 
     originModel = selectOriginalModelImage(gender, weight, height)
-    # originModel = "test"
-    # # class 'werkzeug.datastructures.FileStorage' -> cv2
+
+    # class 'werkzeug.datastructures.FileStorage' -> cv2
     selca = np.fromfile(selca, np.uint8)
     selca = cv2.imdecode(selca, cv2.IMREAD_COLOR)
 
     selca_path = ("data/face/{}.jpg").format(id)
-    print("###### selca_path : ", selca_path)
     cv2.imwrite(selca_path, selca)
 
-    # input_body_path = "data/origin_image/" + originModel + ".jpg"
     input_body_path = ("data/origin_image/{}.jpg").format(originModel)
-    print("###### input_body_path : ", input_body_path)
     s3_get_object(s3, AWS_S3_BUCKET_NAME, input_body_path, input_body_path)
    
-    model_path = faceBodyComposite(selca_path, input_body_path, id)
-
-    if not model_path:
-        return False
-
-    parse_name = originModel#.split(".")[0]
-
-
-    with open("data/LIP_JPPNet_pose_origin/"+parse_name+".txt", 'r') as origin_lip_pose:
-        with open("data/LIP_JPPNet_pose/" + id + ".txt", 'w') as lip_pose:
-            lip_pose.write(origin_lip_pose.read())
-    
-
-    origin_parsing = cv2.imread("data/LIP_JPPNet_parsing_origin/" + parse_name + ".png", cv2.IMREAD_COLOR)
-    # copy_parsing = origin_parsing
-    cv2.imwrite(("data/image-parse/{}.png").format(id), origin_parsing)
-
-    origin_parsing_new = cv2.imread("data/LIP_JPPNet_parsing_new_origin/" + parse_name + ".png", cv2.IMREAD_COLOR)
-    # copy_parsing_new = origin_parsing_new
-    cv2.imwrite(("data/image-parse-new/{}.png").format(id), origin_parsing_new)
-
-    with open("data/pose_origin/"+parse_name+"_keypoints.json", 'r') as origin_pose:
-        with open("data/pose/" + id + "_keypoints.json", 'w') as pose:
-            pose.write(origin_pose.read())
-
+    model_path = faceBodyComposite(selca_path, input_body_path, id) 
 
     if model_path is not False : 
         return model_path
@@ -123,38 +95,30 @@ def createModel(id, gender, weight, height, selca):
 def faceBodyComposite(selca_path, input_body_path, id):
     try:
         selca_face, _ = face_crop(selca_path, "selca")
-        body_face, body_index = face_crop(input_body_path, "model")
+        _, body_index = face_crop(input_body_path, "model")
     except:
         return False
-
-
-    # cv2.imwrite("data/ppt/bodyFace.jpg", body_face)
 
     body_width = body_index[3]-body_index[2] 
     face_resized = imutils.resize(selca_face, width = body_width)
     output_face_image = remove(face_resized)
 
-    # Output Image의 png 파일을 jpg로 변환하는 경우 검정색으로 바뀌는 배경을 하얀색으로.
+    # Output Image의 png 파일을 jpg로 변환하는 경우 검정색으로 바뀌는 배경을 하얀색으로 변경.
     output_face_image = Image.fromarray(output_face_image)
     marged_im = Image.new('RGB', output_face_image.size, (255,255,255))
     marged_im.paste(output_face_image, mask=output_face_image.split()[3])
     
 
-    # print("######## marged_im size[0] : {}, marged_im size[1] : {}".format(marged_im.size[0], marged_im.size[1]))
-    # print("######## body_index[0] : {}, body_index[1] : {}".format(body_index[0], body_index[1]))
-
-
     body_index_height = body_index[1] - body_index[0]
     if marged_im.size[1] - body_index_height > 0: # 얼굴사진 높이가 더 크면
-        # body_index[1] = body_index[1] + (marged_im.size[1] - body_index_height) #몸탑 = 몸탑 + (얼굴높이-몸높이)
+
         body_index[1] = body_index[1] + (marged_im.size[1] - body_index_height)
 
     elif marged_im.size[1] - body_index_height < 0: # 몸사진 높이가 더 크면
-        body_index[0] = body_index[0] + (body_index_height - marged_im.size[1]) # 몸탑 = 몸탑 - (얼굴높이-몸높이)
-        # marged_im.size[1] = marged_im.size[1] + (body_index_height - marged_im.size[1])
+        body_index[0] = body_index[0] + (body_index_height - marged_im.size[1])
+
         
     body = cv2.imread(input_body_path, cv2.IMREAD_COLOR)
-    model = body
     height_index = 4
     weight_index = 2
 
@@ -162,23 +126,15 @@ def faceBodyComposite(selca_path, input_body_path, id):
     b = body_index[1]+height_index
     c = body_index[2]+weight_index
     d = body_index[3]+weight_index
-  
-    # model[body_index[0]+height_index:body_index[1]+height_index, body_index[2]+weight_index:body_index[3]+weight_index] = 0
-    body[a:b, c:d] = marged_im
 
+    body[a:b, c:d] = marged_im
     marged_im = np.array(marged_im)
-    change = marged_im#cv2.cvtColor(marged_im, cv2.COLOR_BGR2RGB)
-    change_rm = remove(change)
-    cv2.imwrite("data/crop_face/{}.jpg".format(id), change_rm)
-    with open("data/crop_face/{}.txt".format(id), 'w') as f:
-        f.write("{} {} {} {}".format(a,b,c,d))
 
     model_path = ("data/image/{}.jpg").format(id)
     cv2.imwrite(model_path, body)
 
     save_url = ("data/image-mask/{}.png").format(id)
     binaryMarking(model_path, save_url)
-
 
     # Amazon s3에 개인 모델 사진 저장
     try :
@@ -203,11 +159,11 @@ def face_crop(input_face_path, type):
     gray = cv2.cvtColor(input_face_image, cv2.COLOR_BGR2GRAY)
 
     try:
-        faces = detector(gray, 1) #얼굴 찾아줌
+        faces = detector(gray, 1) #사진에서 얼굴을 찾아준다.
     except:
         return False, False
 
-    #i : index / rect : value
+    #i : index / face : value
     for(i, face) in enumerate(faces):
          #얼굴 랜드마크 찾아주고 각 좌표를 (x, y) numpy로 반환
         try:
@@ -223,12 +179,12 @@ def face_crop(input_face_path, type):
         rightIndex = np.max(shape, axis=0)[0] + int(w/2)
         bottomIndex = np.max(shape, axis=0)[1]
 
-        if topIndex<0:
-            bottomIndex-=topIndex
-            topIndex=0
-        if leftIndex<0:
-            rightIndex-=leftIndex
-            leftIndex=0
+        if topIndex < 0:
+            bottomIndex -= topIndex
+            topIndex = 0
+        if leftIndex < 0:
+            rightIndex -= leftIndex
+            leftIndex = 0
 
         index = [topIndex, bottomIndex, leftIndex, rightIndex]
         crop_face = input_face_image[index[0]:index[1], index[2]:index[3]]
@@ -236,13 +192,12 @@ def face_crop(input_face_path, type):
         return crop_face, index
 
 
-def doFitting(id, cloth):
+def doFitting(id, cloth, extension):
     global s3
-    s3_get_name = ("data/origin_cloth/{}.jpg").format(cloth)
+    s3_get_name = ("data/origin_cloth/{}.{}").format(cloth, extension)
     s3_get_object(s3, AWS_S3_BUCKET_NAME, s3_get_name, s3_get_name)
 
     save_url = "data/cloth/"
-
 
     try:
         clothResizeRembg(s3_get_name, save_url, cloth)
@@ -267,7 +222,7 @@ def clothResizeRembg(origin_url, save_url, cloth):
     width = 192
     width_ratio = width/float(img.size[0])
     height = int((float(img.size[1]) * float(width_ratio)))
-    resize_img = img.resize((int(width), height), Image.ANTIALIAS) #Image.BICUBIC
+    resize_img = img.resize((int(width), height), Image.ANTIALIAS)
 
     # Cloth Image Remove Background
     output = remove(resize_img)
@@ -275,12 +230,10 @@ def clothResizeRembg(origin_url, save_url, cloth):
     marged_im = Image.new('RGB', output.size, (255,255,255))
     marged_im.paste(output, mask=output.split()[3])
 
-
     zeros = cv2.imread("zeros.png", cv2.IMREAD_COLOR)
     zeros[int(zeros.shape[0]/2-resize_img.size[1]/2):int(zeros.shape[0]/2+resize_img.size[1]/2), 0:zeros.shape[1]] = np.array(marged_im)
     zeros = cv2.cvtColor(zeros, cv2.COLOR_BGR2RGB)
     
-    # save_cloth_path = save_url + cloth + ".jpg"
     save_cloth_path = ("{}{}.jpg").format(save_url, cloth)
 
     cv2.imwrite(save_cloth_path, zeros)
@@ -288,7 +241,6 @@ def clothResizeRembg(origin_url, save_url, cloth):
     global s3    
     s3_put_object(s3, AWS_S3_BUCKET_NAME, save_cloth_path, save_cloth_path)
 
-    # save_url = "data/cloth-mask/"+ cloth + ".jpg"
     save_url = ("data/cloth-mask/{}.jpg").format(cloth)
     binaryMarking(save_cloth_path, save_url)
 
@@ -302,9 +254,6 @@ def binaryMarking(image_url, save_url):
     
     th = Image.fromarray(th)
     th.save(save_url)
-
-    # global s3
-    # s3_put_object(s3, AWS_S3_BUCKET_NAME, "Fitting/"+save_url, save_url)
 
 
 #----------------------------------------------------------------------------------------------------
