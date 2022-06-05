@@ -8,20 +8,14 @@ Fitting/.idea/*
 Fitting/*.pyc
 Fitting/*.zip
 
-Fitting/faceBodyConcat.py
 Fitting/m_config.py
 Fitting/shape_predictor_68_face_landmarks.dat
 Fitting/data/
 Fitting/keras-contrib/
-Fitting/LIP_JPPNet/
-Fitting/openpose/
 Fitting/.pytest_cache/
 Fitting/.vscode/
 
-Fitting/test.py
 Fitting/train.py
 Fitting/visualization.py
 Fitting/cp_dataset.py
 Fitting/networks.py
-Fitting/requirments.txt
-Fitting/grid.png
